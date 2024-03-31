@@ -1,0 +1,225 @@
+syntax = "proto3";
+
+package Protocol;
+import "google/protobuf/timestamp.proto";
+option csharp_namespace = "Google.Protobuf.Protocol";
+
+enum MsgId {
+  HC_ENTER_GAME = 0;
+  HC_LEAVE_GAME = 1;
+  HC_SPAWN = 2;
+  HC_DESPAWN = 3;
+  CH_MOVE = 4;
+  HC_MOVE = 5;
+  CH_SHOOT = 6;
+  HC_SHOOT = 7;
+  HC_CHANGE_HP = 8;
+  HC_DIE = 9;
+  HS_UPDATE_ROOM = 10;
+  HS_START_GAME = 11;
+  HS_END_GAME = 12;
+  CH_EXIT_ROOM = 13;
+  CS_LOGIN = 14;
+  SC_REJECT_LOGIN = 15;
+  SC_ACCEPT_LOGIN = 16;
+  SC_ROOM_LIST = 17;
+  CS_ENTER_ROOM = 18;
+  SC_REJECT_ENTER = 19;
+  SC_ACCEPT_ENTER = 20;
+  CS_MAKE_ROOM = 21;
+  SC_ACCEPT_MAKE = 22;
+  SC_REJECT_MAKE = 23;
+  SH_CONNECT_CLIENT = 24;
+}
+
+enum ActionState {
+  IDLE = 0;
+  RUN = 1;
+  DASH = 2;
+  DEAD = 3;
+}
+
+enum WeaponState{
+  SAFE = 0;
+  UNSAFE = 1;
+  RELOAD = 2;
+  SHOOT = 3;
+}
+
+enum DirX {
+  RIGHT = 0;
+  LEFT = 1;
+}
+
+enum GameObjectType {
+  NONE = 0;
+  PLAYER = 1;
+  MONSTER = 2;
+  PROJECTILE = 3;
+}
+
+enum WeaponType {
+  SMG = 0;
+  AR = 1;
+  HG = 2;
+  SR = 3;
+}
+
+message HC_EnterGame {
+  ObjectInfo player = 1;
+}
+
+message HC_LeaveGame {
+
+}
+
+message HC_Spawn {
+  repeated ObjectInfo objects = 1;
+}
+
+message HC_Despawn {
+  repeated int32 objectIds = 1;
+}
+
+message CH_Move {
+  PositionInfo posInfo = 1;
+}
+
+message HC_Move {
+  int32 objectId = 1;
+  PositionInfo posInfo = 2;
+}
+
+message CH_Shoot {
+  PositionInfo posInfo = 1;
+  WeaponType weaponType = 2;
+}
+
+message HC_Shoot {
+  int32 objectId = 1;
+}
+
+message HC_ChangeHp {
+  int32 objectId = 1;
+  float hp = 2;
+}
+
+message HC_Die {
+  int32 objectId = 1;
+  int32 attackerId = 2;
+}
+
+message HS_UpdateRoom {
+  RoomInfo room = 1;
+}
+
+message HS_StartGame {
+  RoomInfo room = 1;
+}
+
+message HS_EndGame {
+  RoomInfo room = 1;
+}
+
+message CH_ExitRoom {
+  UserInfo player = 1;
+}
+
+message CS_Login {
+  UserInfo info = 1;
+}
+
+message SC_RejectLogin {
+  
+}
+
+message SC_AcceptLogin {
+  UserInfo userInfo = 1;
+}
+
+message SC_RoomList {
+  repeated RoomInfo rooms = 1;
+}
+
+message CS_EnterRoom {
+  int32 playerId = 1;
+  int32 roomId = 2;
+  string passWord = 3;
+}
+
+message SC_RejectEnter {
+  
+}
+
+message SC_AcceptEnter {
+  string publicIp = 1;
+  string privateIp = 2;
+}
+
+message SH_ConnectClient{
+  string publicIp = 1;
+  string privateIp = 2;
+}
+
+message CS_MakeRoom {
+  RoomInfo room = 1;
+}
+
+message SC_AcceptMake{
+  
+}
+
+message SC_RejectMake{
+  
+}
+
+message RoomInfo {
+  int32 roomId = 1;
+  string roomName = 2;
+  string password = 3;
+  bool secretRoom = 4;
+  int32 curMember = 5;
+  int32 maxMember = 6;
+  int32 hostId = 7;
+  string hostName = 8;
+}
+
+message UserInfo {
+  int32 id = 1;
+  string name = 2;
+  string publicIp = 3;
+  string privateIp = 4;
+  int32 port = 5;
+  WeaponType weaponType = 6;
+}
+
+message ObjectInfo {
+  int32 objectId = 1;
+  string name = 2;
+  PositionInfo posInfo = 3;
+  StatInfo statInfo = 4;
+  WeaponType weaponType = 5;
+}
+
+message PositionInfo {
+  ActionState state = 1;
+  WeaponState weaponState = 2;
+  DirX dir = 3;
+  float posX = 4;
+  float posY = 5;
+  float weaponPosX = 6;
+  float weaponPosY = 7;
+  float dirX = 8;
+  float dirY = 9;
+}
+
+message StatInfo {
+  float hp = 1;
+  float maxHp = 2;
+  float speed = 3;
+  float damage = 4;
+}
+
+message AttackInfo {
+  int32 attackId = 1;
+}
