@@ -2,7 +2,7 @@
 
 using Google.Protobuf.Protocol;
 
-public class GameStartButton : Button
+public class EnterRoomButton : Button
 {
     public override void OnClick()
     {

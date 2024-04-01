@@ -5,6 +5,7 @@ using System.Net;
 using Google.Protobuf;
 using System.Threading.Tasks;
 using System.Threading;
+using UnityEngine;
 
 public class NetworkManager
 {

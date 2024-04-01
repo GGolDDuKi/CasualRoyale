@@ -66,6 +66,16 @@ namespace Server
 
 		public void LeaveLobby(int objectId)
 		{
+			GameRoom room = null;
+			foreach(var r in _rooms.Values)
+            {
+				if(r.HostId == objectId)
+                {
+					if (_rooms.Remove(r.Id, out room) == false)
+						return;
+                }
+            }
+
 			User user = null;
 			if (_users.Remove(objectId, out user) == false)
 				return;
@@ -113,6 +123,7 @@ namespace Server
 			room.Id = _roomCount++;
 			_rooms.Add(room.Id, room);
 			SC_AcceptMake acceptPacket = new SC_AcceptMake();
+			acceptPacket.Room = room.Info;
 			user.Session.Send(acceptPacket);
 			Console.WriteLine($"{user.Name}님이 [{room.Name}]방 생성");
 

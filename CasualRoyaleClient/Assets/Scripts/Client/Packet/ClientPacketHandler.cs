@@ -51,16 +51,16 @@ namespace Client
             if (Managers.Object.MyPlayer.Id == movePacket.ObjectId)
                 return;
 
-            BaseController bc = go.GetComponent<BaseController>();
-            if (bc == null)
+            CreatureController cc = go.GetComponent<CreatureController>();
+            if (cc == null)
                 return;
 
-            bc.PosInfo = movePacket.PosInfo;
+            cc.PosInfo = movePacket.PosInfo;
         }
 
         public static void SC_RejectLoginHandler(PacketSession session, IMessage packet)
         {
-            throw new NotImplementedException();
+            Managers.UI.UpdatePopup("중복되는 닉네임입니다.");
         }
 
         public static void SC_AcceptLoginHandler(PacketSession session, IMessage packet)
@@ -100,6 +100,11 @@ namespace Client
                     Managers.Room.RoomInfo.Remove(key);
                 }
             }
+
+            if(Managers.Room.UpdateRoomList() == false)
+            {
+                return;
+            }
         }
 
         public static void SC_RejectMakeHandler(PacketSession session, IMessage packet)
@@ -109,6 +114,9 @@ namespace Client
 
         public static void SC_AcceptMakeHandler(PacketSession session, IMessage packet)
         {
+            SC_AcceptMake acceptPacket = packet as SC_AcceptMake;
+            Managers.Room.MyRoom = acceptPacket.Room;
+
             Managers.Scene.LoadScene(Define.Scene.Game);
 
             GameObject go = Managers.Resource.Instantiate("Host/Host");
@@ -123,8 +131,9 @@ namespace Client
 
             Managers.Scene.LoadScene(Define.Scene.Game);
             //TODD : 서버에서 보내준 호스트의 Ip로 연결시도
-            Managers.Network.Listen();
-            Managers.Network.Connect(acceptPacket.PublicIp, acceptPacket.PrivateIp);
+            //Managers.Network.Listen();
+            Managers.Network.Connect(Managers.User.PublicIp, "127.0.0.1");
+            //Managers.Network.Connect(acceptPacket.PublicIp, acceptPacket.PrivateIp);
         }
 
         public static void SC_RejectEnterHandler(PacketSession session, IMessage packet)

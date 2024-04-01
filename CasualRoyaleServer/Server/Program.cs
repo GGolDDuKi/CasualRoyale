@@ -25,7 +25,7 @@ namespace Server
 		static void Main(string[] args)
 		{
 			Lobby lobby = LobbyManager.Instance.Add();
-			//TickLobby(lobby, 50);
+			//TickLobby(lobby, 50)
 
 			// DNS (Domain Name System)
 			string host = Dns.GetHostName();

@@ -19,12 +19,16 @@ public class InputRoomInfo : MonoBehaviour
                 roomInfo.RoomName = roomName.text;
 
             //방 패스워드 설정
-            roomInfo.Password = password.text;
-
-            if (roomInfo.Password.Length == 0)
+            if (password.text.Length == 0)
+            {
+                roomInfo.Password = "";
                 roomInfo.SecretRoom = false;
+            }
             else
+            {
+                roomInfo.Password = password.text;
                 roomInfo.SecretRoom = true;
+            }
 
             //방 인원 설정
             if (maxMember.text.Length == 0)
@@ -41,6 +45,7 @@ public class InputRoomInfo : MonoBehaviour
             //호스트 정보 설정
             roomInfo.HostId = Managers.User.Id;
             roomInfo.HostName = Managers.User.Name;
+            roomInfo.CurMember = 1;
         }
         return roomInfo;
     }

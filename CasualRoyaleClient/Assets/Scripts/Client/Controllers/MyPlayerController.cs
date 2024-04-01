@@ -13,7 +13,7 @@ public class MyPlayerController : PlayerController
 
     #endregion
 
-    void Start()
+    protected override void Start()
     {
         Init();
     }
@@ -88,6 +88,9 @@ public class MyPlayerController : PlayerController
 
         transform.position = _destPos;
         Pos = _destPos;
+
+        SetLayer(_bodies);
+
         CheckUpdatedFlag();
     }
 

@@ -18,9 +18,7 @@ namespace HostServer.Game
 		{
 			if (Managers.Object.Objects[Id].GetComponent<BulletController>().target != null)
 			{
-				int targetId = Managers.Object.Objects[Id].GetComponent<BulletController>().target.GetComponent<BaseController>().Id;
-
-				
+				int targetId = Managers.Object.Objects[Id].GetComponent<BulletController>().target.GetComponent<CreatureController>().Id;
 			}
 		}
 	}

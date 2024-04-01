@@ -1,7 +1,7 @@
 using Google.Protobuf.Protocol;
 using UnityEngine;
 
-public class BulletController : BaseController
+public class BulletController : CreatureController
 {
     public GameObject target;
 

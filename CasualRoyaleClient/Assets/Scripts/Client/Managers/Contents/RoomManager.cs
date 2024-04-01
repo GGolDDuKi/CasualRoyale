@@ -9,12 +9,14 @@ public class RoomManager
 
     public Room _selected {  get; set; }
 
-    public void UpdateRoomList()
+    public RoomInfo MyRoom { get; set; }
+
+    public bool UpdateRoomList()
     {
         Transform parent = UnityEngine.GameObject.Find("Content").transform;
-        
+
         if (parent == null)
-            return;
+            return false;
 
         foreach(Room room in Room.Values)
         {
@@ -33,5 +35,7 @@ public class RoomManager
                 Room.Add(room.RoomId, go.GetComponent<Room>());
             }
         }
+
+        return true;
     }
 }

@@ -166,7 +166,7 @@ message CS_MakeRoom {
 }
 
 message SC_AcceptMake{
-  
+  RoomInfo room = 1;
 }
 
 message SC_RejectMake{

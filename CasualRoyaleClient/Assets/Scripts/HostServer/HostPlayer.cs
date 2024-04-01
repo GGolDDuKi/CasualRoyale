@@ -54,7 +54,7 @@ class HostPlayer : MonoBehaviour
 		}
 		catch (OperationCanceledException)
 		{
-			// 타임아웃 발생
+			//일정시간 연결 안되면 예외
 			throw new TimeoutException("The operation has timed out.");
 		}
 	}
@@ -84,7 +84,7 @@ class HostPlayer : MonoBehaviour
         {
 			if(b.target != null)
             {
-				Player targetPlayer = room.Players[b.target.GetComponent<BaseController>().Id];
+				Player targetPlayer = room.Players[b.target.GetComponent<CreatureController>().Id];
 				Bullet bullet = room.Projectiles[b.Id] as Bullet;
 
 				foreach (Player p in room.Players.Values)

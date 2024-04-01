@@ -31,13 +31,8 @@ namespace Server
 
         public bool SecretRoom
         {
-            get
-            {
-                if (Password == null)
-                    return false;
-                else
-                    return true;
-            }
+            get { return Info.SecretRoom; }
+            set { Info.SecretRoom = value; }
         }
 
         public int CurMember

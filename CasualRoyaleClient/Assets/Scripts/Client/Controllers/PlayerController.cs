@@ -2,7 +2,7 @@ using Google.Protobuf.Protocol;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : BaseController
+public class PlayerController : CreatureController
 {
     #region Fields
 
@@ -13,7 +13,7 @@ public class PlayerController : BaseController
 
     #endregion
 
-    void Start()
+    protected override void Start()
     {
         Init();
     }
@@ -40,6 +40,7 @@ public class PlayerController : BaseController
             }
         }
         _animator = GetComponent<Animator>();
+        SetLayer(_bodies);
     }
 
     protected override void Update()
@@ -82,6 +83,13 @@ public class PlayerController : BaseController
         }
     }
 
+    protected override void UpdateMove()
+    {
+        base.UpdateMove();
+
+        SetLayer(_bodies);
+    }
+
     //캐릭터를 기준으로 좌우반전
     void PosInversion(Transform obj, bool flip = false)
     {
@@ -89,14 +97,14 @@ public class PlayerController : BaseController
         {
             if (obj.localPosition.x < 0)
             {
-                obj.localPosition = new Vector3(-obj.localPosition.x, 0, 0);
+                obj.localPosition = new Vector3(-obj.localPosition.x, 0, obj.localPosition.z);
             }
         }
         else
         {
             if (obj.localPosition.x > 0)
             {
-                obj.localPosition = new Vector3(-obj.localPosition.x, 0, 0);
+                obj.localPosition = new Vector3(-obj.localPosition.x, 0, obj.localPosition.z);
             }
         }
     }
