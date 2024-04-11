@@ -35,7 +35,7 @@ namespace Server
 
 			MyUser = UserManager.Instance.Add<User>();
 			{
-				MyUser.WeaponType = WeaponType.Hg;
+				MyUser.JobType = JobType.Knight;
 				MyUser.Session = this;
 				string ipPort = endPoint.ToString();
 				string[] split = ipPort.Split(':');

@@ -13,7 +13,7 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     [SerializeField] private RectTransform _handle;
     private RectTransform _rect;
 
-    [SerializeField, Range(100f, 150f)]
+    [SerializeField, Range(10f, 150f)]
     private float _handleRange;
 
     public Vector2 _handleDir;

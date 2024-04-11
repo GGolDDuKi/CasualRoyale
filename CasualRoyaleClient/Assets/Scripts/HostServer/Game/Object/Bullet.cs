@@ -25,7 +25,7 @@ namespace HostServer.Game
             timer++;
 
             //TODO
-            Vector2 destPos = GetFrontPos(new Vector2(PosInfo.DirX, PosInfo.DirY));
+            //Vector2 destPos = GetFrontPos(new Vector2(PosInfo.DirX, PosInfo.DirY));
 
 			if (timer < 5)
 			{
@@ -56,7 +56,7 @@ namespace HostServer.Game
 				//	}
 				//}
 
-				Pos = destPos;
+				//Pos = destPos;
 				HC_Move movePacket = new HC_Move();
 				movePacket.ObjectId = Id;
 				movePacket.PosInfo = PosInfo;

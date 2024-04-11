@@ -12,6 +12,7 @@ public class Managers : MonoBehaviour
     UserManager _user = new UserManager();
     RoomManager _room = new RoomManager();
     UIManager _ui = new UIManager();
+    GameManager _game = new GameManager();
 
     public static ObjectManager Object { get { return Instance._obj; } }
     public static NetworkManager Network { get { return Instance._network; } }
@@ -19,6 +20,7 @@ public class Managers : MonoBehaviour
     public static UserManager User { get { return Instance._user; } }
     public static RoomManager Room { get { return Instance._room; } }
     public static UIManager UI { get { return Instance._ui; } }
+    public static GameManager Game { get { return Instance._game; } }
     #endregion
 
     #region Core

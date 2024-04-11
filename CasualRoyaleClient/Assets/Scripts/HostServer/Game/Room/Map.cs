@@ -78,7 +78,7 @@ namespace HostServer.Game
             if (CanGo(dest, true) == false)
                 return false;
 
-            //_objects[gameObject] = dest;
+            _objects[gameObject] = dest;
 
             // 실제 좌표 이동
             posInfo.PosX = dest.x;

@@ -45,31 +45,31 @@ public class Weapon : MonoBehaviour
 
     }
 
-    public IEnumerator SendShootPacket()
-    {
-        if (canShoot == false)
-        {
-            yield break;
-        }
+    //public IEnumerator SendShootPacket()
+    //{
+    //    if (canShoot == false)
+    //    {
+    //        yield break;
+    //    }
 
-        if (CurBullets <= 0)
-        {
-            StartCoroutine(_player.Reload(ReloadSpeed));
-            yield break;
-        }
+    //    if (CurBullets <= 0)
+    //    {
+    //        StartCoroutine(_player.Reload(ReloadSpeed));
+    //        yield break;
+    //    }
 
-        CH_Shoot shoot = new CH_Shoot()
-        {
-            PosInfo = new PositionInfo(),
-        };
-        shoot.PosInfo = _player.PosInfo;
-        shoot.WeaponType = _player.WeaponType;
-        Managers.Network.H_Send(shoot);
+    //    CH_Shoot shoot = new CH_Shoot()
+    //    {
+    //        PosInfo = new PositionInfo(),
+    //    };
+    //    shoot.PosInfo = _player.PosInfo;
+    //    shoot.WeaponType = _player.WeaponType;
+    //    Managers.Network.H_Send(shoot);
 
-        CurBullets--;
+    //    CurBullets--;
 
-        StartCoroutine(ShootCooldown(ShootDelay));
-    }
+    //    StartCoroutine(ShootCooldown(ShootDelay));
+    //}
 
     public IEnumerator ShootCooldown(float cooldown)
     {

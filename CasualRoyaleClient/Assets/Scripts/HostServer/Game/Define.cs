@@ -86,10 +86,13 @@ namespace HostServer.Game
         //충돌이면 true
         public static bool Collision(BoxCollider2D a, BoxCollider2D b)
         {
-            return !(b.x - b.width / 2 > a.x + a.width / 2 ||
-                     b.x + b.width / 2 < a.x - a.width / 2 ||
-                     b.y - b.height / 2 > a.y + a.height / 2 ||
-                     b.y + b.height / 2 < a.y - a.height / 2);
+            return 
+                !(
+                b.x - (b.width / 2) > a.x + (a.width / 2) ||
+                b.x + (b.width / 2) < a.x - (a.width / 2) ||
+                b.y - (b.height / 2) > a.y + (a.height / 2) ||
+                b.y + (b.height / 2) < a.y - (a.height / 2)
+                );
         }
     }
 }

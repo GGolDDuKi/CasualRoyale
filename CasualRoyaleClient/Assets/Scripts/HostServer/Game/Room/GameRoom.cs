@@ -18,6 +18,8 @@ namespace HostServer.Game
 
 		public Map Map { get; private set; } = new Map();
 
+		public int Rank { get; set; } = 1;
+
 		public void Init()
 		{
 
@@ -46,6 +48,7 @@ namespace HostServer.Game
 				Player player = gameObject as Player;
 				_players.Add(gameObject.Id, player);
 				player.Room = this;
+				Rank++;
 
 				Map.ApplyMove(player, new Vector2(player.Pos.x, player.Pos.y));
 
@@ -146,6 +149,7 @@ namespace HostServer.Game
 
 			info.PosInfo = movePosInfo;
 			Map.ApplyMove(player, new Vector2(movePosInfo.PosX, movePosInfo.PosY));
+			player.LastDir = new Vector2(movePosInfo.LastDirX, movePosInfo.LastDirY);
 
 			// 다른 플레이어한테 알려준다
 			HC_Move resMovePacket = new HC_Move();
@@ -155,7 +159,7 @@ namespace HostServer.Game
 			Broadcast(resMovePacket);
 		}
 
-		public void HandleShoot(Player player, CH_Shoot shootPacket)
+		public void HandleAttack(Player player, CH_Attack attackPacket)
 		{
 			if (player == null)
 				return;
@@ -163,32 +167,47 @@ namespace HostServer.Game
 			ObjectInfo info = player.Info;
 
 			//사격 가능 여부 체크
-			HC_Shoot shoot = new HC_Shoot();
-			shoot.ObjectId = info.ObjectId;
+			HC_Attack attack = new HC_Attack();
+			attack.ObjectId = info.ObjectId;
+			attack.AttackType = attackPacket.AttackType;
 
-			Broadcast(shoot);
+			Broadcast(attack);
 
-			switch (shootPacket.WeaponType)
-			{
-				case WeaponType.Hg:
-					{
-						Bullet bullet = ObjectManager.Instance.Add<Bullet>();
-						if (bullet == null)
-							return;
-
-						bullet.Owner = player;
-						bullet.PosInfo.State = ActionState.Run;
-						bullet.PosInfo.DirX = shootPacket.PosInfo.DirX;
-						bullet.PosInfo.DirY = shootPacket.PosInfo.DirY;
-						bullet.PosInfo.PosX = shootPacket.PosInfo.WeaponPosX;
-						bullet.PosInfo.PosY = shootPacket.PosInfo.WeaponPosY;
-						bullet.Speed = 20f;
-						bullet.WeaponType = WeaponType.Hg;
-
-						Push(EnterGame, bullet);
+			if(attackPacket.AttackType == AttackType.Normal)
+            {
+				foreach(var p in _players.Values)
+                {
+					if(p.Id != player.Id)
+                    {
+						if(BoxCollider2D.Collision(player.AttackCollider, p.Collider))
+                        {
+							p.OnDamaged(player, player.Damage);
+                        }
 					}
-					break;
-			}
+				}
+            }
+
+			//switch (shootPacket.WeaponType)
+			//{
+			//	case WeaponType.Hg:
+			//		{
+			//			Bullet bullet = ObjectManager.Instance.Add<Bullet>();
+			//			if (bullet == null)
+			//				return;
+
+			//			bullet.Owner = player;
+			//			bullet.PosInfo.State = ActionState.Run;
+			//			bullet.PosInfo.DirX = shootPacket.PosInfo.DirX;
+			//			bullet.PosInfo.DirY = shootPacket.PosInfo.DirY;
+			//			bullet.PosInfo.PosX = shootPacket.PosInfo.WeaponPosX;
+			//			bullet.PosInfo.PosY = shootPacket.PosInfo.WeaponPosY;
+			//			bullet.Speed = 20f;
+			//			bullet.WeaponType = WeaponType.Hg;
+
+			//			Push(EnterGame, bullet);
+			//		}
+			//		break;
+			//}
 		}
 
 		public Player FindPlayer(Func<GameObject, bool> condition)
@@ -201,6 +220,12 @@ namespace HostServer.Game
 
 			return null;
 		}
+
+		public int GetRank()
+        {
+			int rank = Rank--;
+			return rank;
+        }
 
 		public void Broadcast(IMessage packet)
 		{

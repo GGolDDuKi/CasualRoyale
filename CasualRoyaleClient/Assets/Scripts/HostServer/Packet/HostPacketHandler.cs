@@ -26,14 +26,14 @@ namespace Host
             if (room == null)
                 return;
 
-            Debug.Log($"Player[{player.Id}] 이동 - [{(movePacket.PosInfo.PosX).ToString("0.00")}, {movePacket.PosInfo.PosY.ToString("0.00")}]");
+            //Debug.Log($"Player[{player.Id}] 이동 - [{(movePacket.PosInfo.PosX).ToString("0.00")}, {movePacket.PosInfo.PosY.ToString("0.00")}]");
 
             room.Push(room.HandleMove, player, movePacket);
         }
 
-        public static void CH_ShootHandler(PacketSession session, IMessage packet)
+        public static void CH_AttackHandler(PacketSession session, IMessage packet)
         {
-            CH_Shoot shootPacket = packet as CH_Shoot;
+            CH_Attack attackPacket = packet as CH_Attack;
             ClientSession clientSession = session as ClientSession;
 
             Player player = clientSession.MyPlayer;
@@ -44,7 +44,7 @@ namespace Host
             if (room == null)
                 return;
 
-            room.Push(room.HandleShoot, player, shootPacket);
+            room.Push(room.HandleAttack, player, attackPacket);
         }
 
         public static void SH_ConnectClientHandler(PacketSession session, IMessage packet)

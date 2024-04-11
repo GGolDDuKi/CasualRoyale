@@ -11,8 +11,8 @@ enum MsgId {
   HC_DESPAWN = 3;
   CH_MOVE = 4;
   HC_MOVE = 5;
-  CH_SHOOT = 6;
-  HC_SHOOT = 7;
+  CH_ATTACK = 6;
+  HC_ATTACK = 7;
   HC_CHANGE_HP = 8;
   HC_DIE = 9;
   HS_UPDATE_ROOM = 10;
@@ -36,14 +36,9 @@ enum ActionState {
   IDLE = 0;
   RUN = 1;
   DASH = 2;
-  DEAD = 3;
-}
-
-enum WeaponState{
-  SAFE = 0;
-  UNSAFE = 1;
-  RELOAD = 2;
-  SHOOT = 3;
+  ATTACK = 3;
+  HIT = 4;
+  DEAD = 5;
 }
 
 enum DirX {
@@ -58,11 +53,17 @@ enum GameObjectType {
   PROJECTILE = 3;
 }
 
-enum WeaponType {
-  SMG = 0;
-  AR = 1;
-  HG = 2;
-  SR = 3;
+enum JobType {
+  KNIGHT = 0;
+  MAGICIAN = 1;
+  THIEF = 2;
+}
+
+enum AttackType {
+  NORMAL = 0;
+  SKILL1 = 1;
+  SKILL2 = 2;
+  SKILL3 = 3;
 }
 
 message HC_EnterGame {
@@ -90,13 +91,13 @@ message HC_Move {
   PositionInfo posInfo = 2;
 }
 
-message CH_Shoot {
-  PositionInfo posInfo = 1;
-  WeaponType weaponType = 2;
+message CH_Attack {
+  AttackType attackType = 1;
 }
 
-message HC_Shoot {
+message HC_Attack {
   int32 objectId = 1;
+  AttackType attackType = 2;
 }
 
 message HC_ChangeHp {
@@ -106,7 +107,8 @@ message HC_ChangeHp {
 
 message HC_Die {
   int32 objectId = 1;
-  int32 attackerId = 2;
+  int32 rank = 2;
+  int32 attackerId = 3;
 }
 
 message HS_UpdateRoom {
@@ -190,7 +192,7 @@ message UserInfo {
   string publicIp = 3;
   string privateIp = 4;
   int32 port = 5;
-  WeaponType weaponType = 6;
+  JobType job = 6;
 }
 
 message ObjectInfo {
@@ -198,19 +200,15 @@ message ObjectInfo {
   string name = 2;
   PositionInfo posInfo = 3;
   StatInfo statInfo = 4;
-  WeaponType weaponType = 5;
+  JobType jobType = 5;
 }
 
 message PositionInfo {
   ActionState state = 1;
-  WeaponState weaponState = 2;
-  DirX dir = 3;
-  float posX = 4;
-  float posY = 5;
-  float weaponPosX = 6;
-  float weaponPosY = 7;
-  float dirX = 8;
-  float dirY = 9;
+  float posX = 2;
+  float posY = 3;
+  float lastDirX = 4;
+  float lastDirY = 5;
 }
 
 message StatInfo {

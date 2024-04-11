@@ -5,17 +5,28 @@ using UnityEngine;
 
 public class BaseController : MonoBehaviour
 {
+    protected SpriteRenderer _sprite;
     protected int layer;
 
-    protected virtual void Start()
+    void Start()
     {
-        SetLayer(GetComponent<SpriteRenderer>());
+        Init();
+    }
+
+    protected virtual void Init()
+    {
+        _sprite = GetComponent<SpriteRenderer>();
+        SetLayer(_sprite);
+    }
+
+    protected virtual void Update()
+    {
+        
     }
 
     protected void SetLayer(SpriteRenderer sprite)
     {
         YPosToLayer();
-
         sprite.sortingOrder = layer;
     }
 

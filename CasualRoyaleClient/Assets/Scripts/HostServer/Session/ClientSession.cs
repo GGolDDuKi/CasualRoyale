@@ -41,17 +41,15 @@ namespace HostServer
 			{
 				MyPlayer.Info.Name = $"Player_{MyPlayer.Info.ObjectId}";
 				MyPlayer.Info.PosInfo.State = ActionState.Idle;
-				MyPlayer.Info.PosInfo.Dir = DirX.Right;
 				MyPlayer.Info.PosInfo.PosX = 0;
 				MyPlayer.Info.PosInfo.PosY = 0;
-				MyPlayer.Info.PosInfo.DirX = 0;
-				MyPlayer.Info.PosInfo.DirY = 0;
 
 				MyPlayer.Info.StatInfo.MaxHp = 50;
 				MyPlayer.Info.StatInfo.Hp = 50;
 				MyPlayer.Info.StatInfo.Speed = 2f;
+				MyPlayer.Info.StatInfo.Damage = 5f;
 
-				MyPlayer.WeaponType = WeaponType.Hg;
+				MyPlayer.Job = JobType.Knight;
 
 				MyPlayer.Session = this;
 			}

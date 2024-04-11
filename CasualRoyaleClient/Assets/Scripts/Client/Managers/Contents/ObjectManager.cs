@@ -9,20 +9,25 @@ public class ObjectManager
 
     Dictionary<int, GameObject> _objects = new Dictionary<int, GameObject>();
 	public Dictionary<int, GameObject> Objects { get { return _objects; } }
-	public Dictionary<int, BulletController> Bullets {
-		get 
-		{
-			Dictionary<int, BulletController> _bullets = new Dictionary<int, BulletController>();
-			foreach(var obj in _objects.Values)
-            {
-				if (obj.GetComponent<BulletController>() != null)
-					_bullets.Add(obj.GetComponent<BulletController>().Id, obj.GetComponent<BulletController>());
-            }
-			return _bullets;
-		} 
-	}
-	
-	public static GameObjectType GetObjectTypeById(int id)
+
+	List<GameObject> _players = new List<GameObject>();
+	public List<GameObject> Players { get { return _players; } }
+
+    //public Dictionary<int, BulletController> Projectiles
+    //{
+    //    get
+    //    {
+    //        Dictionary<int, BulletController> _bullets = new Dictionary<int, BulletController>();
+    //        foreach (var obj in _objects.Values)
+    //        {
+    //            if (obj.GetComponent<BulletController>() != null)
+    //                _bullets.Add(obj.GetComponent<BulletController>().Id, obj.GetComponent<BulletController>());
+    //        }
+    //        return _bullets;
+    //    }
+    //}
+
+    public static GameObjectType GetObjectTypeById(int id)
 	{
 		int type = (id >> 24) & 0x7F;
 		return (GameObjectType)type;
@@ -36,47 +41,47 @@ public class ObjectManager
 		{
 			if (myPlayer)
 			{
-				GameObject go = Managers.Resource.Instantiate("Creatures/MyPlayer");
-				go.name = info.Name;
+				GameObject go = Managers.Resource.Instantiate($"Creatures/{info.JobType}/MyPlayer");
 				_objects.Add(info.ObjectId, go);
+				_players.Add(go);
 
                 MyPlayer = go.GetComponent<MyPlayerController>();
                 MyPlayer.Id = info.ObjectId;
+				MyPlayer.Name = info.Name;
+				MyPlayer.JobType = info.JobType;
                 MyPlayer.PosInfo = info.PosInfo;
                 MyPlayer.StatInfo = info.StatInfo;
                 MyPlayer.Sync();
             }
 			else
 			{
-				GameObject go = Managers.Resource.Instantiate("Creatures/Player");
-				go.name = info.Name;
+				GameObject go = Managers.Resource.Instantiate($"Creatures/{info.JobType}/Player");
 				_objects.Add(info.ObjectId, go);
+				_players.Add(go);
 
 				PlayerController pc = go.GetComponent<PlayerController>();
                 pc.Id = info.ObjectId;
-                pc.PosInfo = info.PosInfo;
+				pc.Name = info.Name;
+				pc.JobType = info.JobType;
+				pc.PosInfo = info.PosInfo;
                 pc.StatInfo = info.StatInfo;
                 pc.Sync();
             }
 		}
         else if (objectType == GameObjectType.Projectile)
         {
-            switch (info.WeaponType)
-            {
-				case WeaponType.Hg:
-					GameObject go = Managers.Resource.Instantiate("Bullets/HandgunBullet");
-					go.name = "HandgunBullet";
+			//GameObject go = Managers.Resource.Instantiate("Bullets/HandgunBullet");
+			//go.name = "HandgunBullet";
 
-					BulletController bc = go.GetComponent<BulletController>();
-					bc.Id = info.ObjectId;
-					bc.PosInfo = info.PosInfo;
-					bc.StatInfo = info.StatInfo;
+			//BulletController bc = go.GetComponent<BulletController>();
+			//bc.Id = info.ObjectId;
+			//bc.PosInfo = info.PosInfo;
+			//bc.StatInfo = info.StatInfo;
 
-					_objects.Add(info.ObjectId, go);
-					bc.Sync();
-                    break;
-            }
-        }
+			//_objects.Add(info.ObjectId, go);
+			//bc.Sync();
+			//break;
+		}
     }
 
 	public void Remove(int id)
@@ -86,8 +91,15 @@ public class ObjectManager
 			return;
 
 		_objects.Remove(id);
+
 		Managers.Resource.Destroy(go);
 	}
+
+	public void RemovePlayer(GameObject player)
+    {
+		if(_players.Contains(player))
+			_players.Remove(player);
+    }
 
 	public GameObject FindById(int id)
 	{
@@ -112,6 +124,7 @@ public class ObjectManager
 		foreach (GameObject obj in _objects.Values)
 			Managers.Resource.Destroy(obj);
 		_objects.Clear();
+		_players.Clear();
         MyPlayer = null;
     }
 }

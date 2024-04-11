@@ -20,9 +20,42 @@ namespace HostServer.Game
 					case GameObjectType.Projectile:
 						return new BoxCollider2D(PosInfo.PosX, PosInfo.PosY, 0.1f, 0.1f);
 					case GameObjectType.Player:
-						return new BoxCollider2D(PosInfo.PosX, PosInfo.PosY, 0.3f, 0.4f);
+						return new BoxCollider2D(PosInfo.PosX, PosInfo.PosY, 1, 2);
 					default:
-						return new BoxCollider2D(PosInfo.PosX, PosInfo.PosY, 0.1f, 0.2f);
+						return new BoxCollider2D(PosInfo.PosX, PosInfo.PosY, 0, 0);
+				}
+			}
+		}
+
+		public BoxCollider2D AttackCollider
+		{
+			get
+			{
+				switch (ObjectType)
+				{
+					case GameObjectType.Player:
+						//1사분면 위치
+						if (LastDir.x >= 0 && LastDir.y > 0)
+						{
+							return new BoxCollider2D(PosInfo.PosX + 0.75f, PosInfo.PosY + 0.75f, 1.5f, 1.5f);
+						}
+						//2사분면 위치
+						else if (LastDir.x < 0 && LastDir.y > 0)
+						{
+							return new BoxCollider2D(PosInfo.PosX - 0.75f, PosInfo.PosY + 0.75f, 1.5f, 1.5f);
+						}
+						//3사분면 위치
+						else if (LastDir.x < 0 && LastDir.y <= 0)
+						{
+							return new BoxCollider2D(PosInfo.PosX - 0.75f, PosInfo.PosY - 0.75f, 1.5f, 1.5f);
+						}
+						//4사분면 위치
+						else
+						{
+							return new BoxCollider2D(PosInfo.PosX + 0.75f, PosInfo.PosY - 0.75f, 1.5f, 1.5f);
+						}
+					default:
+						return new BoxCollider2D(PosInfo.PosX, PosInfo.PosY, 0, 0);
 				}
 			}
 		}
@@ -43,10 +76,10 @@ namespace HostServer.Game
 			set { Info.Name = value; }
 		}
 
-		public WeaponType WeaponType
+		public JobType Job
 		{
-			get { return Info.WeaponType; }
-			set { Info.WeaponType = value; }
+			get { return Info.JobType; }
+			set { Info.JobType = value; }
 		}
 
 		#endregion
@@ -59,18 +92,6 @@ namespace HostServer.Game
 		{
 			get { return PosInfo.State; }
 			set { PosInfo.State = value; }
-		}
-
-		public WeaponState WeaponState
-		{
-			get { return PosInfo.WeaponState; }
-			private set { PosInfo.WeaponState = value; }
-		}
-
-		public DirX Dir
-		{
-			get { return PosInfo.Dir; }
-			set { PosInfo.Dir = value; }
 		}
 
 		public Vector2 Pos
@@ -87,30 +108,17 @@ namespace HostServer.Game
 			}
 		}
 
-		public Vector2 WeaponPos
-		{
-			get { return new Vector2(PosInfo.WeaponPosX, PosInfo.WeaponPosY); }
-			set
-			{
-				if (PosInfo.WeaponPosX == value.x && PosInfo.WeaponPosY == value.y)
-					return;
-
-				PosInfo.WeaponPosX = value.x;
-				PosInfo.WeaponPosY = value.y;
-			}
-		}
-
-		public Vector2 LookDir
+		public Vector2 LastDir
 		{
 			get
 			{
-				return new Vector2(PosInfo.DirX, PosInfo.DirY);
+				return new Vector2(PosInfo.LastDirX, PosInfo.LastDirY);
 			}
 
 			set
 			{
-				PosInfo.DirX = value.x;
-				PosInfo.DirY = value.y;
+				PosInfo.LastDirX = value.x;
+				PosInfo.LastDirY = value.y;
 			}
 		}
 
@@ -151,27 +159,24 @@ namespace HostServer.Game
 
 		}
 
-		public Vector2 GetFrontPos()
-		{
-			return GetFrontPos(LookDir);
-		}
+		//public Vector2 GetFrontPos()
+		//{
+		//	return GetFrontPos();
+		//}
 
-		public Vector2 GetFrontPos(Vector2 dir)
-		{
-			Vector2 pos = Pos;
+		//public Vector2 GetFrontPos(Vector2 dir)
+		//{
+		//	Vector2 pos = Pos;
 
-			if (ObjectType == GameObjectType.Projectile)
-			{
-				if (WeaponType == WeaponType.Hg)
-				{
-					float newX = pos.x + dir.x * 2.5f;
-					float newY = pos.y + dir.y * 2.5f;
+		//	if (ObjectType == GameObjectType.Projectile)
+		//	{
+		//		float newX = pos.x + dir.x * 2.5f;
+		//		float newY = pos.y + dir.y * 2.5f;
 
-					return new Vector2(newX, newY);
-				}
-			}
-			return pos;
-		}
+		//		return new Vector2(newX, newY);
+		//	}
+		//	return pos;
+		//}
 
 		public virtual void OnDamaged(GameObject attacker, float damage)
 		{
@@ -185,8 +190,6 @@ namespace HostServer.Game
 			changePacket.Hp = StatInfo.Hp;
 			Room.Broadcast(changePacket);
 
-
-
 			if (StatInfo.Hp <= 0)
 			{
 				OnDead(attacker);
@@ -198,20 +201,19 @@ namespace HostServer.Game
 			if (Room == null)
 				return;
 
+			State = ActionState.Dead;
+
 			HC_Die diePacket = new HC_Die();
 			diePacket.ObjectId = Id;
+			diePacket.Rank = 0;
 			diePacket.AttackerId = attacker.Id;
 			Room.Broadcast(diePacket);
 
-			GameRoom room = Room;
-			room.LeaveGame(Id);
-
-			StatInfo.Hp = StatInfo.MaxHp;
-			PosInfo.State = ActionState.Idle;
-			PosInfo.PosX = 0;
-			PosInfo.PosY = 0;
-
-			room.EnterGame(this);
+			if(ObjectType != GameObjectType.Player)
+            {
+				GameRoom room = Room;
+				room.LeaveGame(Id);
+			}
 		}
 	}
 }

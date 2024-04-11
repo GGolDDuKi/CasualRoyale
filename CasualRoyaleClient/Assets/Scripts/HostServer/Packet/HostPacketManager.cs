@@ -27,8 +27,8 @@ namespace Host
 		{
 			_onRecv.Add((ushort)MsgId.ChMove, MakePacket<CH_Move>);
 			_handler.Add((ushort)MsgId.ChMove, PacketHandler.CH_MoveHandler);
-			_onRecv.Add((ushort)MsgId.ChShoot, MakePacket<CH_Shoot>);
-			_handler.Add((ushort)MsgId.ChShoot, PacketHandler.CH_ShootHandler);
+			_onRecv.Add((ushort)MsgId.ChAttack, MakePacket<CH_Attack>);
+			_handler.Add((ushort)MsgId.ChAttack, PacketHandler.CH_AttackHandler);
 			_onRecv.Add((ushort)MsgId.ChExitRoom, MakePacket<CH_ExitRoom>);
 			_handler.Add((ushort)MsgId.ChExitRoom, PacketHandler.CH_ExitRoomHandler);
 			_onRecv.Add((ushort)MsgId.ShConnectClient, MakePacket<SH_ConnectClient>);

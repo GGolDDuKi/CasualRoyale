@@ -14,12 +14,12 @@ namespace HostServer.Game
 			ObjectType = GameObjectType.Projectile;
 		}
 
-		public void CollisionCheck()
-		{
-			if (Managers.Object.Objects[Id].GetComponent<BulletController>().target != null)
-			{
-				int targetId = Managers.Object.Objects[Id].GetComponent<BulletController>().target.GetComponent<CreatureController>().Id;
-			}
-		}
+		//public void CollisionCheck()
+		//{
+		//	if (Managers.Object.Objects[Id].GetComponent<BulletController>().target != null)
+		//	{
+		//		int targetId = Managers.Object.Objects[Id].GetComponent<BulletController>().target.GetComponent<CreatureController>().Id;
+		//	}
+		//}
 	}
 }

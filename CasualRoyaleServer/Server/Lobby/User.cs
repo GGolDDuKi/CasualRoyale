@@ -43,10 +43,10 @@ public class User
 		set { Info.Port = value; }
     }
 
-	public WeaponType WeaponType
+	public JobType JobType
     {
-		get { return Info.WeaponType; }
-		set { Info.WeaponType = value; }
+		get { return Info.Job; }
+		set { Info.Job = value; }
     }
 
 	#endregion

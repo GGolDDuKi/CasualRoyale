@@ -19,7 +19,7 @@ public class UserManager
             PublicIp = value.PublicIp;
             PrivateIp = value.PrivateIp;
             Port = value.Port;
-            WeaponType = value.WeaponType;
+            Job = value.Job;
         }
     }
 
@@ -53,10 +53,10 @@ public class UserManager
         set { Info.Port = value; }
     }
 
-    public WeaponType WeaponType
+    public JobType Job
     {
-        get { return Info.WeaponType; }
-        set { Info.WeaponType = value; }
+        get { return Info.Job; }
+        set { Info.Job = value; }
     }
 
     #endregion

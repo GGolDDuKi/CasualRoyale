@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf.Protocol;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class RoomManager
 {
@@ -13,7 +14,12 @@ public class RoomManager
 
     public bool UpdateRoomList()
     {
-        Transform parent = UnityEngine.GameObject.Find("Content").transform;
+        Transform parent = null;
+
+        if (Managers.Scene.CurrentScene.SceneType == Scene.Lobby)
+        {
+            parent = UnityEngine.GameObject.Find("Content").transform;
+        }
 
         if (parent == null)
             return false;

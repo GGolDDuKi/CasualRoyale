@@ -80,25 +80,25 @@ class HostPlayer : MonoBehaviour
 
     private void Update()
     {
-        foreach(BulletController b in Managers.Object.Bullets.Values)
-        {
-			if(b.target != null)
-            {
-				Player targetPlayer = room.Players[b.target.GetComponent<CreatureController>().Id];
-				Bullet bullet = room.Projectiles[b.Id] as Bullet;
+   //     foreach(BulletController b in Managers.Object.Bullets.Values)
+   //     {
+			//if(b.target != null)
+   //         {
+			//	Player targetPlayer = room.Players[b.target.GetComponent<CreatureController>().Id];
+			//	Bullet bullet = room.Projectiles[b.Id] as Bullet;
 
-				foreach (Player p in room.Players.Values)
-				{
-					if (p.Id == targetPlayer.Id && p != bullet.Owner)
-					{
-                        HostServer.Game.GameObject target = p;
-						target.OnDamaged(bullet, bullet.Owner.StatInfo.Damage);
-						Debug.Log($"{bullet.Owner.Id}가 {p.Id}를 공격!");
-						room.Push(room.LeaveGame, bullet.Id);
-					}
-				}
-			}
-        }
+			//	foreach (Player p in room.Players.Values)
+			//	{
+			//		if (p.Id == targetPlayer.Id && p != bullet.Owner)
+			//		{
+   //                     HostServer.Game.GameObject target = p;
+			//			target.OnDamaged(bullet, bullet.Owner.StatInfo.Damage);
+			//			Debug.Log($"{bullet.Owner.Id}가 {p.Id}를 공격!");
+			//			room.Push(room.LeaveGame, bullet.Id);
+			//		}
+			//	}
+			//}
+   //     }
     }
 }
 

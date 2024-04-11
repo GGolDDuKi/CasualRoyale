@@ -10,9 +10,22 @@ public class UIManager
         text.text = message;
     }
 
-    public GameObject GenerateUI(string path)
+    public HpBar GenerateHpBar(CreatureController cc)
     {
-        GameObject go = Managers.Resource.Instantiate(path, GameObject.Find("Canvas").transform);
+        GameObject go = GenerateUI("UI/HpBar", GameObject.Find("HpBars").transform);
+        go.GetComponent<HpBar>().Init(cc);
+        return go.GetComponent<HpBar>();
+    }
+
+    public GameObject GenerateUI(string path, Transform parent = null)
+    {
+        GameObject go;
+
+        if (parent == null)
+            go = Managers.Resource.Instantiate(path, GameObject.Find("Canvas").transform);
+        else
+            go = Managers.Resource.Instantiate(path, parent);
+
         return go;
     }
 }

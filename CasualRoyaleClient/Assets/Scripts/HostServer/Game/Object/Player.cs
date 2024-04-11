@@ -21,7 +21,16 @@ namespace HostServer.Game
 
 		public override void OnDead(GameObject attacker)
 		{
-			base.OnDead(attacker);
+			if (Room == null)
+				return;
+
+			State = ActionState.Dead;
+
+			HC_Die diePacket = new HC_Die();
+			diePacket.ObjectId = Id;
+			diePacket.Rank = Room.GetRank() - 1;
+			diePacket.AttackerId = attacker.Id;
+			Room.Broadcast(diePacket);
 		}
 	}
 }

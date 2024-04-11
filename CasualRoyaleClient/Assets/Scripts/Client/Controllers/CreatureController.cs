@@ -1,5 +1,8 @@
 using Google.Protobuf.Protocol;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CreatureController : BaseController
 {
@@ -7,7 +10,9 @@ public class CreatureController : BaseController
 
     public int Id { get; set; }
 
-    public int Name { get; set; }
+    public string Name { get; set; }
+
+    public JobType JobType { get; set; }
 
     #region PositionInfo PosInfo
 
@@ -21,11 +26,22 @@ public class CreatureController : BaseController
                 return;
 
             State = value.State;
-            WeaponState = value.WeaponState;
-            Dir = value.Dir;
             Pos = new Vector2(value.PosX, value.PosY);
-            WeaponPos = new Vector2(value.WeaponPosX, value.WeaponPosY);
-            LookDir = new Vector2(value.DirX, value.DirY);
+            LastDir = new Vector2(value.LastDirX, value.LastDirY);
+        }
+    }
+
+    //캐릭터 상태
+    public ActionState State
+    {
+        get { return PosInfo.State; }
+        set
+        {
+            if (PosInfo.State == value)
+                return;
+
+            PosInfo.State = value;
+            _updated = true;
         }
     }
 
@@ -44,70 +60,17 @@ public class CreatureController : BaseController
         }
     }
 
-    //무기 위치
-    public Vector2 WeaponPos
+    //캐릭터가 마지막으로 바라본 방향
+    public Vector2 LastDir
     {
-        get { return new Vector2(PosInfo.WeaponPosX, PosInfo.WeaponPosY); }
+        get { return new Vector2(PosInfo.LastDirX, PosInfo.LastDirY); }
         set
         {
-            if (PosInfo.WeaponPosX == value.x && PosInfo.WeaponPosY == value.y)
+            if (PosInfo.LastDirX == value.x && PosInfo.LastDirY == value.y)
                 return;
 
-            PosInfo.WeaponPosX = value.x;
-            PosInfo.WeaponPosY = value.y;
-            _updated = true;
-        }
-    }
-
-    public ActionState State
-    {
-        get { return PosInfo.State; }
-        set
-        {
-            if (PosInfo.State == value)
-                return;
-
-            PosInfo.State = value;
-            _updated = true;
-        }
-    }
-
-    public WeaponState WeaponState
-    {
-        get { return PosInfo.WeaponState; }
-        set
-        {
-            if (PosInfo.WeaponState == value)
-                return;
-
-            PosInfo.WeaponState = value;
-            _updated = true;
-        }
-    }
-
-    public DirX Dir
-    {
-        get { return PosInfo.Dir; }
-        set
-        {
-            if (PosInfo.Dir == value)
-                return;
-
-            PosInfo.Dir = value;
-            _updated = true;
-        }
-    }
-
-    public Vector2 LookDir
-    {
-        get { return new Vector2(PosInfo.DirX, PosInfo.DirY); }
-        set
-        {
-            if (PosInfo.DirX == value.x && PosInfo.DirY == value.y)
-                return;
-
-            PosInfo.DirX = value.x;
-            PosInfo.DirY = value.y;
+            PosInfo.LastDirX = value.x;
+            PosInfo.LastDirY = value.y;
             _updated = true;
         }
     }
@@ -157,42 +120,115 @@ public class CreatureController : BaseController
 
     #endregion
 
-    public WeaponType WeaponType = WeaponType.Hg;
-
-    protected bool _flipX = false;
+    protected bool _flipX = false;  //false면 Left, true면 Right
     protected Vector2 _destPos = Vector2.zero;
     protected bool _updated = false;
     protected Animator _animator;
-    protected SpriteRenderer _sprite;
+    protected List<AnimationClip> _animationClips = new List<AnimationClip>();
+    public HpBar _hpBar;
+
+    public enum DirectionX
+    {
+        Left,
+        Right
+    }
+    protected DirectionX _directionX ;
+
+    public enum DirectionY
+    {
+        Front,
+        Back
+    }
+    protected DirectionY _directionY;
+
 
     #endregion
 
-    protected virtual void Init()
+    void Start()
     {
-
+        Init();
     }
 
-    protected virtual void Update()
+    protected override void Init()
+    {
+        base.Init();
+        _directionX = DirectionX.Left;
+        _directionY = DirectionY.Front;
+        _animator = GetComponent<Animator>();
+        _animationClips.AddRange(_animator.runtimeAnimatorController.animationClips);
+        _hpBar = Managers.UI.GenerateHpBar(this);
+        _hpBar.SetHpBar(Hp, MaxHp);
+    }
+
+    protected override void Update()
     {
         UpdateMove();
+        UpdateAnimation();
+        UpdateHpBar();
     }
 
-    //캐릭터가 바라보는 방향 설정(좌, 우)
-    protected void UpdateDirX(Vector2 dir)
+    public void Attack()
     {
-        if (dir.x < 0)
+        StartCoroutine(CoAttack());
+    }
+
+    protected virtual IEnumerator CoAttack()
+    {
+        if (State == ActionState.Dead)
+            yield break;
+
+        float time = 0;
+        foreach(var anim in _animationClips)
         {
-            Dir = DirX.Left;
+            if(anim.name == $"{_directionY.ToString()}Attack")
+                time = anim.length;
         }
-        else if (dir.x > 0)
+        State = ActionState.Attack;
+        yield return new WaitForSeconds(time);
+        State = ActionState.Idle;
+    }
+
+    public void Hit(float hp)
+    {
+        StartCoroutine(CoHit(hp));
+    }
+
+    protected virtual IEnumerator CoHit(float hp)
+    {
+        if (State == ActionState.Dead)
+            yield break;
+
+            float time = 0;
+        foreach (var anim in _animationClips)
         {
-            Dir = DirX.Right;
+            if (anim.name == $"{_directionY.ToString()}Hit")
+                time = anim.length;
         }
+        State = ActionState.Hit;
+        Hp = hp;
+        _hpBar.SetHpBar(Hp, MaxHp);
+        yield return new WaitForSeconds(time);
+        
+        if(State != ActionState.Dead)
+            State = ActionState.Idle;
+    }
+
+    public virtual void Die(HC_Die diePacket)
+    {
+        StartCoroutine(CoDie(diePacket));
+    }
+
+    protected virtual IEnumerator CoDie(HC_Die diePacket)
+    {
+        State = ActionState.Dead;
+        yield return new WaitForSeconds(3.0f);
+        Clear();
     }
 
     protected virtual void UpdateMove()
     {
         _destPos = Pos;
+        UpdateDir(_destPos);
 
         switch (State)
         {
@@ -200,20 +236,24 @@ public class CreatureController : BaseController
                 if ((_destPos - (Vector2)transform.position).magnitude > 1.5f * Time.deltaTime)
                 {
                     transform.position += ((Vector3)_destPos - transform.position).normalized * 1.5f * Time.deltaTime;
+                    SetLayer(_sprite);
                 }
                 else
                 {
                     transform.position = _destPos;
+                    SetLayer(_sprite);
                 }
                 break;
             case ActionState.Dash:
                 if ((_destPos - (Vector2)transform.position).magnitude > 10.0f * Time.deltaTime)
                 {
                     transform.position += ((Vector3)_destPos - transform.position).normalized * 10.0f * Time.deltaTime;
+                    SetLayer(_sprite);
                 }
                 else
                 {
                     transform.position = _destPos;
+                    SetLayer(_sprite);
                 }
                 break;
         }
@@ -221,30 +261,86 @@ public class CreatureController : BaseController
 
     protected virtual void UpdateAnimation()
     {
-
+        switch (State)
+        {
+            case ActionState.Idle:
+                _animator.Play($"{_directionY.ToString()}Idle");
+                break;
+            case ActionState.Run:
+                _animator.Play($"{_directionY.ToString()}Run");
+                break;
+            case ActionState.Dash:
+                _animator.Play($"{_directionY.ToString()}Run");
+                break;
+            case ActionState.Dead:
+                _animator.Play($"{_directionY.ToString()}Die");
+                break;
+            case ActionState.Attack:
+                _animator.Play($"{_directionY.ToString()}Attack");
+                break;
+            case ActionState.Hit:
+                _animator.Play($"{_directionY.ToString()}Hit");
+                break;
+        }
     }
 
-    //오브젝트가 바라보는 각도 설정
-    protected void UpdateObjRotation(Transform obj, Vector2 lookDir)
+    protected virtual void UpdateHpBar()
     {
-        float angle;
+        _hpBar.transform.localPosition = Vector3.zero;
+    }
 
-        if (_flipX == false)
+    protected virtual void Clear()
+    {
+        Managers.Resource.Destroy(_hpBar.gameObject);
+        Managers.Object.Remove(Id);
+    }
+
+    //캐릭터가 바라보는 방향 설정(좌, 우, 상, 하)
+    protected void UpdateDir(Vector2 _destPos)
+    {
+        if ((Vector2)transform.position == _destPos)
+            return;
+
+        Vector2 dir = (_destPos - (Vector2)transform.position).normalized;
+
+        if (dir.x < 0)
         {
-            angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
+            _directionX = DirectionX.Left;
+            Xflip(false);
         }
         else
         {
-            angle = Mathf.Atan2(-lookDir.y, -lookDir.x) * Mathf.Rad2Deg;
+            _directionX = DirectionX.Right;
+            Xflip(true);
         }
 
-        obj.rotation = Quaternion.Euler(0, 0, angle);
+        if (dir.y < 0)
+            _directionY = DirectionY.Front;
+        else
+            _directionY = DirectionY.Back;
+    }
+
+    //캐릭터 좌우반전 - false == Left / true == Right
+    protected void Xflip(bool flip = false)
+    {
+        if (_flipX == flip)
+            return;
+
+        if (flip)
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            _flipX = true;
+        }
+        else
+        {
+            transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            _flipX = false;
+        }
     }
 
     public void Sync()
     {
-        Vector3 destPos = Pos;
-        transform.position = destPos;
-        UpdateObjRotation(transform, LookDir);
+        Vector3 _destPos = Pos;
+        transform.position = _destPos;
     }
 }

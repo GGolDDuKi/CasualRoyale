@@ -60,7 +60,7 @@ namespace Client
 
         public static void SC_RejectLoginHandler(PacketSession session, IMessage packet)
         {
-            Managers.UI.UpdatePopup("중복되는 닉네임입니다.");
+            Managers.UI.UpdatePopup("Nickname is duplicated.");
         }
 
         public static void SC_AcceptLoginHandler(PacketSession session, IMessage packet)
@@ -109,7 +109,7 @@ namespace Client
 
         public static void SC_RejectMakeHandler(PacketSession session, IMessage packet)
         {
-            Managers.UI.UpdatePopup("동일한 방 제목이 존재합니다.");
+            Managers.UI.UpdatePopup("The same room title exists.");
         }
 
         public static void SC_AcceptMakeHandler(PacketSession session, IMessage packet)
@@ -138,17 +138,22 @@ namespace Client
 
         public static void SC_RejectEnterHandler(PacketSession session, IMessage packet)
         {
-            Managers.UI.UpdatePopup("비밀번호가 틀렸습니다.");
+            Managers.UI.UpdatePopup("Password is incorrect.");
         }
 
-        public static void HC_ShootHandler(PacketSession session, IMessage packet)
+        public static void HC_AttackHandler(PacketSession session, IMessage packet)
         {
-            HC_Shoot shootPacket = packet as HC_Shoot;
+            HC_Attack shootPacket = packet as HC_Attack;
 
             UnityEngine.GameObject go = Managers.Object.FindById(shootPacket.ObjectId);
             if (go == null)
                 return;
 
+            CreatureController cc = go.GetComponent<CreatureController>();
+            if(cc != null)
+            {
+                cc.Attack();
+            }
         }
 
         public static void HC_ChangeHpHandler(PacketSession session, IMessage packet)
@@ -159,11 +164,11 @@ namespace Client
             if (go == null)
                 return;
 
-            //CreatureController cc = go.GetComponent<CreatureController>();
-            //if (cc != null)
-            //{
-            //    cc.Hp = changePacket.Hp;
-            //}
+            CreatureController cc = go.GetComponent<CreatureController>();
+            if (cc != null)
+            {
+                cc.Hit(changePacket.Hp);
+            }
         }
 
         public static void HC_DieHandler(PacketSession session, IMessage packet)
@@ -174,12 +179,13 @@ namespace Client
             if (go == null)
                 return;
 
-            //CreatureController cc = go.GetComponent<CreatureController>();
-            //if (cc != null)
-            //{
-            //    cc.Hp = 0;
-            //    cc.OnDead();
-            //}
+            CreatureController cc = go.GetComponent<CreatureController>();
+            if (cc != null)
+            {
+                cc.Hp = 0;
+                cc._hpBar.SetHpBar(cc.Hp, cc.MaxHp);
+                cc.Die(diePacket);
+            }
         }
     }
 }

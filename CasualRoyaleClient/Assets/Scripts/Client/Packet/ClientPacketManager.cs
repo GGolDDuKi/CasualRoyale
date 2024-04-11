@@ -35,8 +35,8 @@ namespace Client
 			_handler.Add((ushort)MsgId.HcDespawn, PacketHandler.HC_DespawnHandler);
 			_onRecv.Add((ushort)MsgId.HcMove, MakePacket<HC_Move>);
 			_handler.Add((ushort)MsgId.HcMove, PacketHandler.HC_MoveHandler);
-			_onRecv.Add((ushort)MsgId.HcShoot, MakePacket<HC_Shoot>);
-			_handler.Add((ushort)MsgId.HcShoot, PacketHandler.HC_ShootHandler);
+			_onRecv.Add((ushort)MsgId.HcAttack, MakePacket<HC_Attack>);
+			_handler.Add((ushort)MsgId.HcAttack, PacketHandler.HC_AttackHandler);
 			_onRecv.Add((ushort)MsgId.HcChangeHp, MakePacket<HC_ChangeHp>);
 			_handler.Add((ushort)MsgId.HcChangeHp, PacketHandler.HC_ChangeHpHandler);
 			_onRecv.Add((ushort)MsgId.HcDie, MakePacket<HC_Die>);
