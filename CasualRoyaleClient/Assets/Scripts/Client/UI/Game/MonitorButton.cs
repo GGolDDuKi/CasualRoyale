@@ -7,7 +7,7 @@ public class MonitorButton : Button
     public override void OnClick()
     {
         Managers.UI.GenerateUI("UI/MonitorUI");
-        GameObject.Find("GameEnd").SetActive(false);
+        Destroy(GameObject.Find("GameEnd"));
 
         Managers.Game.CameraIndex = 0;
         Camera.main.transform.SetParent(Managers.Object.Players[Managers.Game.CameraIndex].transform);

@@ -28,9 +28,13 @@ namespace HostServer.Game
 
 			HC_Die diePacket = new HC_Die();
 			diePacket.ObjectId = Id;
-			diePacket.Rank = Room.GetRank() - 1;
+			diePacket.Rank = Room.GetRank();
 			diePacket.AttackerId = attacker.Id;
 			Room.Broadcast(diePacket);
+
+			Room.AlivePlayers.Remove(Id);
+			if (Room.AlivePlayers.Count == 1)
+				Room.EndGame();
 		}
 	}
 }

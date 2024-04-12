@@ -72,6 +72,18 @@ class PacketHandler
 
     public static void HS_UpdateRoomHandler(PacketSession session, IMessage packet)
     {
-        throw new NotImplementedException();
+        HS_UpdateRoom updatePacket = packet as HS_UpdateRoom;
+        ClientSession clientSession = session as ClientSession;
+
+        User user = clientSession.MyUser;
+        if (user == null)
+            return;
+
+        Lobby lobby = user.Lobby;
+        if (lobby == null)
+            return;
+
+        lobby.Push(lobby.UpdateRoom, updatePacket);
+        lobby.Flush();
     }
 }

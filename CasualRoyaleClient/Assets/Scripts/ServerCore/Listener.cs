@@ -31,6 +31,11 @@ namespace ServerCore
 			}
 		}
 
+		public void CloseSocket()
+        {
+			_listenSocket.Close();
+        }
+
 		//소켓의 연결 시도를 등록
 		void RegisterAccept(SocketAsyncEventArgs args)
 		{

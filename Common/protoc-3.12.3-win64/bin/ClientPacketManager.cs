@@ -52,7 +52,13 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.ScAcceptMake, MakePacket<SC_AcceptMake>);
 		_handler.Add((ushort)MsgId.ScAcceptMake, PacketHandler.SC_AcceptMakeHandler);		
 		_onRecv.Add((ushort)MsgId.ScRejectMake, MakePacket<SC_RejectMake>);
-		_handler.Add((ushort)MsgId.ScRejectMake, PacketHandler.SC_RejectMakeHandler);
+		_handler.Add((ushort)MsgId.ScRejectMake, PacketHandler.SC_RejectMakeHandler);		
+		_onRecv.Add((ushort)MsgId.HcWinner, MakePacket<HC_Winner>);
+		_handler.Add((ushort)MsgId.HcWinner, PacketHandler.HC_WinnerHandler);		
+		_onRecv.Add((ushort)MsgId.HcEndGame, MakePacket<HC_EndGame>);
+		_handler.Add((ushort)MsgId.HcEndGame, PacketHandler.HC_EndGameHandler);		
+		_onRecv.Add((ushort)MsgId.HcMissingHost, MakePacket<HC_MissingHost>);
+		_handler.Add((ushort)MsgId.HcMissingHost, PacketHandler.HC_MissingHostHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

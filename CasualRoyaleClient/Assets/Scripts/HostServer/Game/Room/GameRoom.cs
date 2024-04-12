@@ -3,6 +3,7 @@ using Google.Protobuf.Protocol;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using static Define;
 
 namespace HostServer.Game
 {
@@ -16,9 +17,11 @@ namespace HostServer.Game
 		Dictionary<int, Projectile> _projectiles = new Dictionary<int, Projectile>();
 		public Dictionary<int, Projectile> Projectiles { get { return _projectiles; } }
 
+		public Dictionary<int, Player> AlivePlayers { get; set; } = new Dictionary<int, Player>();
+
 		public Map Map { get; private set; } = new Map();
 
-		public int Rank { get; set; } = 1;
+		public int Rank { get; set; } = 0;
 
 		public void Init()
 		{
@@ -47,8 +50,10 @@ namespace HostServer.Game
 			{
 				Player player = gameObject as Player;
 				_players.Add(gameObject.Id, player);
+				AlivePlayers.Add(gameObject.Id, player);
 				player.Room = this;
 				Rank++;
+				Managers.Room.MyRoom.CurMember++;
 
 				Map.ApplyMove(player, new Vector2(player.Pos.x, player.Pos.y));
 
@@ -69,6 +74,14 @@ namespace HostServer.Game
 						spawnPacket.Objects.Add(p.Info);
 
 					player.Session.Send(spawnPacket);
+				}
+
+                //서버에 방 정보 갱신
+                {
+					HS_UpdateRoom roomPacket = new HS_UpdateRoom();
+					roomPacket.RoomId = Managers.Room.MyRoom.RoomId;
+					roomPacket.CurMember = Managers.Room.MyRoom.CurMember;
+					Managers.Network.S_Send(roomPacket);
 				}
 			}
 			else if (type == GameObjectType.Projectile)
@@ -225,6 +238,19 @@ namespace HostServer.Game
         {
 			int rank = Rank--;
 			return rank;
+        }
+
+		public void EndGame()
+        {
+			foreach(var p in AlivePlayers.Values)
+            {
+				HC_Winner winPacket = new HC_Winner();
+				winPacket.Rank = GetRank();
+				p.Session.Send(winPacket);
+            }
+
+			HC_EndGame endPacket = new HC_EndGame();
+			Broadcast(endPacket);
         }
 
 		public void Broadcast(IMessage packet)

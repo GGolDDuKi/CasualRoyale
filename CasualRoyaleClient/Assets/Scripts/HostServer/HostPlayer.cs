@@ -10,10 +10,10 @@ using UnityEngine;
 
 class HostPlayer : MonoBehaviour
 {
-	static Listener _listener = new Listener();
-	static AsyncConnector _connector = new AsyncConnector();
-	static List<System.Timers.Timer> _timers = new List<System.Timers.Timer>();
-	GameRoom room;
+	private Listener _listener = new Listener();
+	private AsyncConnector _connector = new AsyncConnector();
+	private List<System.Timers.Timer> _timers = new List<System.Timers.Timer>();
+	public GameRoom room;
 
 	void Awake()
     {
@@ -32,7 +32,16 @@ class HostPlayer : MonoBehaviour
 		Debug.Log("Listening...");
 	}
 
-	public async Task ConnectAsync(string publicIp, string privateIp, int port = 7778, int timeout = 5000)
+    public void Clear()
+    {
+        //SessionManager.Instance.Clear();
+        _listener.CloseSocket();
+		this.transform.parent = Managers.Scene.CurrentScene.transform;
+		this.transform.SetParent(null);
+		Destroy(this.gameObject);
+    }
+
+    public async Task ConnectAsync(string publicIp, string privateIp, int port = 7778, int timeout = 5000)
 	{
 		CancellationTokenSource cts = new CancellationTokenSource();
 		cts.CancelAfter(timeout);
@@ -67,7 +76,7 @@ class HostPlayer : MonoBehaviour
 		});
 	}
 
-	static void TickRoom(GameRoom room, int tick = 100)
+	void TickRoom(GameRoom room, int tick = 100)
 	{
 		var timer = new System.Timers.Timer();
 		timer.Interval = tick;

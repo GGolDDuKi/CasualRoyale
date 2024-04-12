@@ -132,9 +132,10 @@ public class MyPlayerController : PlayerController
     protected override IEnumerator CoDie(HC_Die diePacket)
     {
         Camera.main.transform.SetParent(null);
-        GameObject go = Managers.UI.GenerateUI("UI/GameEnd");
         Managers.Game.Rank = diePacket.Rank;
         Managers.Object.RemovePlayer(this.gameObject);
+
+        GameObject go = Managers.UI.GenerateUI("UI/GameEnd");
 
         if (diePacket.Rank == 1)
             go.GetComponent<GameEnd>().Exit();
@@ -148,6 +149,12 @@ public class MyPlayerController : PlayerController
         controlUI.SetActive(false);
 
         Clear();
+    }
+
+    public void EndGame()
+    {
+        GameObject go = Managers.UI.GenerateUI("UI/GameEnd");
+        go.GetComponent<GameEnd>().Exit();
     }
 
     IEnumerator CoAttackCooldown(float delay = 0.5f)

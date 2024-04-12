@@ -45,6 +45,7 @@ namespace Server
 				if (packet.Info.Name == u.Name)
                 {
 					SC_RejectLogin rejectPacket = new SC_RejectLogin();
+					rejectPacket.Reason = RejectionReason.SameName;
 					user.Session.Send(rejectPacket);
 					return;
                 }
@@ -114,6 +115,7 @@ namespace Server
 				if (room.Info.RoomName == r.Name)
                 {
 					SC_RejectMake rejectPacket = new SC_RejectMake();
+					rejectPacket.Reason = RejectionReason.SameName;
 					user.Session.Send(rejectPacket);
                     Console.WriteLine($"{user.Name}님의 방 생성 거절");
 					return;
@@ -134,6 +136,14 @@ namespace Server
         {
 			GameRoom room = _rooms[packet.RoomId];
 
+			if(room.CurMember == room.MaxMember)
+            {
+				SC_RejectEnter rejectPacket = new SC_RejectEnter();
+				rejectPacket.Reason = RejectionReason.FullRoom;
+				user.Session.Send(rejectPacket);
+				return;
+			}
+
 			if(room.Password == packet.PassWord)
             {
 				SC_AcceptEnter acceptPacket = new SC_AcceptEnter();
@@ -152,8 +162,20 @@ namespace Server
             else
             {
 				SC_RejectEnter rejectPacket = new SC_RejectEnter();
+				rejectPacket.Reason = RejectionReason.IncorrectPassword;
 				user.Session.Send(rejectPacket);
             }
+        }
+
+		public void UpdateRoom(HS_UpdateRoom packet)
+        {
+			if (packet == null)
+				return;
+
+			GameRoom room = _rooms[packet.RoomId];
+			room.CurMember = packet.CurMember;
+
+			UpdateRoomList();
         }
 
 		public User FindPlayer(Func<User, bool> condition)

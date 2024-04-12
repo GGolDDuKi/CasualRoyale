@@ -9,7 +9,7 @@ public class PlayerController : CreatureController
     {
         Managers.Object.RemovePlayer(this.gameObject);
 
-        if(Managers.Object.Players.Count > 1)
+        if(Managers.Object.Players.Count > 0)
         {
             if (Camera.main.transform.parent == this.transform)
             {

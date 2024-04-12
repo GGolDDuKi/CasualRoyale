@@ -10,6 +10,13 @@ public class GameScene : BaseScene
 
         Screen.SetResolution(640, 360, false);
         Application.runInBackground = true;
+
+        //GameObject host = GameObject.Find("Host");
+        //if(host != null)
+        //{
+        //    host.transform.parent = Managers.Scene.CurrentScene.transform;
+        //    host.transform.SetParent(null);
+        //}
     }
 
     public override void Clear()

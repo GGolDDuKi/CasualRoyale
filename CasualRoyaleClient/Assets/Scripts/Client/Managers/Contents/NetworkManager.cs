@@ -48,6 +48,12 @@ public class NetworkManager
 			1);
 	}
 
+	public void Clear()
+    {
+		_hostSession.Disconnect();
+		_hostSession = null;
+    }
+
 	public void Listen(string ip = null, int port = 7778)
 	{
 		IPAddress ipAddr = IPAddress.Parse("0.0.0.0");

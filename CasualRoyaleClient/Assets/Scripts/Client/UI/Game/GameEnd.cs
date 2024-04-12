@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class GameEnd : MonoBehaviour
 {
@@ -12,17 +13,15 @@ public class GameEnd : MonoBehaviour
 
     public void Monitor()
     {
-        StartCoroutine(CoFadeOut());
-        Monitoring();
+        StartCoroutine(CoFadeOut(Monitoring));
     }
 
     public void Exit()
     {
-        StartCoroutine(CoFadeOut());
-        ExitLobby();
+        StartCoroutine(CoFadeOut(ExitLobby));
     }
 
-    IEnumerator CoFadeOut()
+    IEnumerator CoFadeOut(Action action)
     {
         float time = 0f;
         float maxTime = 3.0f;
@@ -37,6 +36,7 @@ public class GameEnd : MonoBehaviour
             yield return null;
         }
 
+        action.Invoke();
         yield break;
     }
 

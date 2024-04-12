@@ -60,7 +60,23 @@ namespace Client
 
         public static void SC_RejectLoginHandler(PacketSession session, IMessage packet)
         {
-            Managers.UI.UpdatePopup("Nickname is duplicated.");
+            SC_RejectLogin rejectPacket = packet as SC_RejectLogin;
+
+            switch (rejectPacket.Reason)
+            {
+                case RejectionReason.SameName:
+                    Managers.UI.UpdatePopup("Nickname is duplicated.");
+                    break;
+                case RejectionReason.BadName:
+                    Managers.UI.UpdatePopup("Nickname is inappropriate.");
+                    break;
+                case RejectionReason.NoSpecialChar:
+                    Managers.UI.UpdatePopup("Special characters cannot be used.");
+                    break;
+                default:
+                    Managers.UI.UpdatePopup("You were rejected.");
+                    break;
+            }
         }
 
         public static void SC_AcceptLoginHandler(PacketSession session, IMessage packet)
@@ -107,9 +123,41 @@ namespace Client
             }
         }
 
+        public static void HC_MissingHostHandler(PacketSession session, IMessage packet)
+        {
+            Managers.UI.GenerateUI("UI/MissingHost");
+        }
+
+        public static void HC_EndGameHandler(PacketSession session, IMessage packet)
+        {
+            Managers.Object.MyPlayer.EndGame();
+        }
+
+        public static void HC_WinnerHandler(PacketSession session, IMessage packet)
+        {
+            HC_Winner winPacket = packet as HC_Winner;
+            Managers.Game.Rank = winPacket.Rank;
+        }
+
         public static void SC_RejectMakeHandler(PacketSession session, IMessage packet)
         {
-            Managers.UI.UpdatePopup("The same room title exists.");
+            SC_RejectMake rejectPacket = packet as SC_RejectMake;
+
+            switch (rejectPacket.Reason)
+            {
+                case RejectionReason.SameName:
+                    Managers.UI.UpdatePopup("Room title is duplicated.");
+                    break;
+                case RejectionReason.BadName:
+                    Managers.UI.UpdatePopup("Room title is inappropriate.");
+                    break;
+                case RejectionReason.NoSpecialChar:
+                    Managers.UI.UpdatePopup("Special characters cannot be used.");
+                    break;
+                default:
+                    Managers.UI.UpdatePopup("You were rejected.");
+                    break;
+            }
         }
 
         public static void SC_AcceptMakeHandler(PacketSession session, IMessage packet)
@@ -119,8 +167,13 @@ namespace Client
 
             Managers.Scene.LoadScene(Define.Scene.Game);
 
-            GameObject go = Managers.Resource.Instantiate("Host/Host");
+
+            GameObject go = GameObject.Find("Host");
+            if(go == null)
+                go = Managers.Resource.Instantiate("Host/Host");
             UnityEngine.Object.DontDestroyOnLoad(go);
+
+            //Managers.Game.Host = true;
 
             Managers.Network.Connect(Managers.User.PublicIp, "127.0.0.1");
         }
@@ -131,14 +184,27 @@ namespace Client
 
             Managers.Scene.LoadScene(Define.Scene.Game);
             //TODD : 서버에서 보내준 호스트의 Ip로 연결시도
-            //Managers.Network.Listen();
+
             Managers.Network.Connect(Managers.User.PublicIp, "127.0.0.1");
             //Managers.Network.Connect(acceptPacket.PublicIp, acceptPacket.PrivateIp);
         }
 
         public static void SC_RejectEnterHandler(PacketSession session, IMessage packet)
         {
-            Managers.UI.UpdatePopup("Password is incorrect.");
+            SC_RejectEnter rejectPacket = packet as SC_RejectEnter;
+
+            switch (rejectPacket.Reason)
+            {
+                case RejectionReason.IncorrectPassword:
+                    Managers.UI.UpdatePopup("Password is incorrect.");
+                    break;
+                case RejectionReason.FullRoom:
+                    Managers.UI.UpdatePopup("Room is full.");
+                    break;
+                default:
+                    Managers.UI.UpdatePopup("You were rejected.");
+                    break;
+            }
         }
 
         public static void HC_AttackHandler(PacketSession session, IMessage packet)

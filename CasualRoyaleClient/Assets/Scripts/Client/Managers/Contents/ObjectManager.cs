@@ -92,6 +92,11 @@ public class ObjectManager
 
 		_objects.Remove(id);
 
+		if(go.GetComponent<PlayerController>() != null)
+        {
+			Managers.Resource.Destroy(go.GetComponent<PlayerController>()._hpBar.gameObject);
+        }
+
 		Managers.Resource.Destroy(go);
 	}
 
@@ -123,8 +128,10 @@ public class ObjectManager
 	{
 		foreach (GameObject obj in _objects.Values)
 			Managers.Resource.Destroy(obj);
+
 		_objects.Clear();
 		_players.Clear();
+
         MyPlayer = null;
     }
 }

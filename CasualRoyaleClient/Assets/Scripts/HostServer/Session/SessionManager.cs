@@ -46,5 +46,18 @@ namespace HostServer
 				_sessions.Remove(session.SessionId);
 			}
 		}
+
+		public void Clear()
+        {
+            lock (_lock)
+            {
+				Dictionary<int, ClientSession> sessions = _sessions;
+				foreach (ClientSession session in sessions.Values)
+				{
+					session.Disconnect();
+				}
+				sessions.Clear();
+			}
+        }
 	}
 }

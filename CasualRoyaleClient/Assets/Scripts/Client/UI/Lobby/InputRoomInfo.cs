@@ -14,7 +14,7 @@ public class InputRoomInfo : MonoBehaviour
         {
             //방 제목 설정
             if (roomName.text.Length == 0)
-                roomInfo.RoomName = $"{Managers.User.Name}의 방";
+                roomInfo.RoomName = $"{Managers.User.Name}'s Room";
             else
                 roomInfo.RoomName = roomName.text;
 
@@ -45,7 +45,7 @@ public class InputRoomInfo : MonoBehaviour
             //호스트 정보 설정
             roomInfo.HostId = Managers.User.Id;
             roomInfo.HostName = Managers.User.Name;
-            roomInfo.CurMember = 1;
+            roomInfo.CurMember = 0;
         }
         return roomInfo;
     }

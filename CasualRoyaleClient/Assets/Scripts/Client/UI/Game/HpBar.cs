@@ -11,7 +11,10 @@ public class HpBar : MonoBehaviour
 
     private void Update()
     {
-        rect.position = new Vector2(cc.transform.position.x, cc.transform.position.y + 1.5f);
+        if(cc != null)
+        {
+            rect.position = new Vector2(cc.transform.position.x, cc.transform.position.y + 1.5f);
+        }
     }
 
     public void Init(CreatureController cc)

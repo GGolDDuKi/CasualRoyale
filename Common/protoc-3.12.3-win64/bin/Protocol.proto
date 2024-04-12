@@ -30,6 +30,9 @@ enum MsgId {
   SC_ACCEPT_MAKE = 22;
   SC_REJECT_MAKE = 23;
   SH_CONNECT_CLIENT = 24;
+  HC_WINNER = 25;
+  HC_END_GAME = 26;
+  HC_MISSING_HOST = 27;
 }
 
 enum ActionState {
@@ -64,6 +67,14 @@ enum AttackType {
   SKILL1 = 1;
   SKILL2 = 2;
   SKILL3 = 3;
+}
+
+enum RejectionReason{
+  SAME_NAME = 0;
+  INCORRECT_PASSWORD = 1;
+  FULL_ROOM = 2;
+  BAD_NAME = 3;
+  NO_SPECIAL_CHAR = 4;
 }
 
 message HC_EnterGame {
@@ -112,7 +123,8 @@ message HC_Die {
 }
 
 message HS_UpdateRoom {
-  RoomInfo room = 1;
+  int32 roomId = 1;
+  int32 curMember = 2;
 }
 
 message HS_StartGame {
@@ -132,7 +144,7 @@ message CS_Login {
 }
 
 message SC_RejectLogin {
-  
+  RejectionReason reason = 1;
 }
 
 message SC_AcceptLogin {
@@ -150,7 +162,7 @@ message CS_EnterRoom {
 }
 
 message SC_RejectEnter {
-  
+  RejectionReason reason = 1;
 }
 
 message SC_AcceptEnter {
@@ -172,7 +184,19 @@ message SC_AcceptMake{
 }
 
 message SC_RejectMake{
+  RejectionReason reason = 1;
+}
+
+message HC_Winner{
+  int32 rank = 1;
+}
+
+message HC_EndGame{
   
+}
+
+message HC_MissingHost{
+  int32 hostId = 1;
 }
 
 message RoomInfo {
