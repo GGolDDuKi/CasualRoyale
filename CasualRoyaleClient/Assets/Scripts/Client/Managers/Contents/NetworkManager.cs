@@ -50,8 +50,11 @@ public class NetworkManager
 
 	public void Clear()
     {
-		_hostSession.Disconnect();
-		_hostSession = null;
+		if(_hostSession != null)
+        {
+			_hostSession.Disconnect();
+			_hostSession = null;
+		}
     }
 
 	public void Listen(string ip = null, int port = 7778)

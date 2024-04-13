@@ -56,6 +56,24 @@ public class ResourceManager
         return go;
     }
 
+    public GameObject Instantiate(GameObject original, Vector3 position, Quaternion rotation, Transform parent = null)
+    {
+        if (original == null)
+        {
+            Debug.Log($"Failed to load prefab");
+            return null;
+        }
+
+        if (original.GetComponent<Poolable>() != null)
+            return Managers.Pool.Pop(original, position, rotation, parent).gameObject;
+
+        GameObject go = Object.Instantiate(original, parent);
+        go.name = original.name;
+        go.transform.position = position;
+        go.transform.rotation = rotation;
+        return go;
+    }
+
     //Pool이 가능한 오브젝트를 Pool에 보관, 그 외 파괴
     public void Destroy(GameObject go)
     {
@@ -70,5 +88,20 @@ public class ResourceManager
         }
 
         Object.Destroy(go);
+    }
+
+    public void Destroy(GameObject go, float delay)
+    {
+        if (go == null)
+            return;
+
+        Poolable poolable = go.GetComponent<Poolable>();
+        if (poolable != null)
+        {
+            Managers.Pool.Push(poolable, delay);
+            return;
+        }
+
+        Object.Destroy(go, delay);
     }
 }

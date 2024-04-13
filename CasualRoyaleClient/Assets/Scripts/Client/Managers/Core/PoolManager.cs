@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class PoolManager
@@ -65,6 +66,29 @@ public class PoolManager
 
             return poolable;
         }
+
+        public Poolable Pop(Vector3 position, Quaternion rotation, Transform parent)
+        {
+            Poolable poolable;
+
+            if (_poolStack.Count > 0)
+                poolable = _poolStack.Pop();
+            else
+                poolable = Create();
+
+            poolable.gameObject.SetActive(true);
+
+            // DontDestroyOnLoad 해제 용도
+            if (parent == null)
+                poolable.transform.parent = Managers.Scene.CurrentScene.transform;
+
+            poolable.transform.parent = parent;
+            poolable.transform.position = position;
+            poolable.transform.rotation = rotation;
+            poolable.IsUsing = true;
+
+            return poolable;
+        }
     }
 	#endregion
 
@@ -82,7 +106,7 @@ public class PoolManager
     }
 
     //Pool오브젝트를 생성
-    public void CreatePool(GameObject original, int count = 5)
+    public void CreatePool(GameObject original, int count = 1)
     {
         Pool pool = new Pool();
         pool.Init(original, count);
@@ -104,6 +128,19 @@ public class PoolManager
         _pool[name].Push(poolable);
     }
 
+    public async void Push(Poolable poolable, float delay)
+    {
+        string name = poolable.gameObject.name;
+        if (_pool.ContainsKey(name) == false)
+        {
+            GameObject.Destroy(poolable.gameObject, delay);
+            return;
+        }
+
+        await Task.Delay((int)(delay * 1000));
+        _pool[name].Push(poolable);
+    }
+
     //필요한 오브젝트를 Pool에서 가져와 반환
     public Poolable Pop(GameObject original, Transform parent = null)
     {
@@ -111,6 +148,14 @@ public class PoolManager
             CreatePool(original);
 
         return _pool[original.name].Pop(parent);
+    }
+
+    public Poolable Pop(GameObject original, Vector3 position, Quaternion rotation, Transform parent = null)
+    {
+        if (_pool.ContainsKey(original.name) == false)
+            CreatePool(original);
+
+        return _pool[original.name].Pop(position, rotation, parent);
     }
 
     //name에 해당하는 오브젝트를 찾아 반환

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BaseController : MonoBehaviour
 {
-    protected SpriteRenderer _sprite;
+    public SpriteRenderer _sprite;
     protected int layer;
 
     void Start()

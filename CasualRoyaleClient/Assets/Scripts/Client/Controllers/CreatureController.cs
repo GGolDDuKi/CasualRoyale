@@ -126,6 +126,7 @@ public class CreatureController : BaseController
     protected Animator _animator;
     protected List<AnimationClip> _animationClips = new List<AnimationClip>();
     public HpBar _hpBar;
+    public Ghost _ghost;
 
     public enum DirectionX
     {
@@ -158,6 +159,7 @@ public class CreatureController : BaseController
         _animationClips.AddRange(_animator.runtimeAnimatorController.animationClips);
         _hpBar = Managers.UI.GenerateHpBar(this);
         _hpBar.SetHpBar(Hp, MaxHp);
+        _ghost = GetComponent<Ghost>();
     }
 
     protected override void Update()
@@ -280,6 +282,16 @@ public class CreatureController : BaseController
                 break;
             case ActionState.Hit:
                 _animator.Play($"{_directionY.ToString()}Hit");
+                break;
+        }
+
+        switch (State)
+        {
+            case ActionState.Dash:
+                _ghost._makeGhost = true;
+                break;
+            default:
+                _ghost._makeGhost = false;
                 break;
         }
     }

@@ -107,25 +107,21 @@ public class MyPlayerController : PlayerController
             dir = _moveJoystick._handleDir;
 
         State = ActionState.Dash;
-        Vector2 destPos = transform.position + (new Vector3(dir.x, dir.y, 0) * 5);
+        float dashTime = 0.5f;
 
-        while((destPos - (Vector2)transform.position).magnitude > 10f * Time.deltaTime)
+        while(dashTime > 0)
         {
             _destPos = (Vector2)transform.position;
             _destPos += dir * 10f * Time.deltaTime;
             transform.position = _destPos;
             Pos = _destPos;
             CheckUpdatedFlag();
+            dashTime -= Time.deltaTime;
             yield return null;
         }
 
-        _destPos = destPos;
-        transform.position = _destPos;
-        Pos = _destPos;
         State = ActionState.Idle;
-
         CheckUpdatedFlag();
-
         StartCoroutine(CoDashCooldown());
     }
 
@@ -163,7 +159,7 @@ public class MyPlayerController : PlayerController
         canAttack = true;
     }
 
-    IEnumerator CoDashCooldown(float delay = 3.0f)
+    IEnumerator CoDashCooldown(float delay = 1.0f)
     {
         yield return new WaitForSeconds(delay);
         canDash = true;
