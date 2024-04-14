@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public abstract class Button : MonoBehaviour
+public class Button : MonoBehaviour
 {
-    public abstract void OnClick();
+    public virtual void OnClick()
+    {
+        Managers.Sound.Play("Sounds/UI/Button");
+    }
 }

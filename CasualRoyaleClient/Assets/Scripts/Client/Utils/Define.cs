@@ -16,7 +16,8 @@ public class Define
     public enum Sound
     {
         Bgm,
-        Effect
+        Effect,
+        MaxCount
     }
 
     public enum UIEvent

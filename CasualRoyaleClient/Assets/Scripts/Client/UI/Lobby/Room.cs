@@ -28,6 +28,8 @@ public class Room : Button
 
     public override void OnClick()
     {
+        base.OnClick();
+
         if (Managers.Room._selected != GetComponent<Room>())
         {
             Managers.Room._selected = GetComponent<Room>();

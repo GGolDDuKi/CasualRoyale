@@ -19,12 +19,23 @@ public class UIManager
 
     public GameObject GenerateUI(string path, Transform parent = null)
     {
+        return GenerateUI(path, Vector2.zero, parent);
+    }
+
+    public GameObject GenerateUI(string path, Vector2 position, Transform parent = null)
+    {
         GameObject go;
 
         if (parent == null)
+        {
             go = Managers.Resource.Instantiate(path, GameObject.Find("Canvas").transform);
+            go.GetComponent<RectTransform>().anchoredPosition = position;
+        }
         else
+        {
             go = Managers.Resource.Instantiate(path, parent);
+            go.GetComponent<RectTransform>().anchoredPosition = position;
+        }
 
         return go;
     }

@@ -4,6 +4,7 @@ public class SendRoomInfoButton : Button
 {
     public override void OnClick()
     {
+        base.OnClick();
         RoomInfo roomInfo = new RoomInfo();
         InputRoomInfo info = transform.parent.GetComponent<InputRoomInfo>();
         roomInfo = info.GetRoomInfo();

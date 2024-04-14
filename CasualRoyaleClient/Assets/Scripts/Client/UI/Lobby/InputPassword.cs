@@ -17,6 +17,8 @@ public class InputPassword : Button
 
     public override void OnClick()
     {
+        base.OnClick();
+
         if (Managers.Room._selected == null)
             return;
 

@@ -6,6 +6,8 @@ public class PrevPlayerButton : Button
 {
     public override void OnClick()
     {
+        base.OnClick();
+
         Managers.Game.CameraIndex--;
         if(Managers.Game.CameraIndex < 0)
             Managers.Game.CameraIndex = Managers.Object.Players.Count;

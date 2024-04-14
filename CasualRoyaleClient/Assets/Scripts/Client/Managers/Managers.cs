@@ -13,6 +13,7 @@ public class Managers : MonoBehaviour
     RoomManager _room = new RoomManager();
     UIManager _ui = new UIManager();
     GameManager _game = new GameManager();
+    SoundManager _sound = new SoundManager();
 
     public static ObjectManager Object { get { return Instance._obj; } }
     public static NetworkManager Network { get { return Instance._network; } }
@@ -21,6 +22,7 @@ public class Managers : MonoBehaviour
     public static RoomManager Room { get { return Instance._room; } }
     public static UIManager UI { get { return Instance._ui; } }
     public static GameManager Game { get { return Instance._game; } }
+    public static SoundManager Sound { get { return Instance._sound; } }
     #endregion
 
     #region Core
@@ -60,6 +62,8 @@ public class Managers : MonoBehaviour
             _instance._pool.Init();
             _instance._network.Init();
             _instance._user.Init();
+            _instance._sound.Init();
+            _instance._setting.Init();
         }
     }
 
@@ -67,5 +71,6 @@ public class Managers : MonoBehaviour
     {
         Scene.Clear();
         Pool.Clear();
+        Sound.Clear();
     }
 }

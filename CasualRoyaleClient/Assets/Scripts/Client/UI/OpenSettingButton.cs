@@ -6,6 +6,7 @@ public class OpenSettingButton : Button
 {
     public override void OnClick()
     {
+        base.OnClick();
         Managers.UI.GenerateUI("UI/Setting");
     }
 }

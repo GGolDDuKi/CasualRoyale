@@ -200,15 +200,19 @@ public class CreatureController : BaseController
         if (State == ActionState.Dead)
             yield break;
 
-            float time = 0;
+        Hp = hp;
+        _hpBar.SetHpBar(Hp, MaxHp);
+
+        float time = 0;
         foreach (var anim in _animationClips)
         {
             if (anim.name == $"{_directionY.ToString()}Hit")
                 time = anim.length;
         }
-        State = ActionState.Hit;
-        Hp = hp;
-        _hpBar.SetHpBar(Hp, MaxHp);
+
+        if(State == ActionState.Idle || State == ActionState.Run)
+            State = ActionState.Hit;
+
         yield return new WaitForSeconds(time);
         
         if(State != ActionState.Dead)

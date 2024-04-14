@@ -6,6 +6,8 @@ public class NextPlayerButton : Button
 {
     public override void OnClick()
     {
+        base.OnClick();
+
         Managers.Game.CameraIndex++;
         if (Managers.Game.CameraIndex > Managers.Object.Players.Count - 1)
             Managers.Game.CameraIndex = 0;

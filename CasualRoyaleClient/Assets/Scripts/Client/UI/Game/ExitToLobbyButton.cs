@@ -7,6 +7,8 @@ public class ExitToLobbyButton : Button
 {
     public override void OnClick()
     {
+        base.OnClick();
+
         Managers.Object.Clear();
 
         GameObject host = GameObject.Find("Host");

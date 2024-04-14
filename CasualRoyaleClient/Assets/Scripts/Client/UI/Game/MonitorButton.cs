@@ -6,6 +6,8 @@ public class MonitorButton : Button
 {
     public override void OnClick()
     {
+        base.OnClick();
+
         Managers.UI.GenerateUI("UI/MonitorUI");
         Destroy(GameObject.Find("GameEnd"));
 
