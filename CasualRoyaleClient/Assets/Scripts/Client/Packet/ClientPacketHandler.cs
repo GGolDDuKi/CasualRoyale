@@ -14,12 +14,14 @@ namespace Client
         {
             HC_EnterGame enterGamePacket = packet as HC_EnterGame;
             Managers.Object.Add(enterGamePacket.Player, myPlayer: true);
+            Managers.Game.InGame = true;
         }
 
         public static void HC_LeaveGameHandler(PacketSession session, IMessage packet)
         {
             HC_LeaveGame leaveGameHandler = packet as HC_LeaveGame;
             Managers.Object.Clear();
+            Managers.Game.InGame = false;
         }
 
         public static void HC_SpawnHandler(PacketSession session, IMessage packet)
@@ -100,15 +102,30 @@ namespace Client
                     {
                         Managers.Room.RoomInfo.Add(room.RoomId, room);
                     }
+                    else
+                    {
+                        Managers.Room.RoomInfo[room.RoomId] = room;
+                        Managers.Room.Room[room.RoomId].Init(room);
+                    }
                 }
 
                 List<int> removeKeys = new List<int>();
+                bool contain = false;
                 foreach (var room in Managers.Room.RoomInfo.Values)
                 {
-                    if (!roomList.Rooms.Contains(room))
+                    foreach(var info in roomList.Rooms)
                     {
-                        removeKeys.Add(room.RoomId);
+                        if (room.RoomId == info.RoomId)
+                        {
+                            contain = true;
+                            break;
+                        }
                     }
+
+                    if(contain == false)
+                        removeKeys.Add(room.RoomId);
+
+                    contain = false;
                 }
 
                 foreach (var key in removeKeys)
@@ -121,6 +138,11 @@ namespace Client
             {
                 return;
             }
+        }
+
+        public static void HC_UseSkillHandler(PacketSession session, IMessage packet)
+        {
+            throw new NotImplementedException();
         }
 
         public static void HC_MissingHostHandler(PacketSession session, IMessage packet)
@@ -164,9 +186,7 @@ namespace Client
         {
             SC_AcceptMake acceptPacket = packet as SC_AcceptMake;
             Managers.Room.MyRoom = acceptPacket.Room;
-
             Managers.Scene.LoadScene(Define.Scene.Game);
-
 
             GameObject go = GameObject.Find("Host");
             if(go == null)

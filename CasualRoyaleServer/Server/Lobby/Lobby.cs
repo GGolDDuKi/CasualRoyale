@@ -172,8 +172,7 @@ namespace Server
 			if (packet == null)
 				return;
 
-			GameRoom room = _rooms[packet.RoomId];
-			room.CurMember = packet.CurMember;
+			_rooms[packet.Info.RoomId].Info = packet.Info;
 
 			UpdateRoomList();
         }

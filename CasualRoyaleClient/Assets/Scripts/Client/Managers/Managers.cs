@@ -8,28 +8,30 @@ public class Managers : MonoBehaviour
     #region Contents
     ObjectManager _obj = new ObjectManager();
     NetworkManager _network = new NetworkManager();
+
+    public static ObjectManager Object { get { return Instance._obj; } }
+    public static NetworkManager Network { get { return Instance._network; } }
+    #endregion
+
+    #region Core
     SettingManager _setting = new SettingManager();
     UserManager _user = new UserManager();
     RoomManager _room = new RoomManager();
     UIManager _ui = new UIManager();
     GameManager _game = new GameManager();
     SoundManager _sound = new SoundManager();
+    DataManager _data = new DataManager();
+    PoolManager _pool = new PoolManager();
+    ResourceManager _resource = new ResourceManager();
+    SceneManagerEx _scene = new SceneManagerEx();
 
-    public static ObjectManager Object { get { return Instance._obj; } }
-    public static NetworkManager Network { get { return Instance._network; } }
     public static SettingManager Setting { get { return Instance._setting; } }
     public static UserManager User { get { return Instance._user; } }
     public static RoomManager Room { get { return Instance._room; } }
     public static UIManager UI { get { return Instance._ui; } }
     public static GameManager Game { get { return Instance._game; } }
     public static SoundManager Sound { get { return Instance._sound; } }
-    #endregion
-
-    #region Core
-    PoolManager _pool = new PoolManager();
-    ResourceManager _resource = new ResourceManager();
-    SceneManagerEx _scene = new SceneManagerEx();
-
+    public static DataManager Data { get { return Instance._data; } }
     public static PoolManager Pool { get { return Instance._pool; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
     public static SceneManagerEx Scene { get { return Instance._scene; } }

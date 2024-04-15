@@ -9,8 +9,6 @@ public class ExitToLobbyButton : Button
     {
         base.OnClick();
 
-        Managers.Object.Clear();
-
         GameObject host = GameObject.Find("Host");
         if (host != null)
         {
@@ -20,6 +18,7 @@ public class ExitToLobbyButton : Button
             host.GetComponent<HostPlayer>().Clear();
         }
 
+        Managers.Object.Clear();
         Managers.Network.Clear();
         //Managers.Game.Host = false;
 

@@ -23,7 +23,10 @@ public class Room : Button
         CurMember = info.CurMember;
         MaxMember = info.MaxMember;
 
-        UpdateRoomUI();
+        if(Managers.Game.InGame == false && Managers.Scene.CurrentScene.SceneType == Define.Scene.Lobby)
+        {
+            UpdateRoomUI();
+        }
     }
 
     public override void OnClick()

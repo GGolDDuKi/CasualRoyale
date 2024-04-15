@@ -125,6 +125,7 @@ public class CreatureController : BaseController
     protected bool _updated = false;
     protected Animator _animator;
     protected List<AnimationClip> _animationClips = new List<AnimationClip>();
+    public string _skillName;
     public HpBar _hpBar;
     public Ghost _ghost;
 
@@ -141,7 +142,6 @@ public class CreatureController : BaseController
         Back
     }
     protected DirectionY _directionY;
-
 
     #endregion
 
@@ -231,6 +231,35 @@ public class CreatureController : BaseController
         Clear();
     }
 
+    protected virtual IEnumerator CoSkill(int skillId)
+    {
+
+        if (!(State == ActionState.Idle || State == ActionState.Run))
+            yield break;
+
+        if (State == ActionState.Dead)
+            yield break;
+
+        //TODO : 스킬매니저에서 스킬id로 스킬 불러와서 UsingSkill함수 호출
+
+        float time = 0;
+        foreach (var anim in _animationClips)
+        {
+            //TODO : 스킬매니저에서 id로 스킬 이름 불러와서 애니메이션 변경
+            if (anim.name == $"{_directionY.ToString()}Attack")
+                time = anim.length;
+        }
+        // TODO : 스킬매니저에서 id로 스킬이름 불러와서 _skillName 변경
+        State = ActionState.Skill;
+
+        yield return new WaitForSeconds(time);
+
+        State = ActionState.Idle;
+        yield break;
+    }
+
+    //TODO : 스킬 아이디로 스킬 가져와서 효과 발동시키는 함수 -> 애니메이션에 이벤트로 추가해서 싱크 맞추기
+
     protected virtual void UpdateMove()
     {
         _destPos = Pos;
@@ -286,6 +315,9 @@ public class CreatureController : BaseController
                 break;
             case ActionState.Hit:
                 _animator.Play($"{_directionY.ToString()}Hit");
+                break;
+            case ActionState.Skill:
+                _animator.Play($"{_directionY.ToString()}{_skillName}");
                 break;
         }
 

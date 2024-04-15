@@ -79,8 +79,7 @@ namespace HostServer.Game
                 //서버에 방 정보 갱신
                 {
 					HS_UpdateRoom roomPacket = new HS_UpdateRoom();
-					roomPacket.RoomId = Managers.Room.MyRoom.RoomId;
-					roomPacket.CurMember = Managers.Room.MyRoom.CurMember;
+					roomPacket.Info = Managers.Room.MyRoom;
 					Managers.Network.S_Send(roomPacket);
 				}
 			}

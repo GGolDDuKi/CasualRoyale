@@ -58,7 +58,9 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.HcEndGame, MakePacket<HC_EndGame>);
 		_handler.Add((ushort)MsgId.HcEndGame, PacketHandler.HC_EndGameHandler);		
 		_onRecv.Add((ushort)MsgId.HcMissingHost, MakePacket<HC_MissingHost>);
-		_handler.Add((ushort)MsgId.HcMissingHost, PacketHandler.HC_MissingHostHandler);
+		_handler.Add((ushort)MsgId.HcMissingHost, PacketHandler.HC_MissingHostHandler);		
+		_onRecv.Add((ushort)MsgId.HcUseSkill, MakePacket<HC_UseSkill>);
+		_handler.Add((ushort)MsgId.HcUseSkill, PacketHandler.HC_UseSkillHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

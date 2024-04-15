@@ -14,7 +14,7 @@ public class PoolManager
         Stack<Poolable> _poolStack = new Stack<Poolable>();
 
         //풀 오브젝트를 생성할 때, 최소 갯수로 생성하여 초기화
-        public void Init(GameObject original, int count = 5)
+        public void Init(GameObject original, int count = 3)
         {
             Original = original;
             Root = new GameObject().transform;

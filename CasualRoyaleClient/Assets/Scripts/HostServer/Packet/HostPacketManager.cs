@@ -33,6 +33,8 @@ namespace Host
 			_handler.Add((ushort)MsgId.ChExitRoom, PacketHandler.CH_ExitRoomHandler);
 			_onRecv.Add((ushort)MsgId.ShConnectClient, MakePacket<SH_ConnectClient>);
 			_handler.Add((ushort)MsgId.ShConnectClient, PacketHandler.SH_ConnectClientHandler);
+			_onRecv.Add((ushort)MsgId.ChUseSkill, MakePacket<CH_UseSkill>);
+			_handler.Add((ushort)MsgId.ChUseSkill, PacketHandler.CH_UseSkillHandler);
 		}
 
 		public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

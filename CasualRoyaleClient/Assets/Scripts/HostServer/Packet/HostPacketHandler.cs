@@ -55,6 +55,11 @@ namespace Host
             go.GetComponent<HostPlayer>().Connect(connectPacket.PublicIp, connectPacket.PrivateIp);
         }
 
+        public static void CH_UseSkillHandler(PacketSession session, IMessage packet)
+        {
+            throw new NotImplementedException();
+        }
+
         public static void CH_ExitRoomHandler(PacketSession session, IMessage packet)
         {
             throw new NotImplementedException();
