@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class PlayerController : CreatureController
 {
+    #region Fields
+
+    public JobType Class { get; set; }
+
+    #endregion
+
     protected override IEnumerator CoDie(HC_Die diePacket)
     {
         Managers.Object.RemovePlayer(this.gameObject);

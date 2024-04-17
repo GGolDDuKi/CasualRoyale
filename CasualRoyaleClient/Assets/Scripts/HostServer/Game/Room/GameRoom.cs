@@ -178,48 +178,50 @@ namespace HostServer.Game
 
 			ObjectInfo info = player.Info;
 
-			//사격 가능 여부 체크
 			HC_Attack attack = new HC_Attack();
 			attack.ObjectId = info.ObjectId;
-			attack.AttackType = attackPacket.AttackType;
 
 			Broadcast(attack);
 
-			if(attackPacket.AttackType == AttackType.Normal)
-            {
-				foreach(var p in _players.Values)
-                {
-					if(p.Id != player.Id)
-                    {
-						if(BoxCollider2D.Collision(player.AttackCollider, p.Collider))
-                        {
-							p.OnDamaged(player, player.Damage);
-                        }
+			HandleDamage(player, player.Damage, player.AttackCollider);
+		}
+
+		public void HandleSkillDamage(Player player, CH_SkillDamage damagePacket)
+		{
+			if (player == null)
+				return;
+
+			BoxCollider2D newCol = new BoxCollider2D(damagePacket.PosX, damagePacket.PosY, Managers.Data.SkillData[damagePacket.SkillId].Width, Managers.Data.SkillData[damagePacket.SkillId].Height);
+
+			HandleDamage(player, player.Damage * Managers.Data.SkillData[damagePacket.SkillId].DmgRatio, newCol);
+		}
+
+		public void HandleDamage(Player attacker, float damage, BoxCollider2D attackCol)
+        {
+			foreach (var p in _players.Values)
+			{
+				if (p.Id != attacker.Id)
+				{
+					if (BoxCollider2D.Collision(attackCol, p.Collider))
+					{
+						p.OnDamaged(attacker, damage);
 					}
 				}
-            }
+			}
+		}
 
-			//switch (shootPacket.WeaponType)
-			//{
-			//	case WeaponType.Hg:
-			//		{
-			//			Bullet bullet = ObjectManager.Instance.Add<Bullet>();
-			//			if (bullet == null)
-			//				return;
+		public void HandleSkill(Player player, CH_UseSkill skillPacket)
+        {
+			if (player == null)
+				return;
 
-			//			bullet.Owner = player;
-			//			bullet.PosInfo.State = ActionState.Run;
-			//			bullet.PosInfo.DirX = shootPacket.PosInfo.DirX;
-			//			bullet.PosInfo.DirY = shootPacket.PosInfo.DirY;
-			//			bullet.PosInfo.PosX = shootPacket.PosInfo.WeaponPosX;
-			//			bullet.PosInfo.PosY = shootPacket.PosInfo.WeaponPosY;
-			//			bullet.Speed = 20f;
-			//			bullet.WeaponType = WeaponType.Hg;
+			ObjectInfo info = player.Info;
 
-			//			Push(EnterGame, bullet);
-			//		}
-			//		break;
-			//}
+			HC_UseSkill skill = new HC_UseSkill();
+			skill.PlayerId = info.ObjectId;
+			skill.SkillId = skillPacket.SkillId;
+
+			Broadcast(skill, player);
 		}
 
 		public Player FindPlayer(Func<GameObject, bool> condition)
@@ -259,5 +261,41 @@ namespace HostServer.Game
 				p.Session.Send(packet);
 			}
 		}
+
+		//player 제외하고 보내기
+		public void Broadcast(IMessage packet, Player player = null)
+		{
+			if(player == null)
+				Broadcast(packet);
+            else
+            {
+				foreach (Player p in _players.Values)
+				{
+					if (p.Id != player.Id)
+						p.Session.Send(packet);
+				}
+			}
+		}
 	}
 }
+//switch (shootPacket.WeaponType)
+//{
+//	case WeaponType.Hg:
+//		{
+//			Bullet bullet = ObjectManager.Instance.Add<Bullet>();
+//			if (bullet == null)
+//				return;
+
+//			bullet.Owner = player;
+//			bullet.PosInfo.State = ActionState.Run;
+//			bullet.PosInfo.DirX = shootPacket.PosInfo.DirX;
+//			bullet.PosInfo.DirY = shootPacket.PosInfo.DirY;
+//			bullet.PosInfo.PosX = shootPacket.PosInfo.WeaponPosX;
+//			bullet.PosInfo.PosY = shootPacket.PosInfo.WeaponPosY;
+//			bullet.Speed = 20f;
+//			bullet.WeaponType = WeaponType.Hg;
+
+//			Push(EnterGame, bullet);
+//		}
+//		break;
+//}

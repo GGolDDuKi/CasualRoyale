@@ -39,23 +39,13 @@ namespace HostServer
 
 			MyPlayer = HostServer.Game.ObjectManager.Instance.Add<Player>();
 			{
-				MyPlayer.Info.Name = $"Player_{MyPlayer.Info.ObjectId}";
-				MyPlayer.Info.PosInfo.State = ActionState.Idle;
-				MyPlayer.Info.PosInfo.PosX = 0;
-				MyPlayer.Info.PosInfo.PosY = 0;
-
-				MyPlayer.Info.StatInfo.MaxHp = 50;
-				MyPlayer.Info.StatInfo.Hp = 50;
-				MyPlayer.Info.StatInfo.Speed = 2f;
-				MyPlayer.Info.StatInfo.Damage = 5f;
-
-				MyPlayer.Job = JobType.Knight;
-
 				MyPlayer.Session = this;
+				GameRoom room = Game.RoomManager.Instance.Find(Game.RoomManager.Instance._roomId - 1);
+				MyPlayer.Room = room;
 			}
 
-			GameRoom room = HostServer.Game.RoomManager.Instance.Find(1);
-			room.Push(room.EnterGame, MyPlayer);
+			HC_RequestClass classPacket = new HC_RequestClass();
+			Send(classPacket);
 		}
 
 		public override void OnRecvPacket(ArraySegment<byte> buffer)
@@ -65,7 +55,7 @@ namespace HostServer
 
 		public override void OnDisconnected(EndPoint endPoint)
 		{
-			GameRoom room = HostServer.Game.RoomManager.Instance.Find(1);
+			GameRoom room = HostServer.Game.RoomManager.Instance.Find(Game.RoomManager.Instance._roomId - 1);
 			room.Push(room.LeaveGame, MyPlayer.Info.ObjectId);
 
 			SessionManager.Instance.Remove(this);

@@ -39,6 +39,7 @@ public class PoolManager
                 return;
 
             poolable.transform.parent = Root;
+            poolable.transform.position = Vector3.zero;
             poolable.gameObject.SetActive(false);
             poolable.IsUsing = false;
 

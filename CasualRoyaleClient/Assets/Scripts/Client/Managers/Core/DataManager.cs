@@ -1,11 +1,8 @@
-﻿using Google.Protobuf.Protocol;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using static Define;
+using Newtonsoft.Json;
 
 public interface ILoader<Key, Value>
 {
@@ -14,29 +11,26 @@ public interface ILoader<Key, Value>
 
 public class DataManager
 {
-    public Dictionary<int, SkillInfo> SkillData { get; private set; } = new Dictionary<int, SkillInfo>();
-    public Dictionary<int, Skill> Skills { get; private set; } = new Dictionary<int, Skill>();
+    public Dictionary<int, SkillInfo> SkillData = new Dictionary<int, SkillInfo>();
+    //public Dictionary<int, Skill> Skills = new Dictionary<int, Skill>();
 
-    public Dictionary<string, ClassInfo> ClassData { get; private set; } = new Dictionary<string, ClassInfo>();
+    public Dictionary<string, ClassInfo> ClassData = new Dictionary<string, ClassInfo>();
 
     public void Init()
     {
-        SkillData = LoadJson<SkillData, int, SkillInfo>("Data/SkillData").MakeDictionary();
-        //TODO : SkillInfo 정보따라 리플렉션 사용해서 스킬 인스턴스 생성 후 저장
+        //스킬 데이터 초기화
+        SkillData = LoadJson<int, SkillInfo>("Data/SkillData");
 
-        ClassData = LoadJson<ClassData, string, ClassInfo>("Data/ClassData").MakeDictionary();
-        //TODO : 위와 동일
+        //직업 데이터 초기화
+        ClassData = LoadJson<string, ClassInfo>("Data/ClassData");
+        //필요할 경우, 나중에 게임 씬에서만 해당 정보들이 활용되도록 씬 전환마다 클리어 해주는 것도 고려 (메모리때문에)
     }
 
-    Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
+    Dictionary<Key, Value> LoadJson<Key, Value>(string path)
     {
-        TextAsset textAsset = null;
-
-        if (path.Contains("Data/"))
-            textAsset = Managers.Resource.Load<TextAsset>(path);
-        else
-            textAsset = Managers.Resource.Load<TextAsset>($"Data/{path}");
-
-        return JsonUtility.FromJson<Loader>(textAsset.text);
+        TextAsset jsonFile = Managers.Resource.Load<TextAsset>(path);
+        Dictionary<Key, Value> data = new Dictionary<Key, Value>();
+        data = JsonConvert.DeserializeObject<Dictionary<Key, Value>>(jsonFile.text);
+        return data;
     }
 }

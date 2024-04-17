@@ -8,7 +8,6 @@ public class LoginScene : BaseScene
 
         SceneType = Define.Scene.Login;
 
-        Screen.SetResolution(640, 360, false);
         Application.runInBackground = true;
     }
 

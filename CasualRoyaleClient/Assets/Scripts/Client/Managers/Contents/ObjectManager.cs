@@ -41,28 +41,28 @@ public class ObjectManager
 		{
 			if (myPlayer)
 			{
-				GameObject go = Managers.Resource.Instantiate($"Creatures/{info.JobType}/MyPlayer");
+				GameObject go = Managers.Resource.Instantiate($"Creatures/{info.Class}/MyPlayer");
 				_objects.Add(info.ObjectId, go);
 				_players.Add(go);
 
                 MyPlayer = go.GetComponent<MyPlayerController>();
                 MyPlayer.Id = info.ObjectId;
 				MyPlayer.Name = info.Name;
-				MyPlayer.JobType = info.JobType;
+				MyPlayer.Class = info.Class;
                 MyPlayer.PosInfo = info.PosInfo;
                 MyPlayer.StatInfo = info.StatInfo;
                 MyPlayer.Sync();
             }
 			else
 			{
-				GameObject go = Managers.Resource.Instantiate($"Creatures/{info.JobType}/Player");
+				GameObject go = Managers.Resource.Instantiate($"Creatures/{info.Class}/Player");
 				_objects.Add(info.ObjectId, go);
 				_players.Add(go);
 
 				PlayerController pc = go.GetComponent<PlayerController>();
                 pc.Id = info.ObjectId;
 				pc.Name = info.Name;
-				pc.JobType = info.JobType;
+				pc.Class = info.Class;
 				pc.PosInfo = info.PosInfo;
                 pc.StatInfo = info.StatInfo;
                 pc.Sync();

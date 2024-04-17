@@ -1,5 +1,6 @@
 using Google.Protobuf.Protocol;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MyPlayerController : PlayerController
@@ -10,6 +11,7 @@ public class MyPlayerController : PlayerController
 
     private bool canDash = true;
     private bool canAttack = true;
+    private Dictionary<int, bool> canSkill = new Dictionary<int, bool>();
 
     #endregion
 
@@ -22,6 +24,10 @@ public class MyPlayerController : PlayerController
     {
         base.Init();
         _moveJoystick = GameObject.Find("MoveJoystick").GetComponent<VirtualJoystick>();
+        canSkill.Add(FirstSkillId, true);
+        canSkill.Add(SecondSkillId, true);
+        GameObject.Find("FirstSkillButton").GetComponent<FirstSkillButton>().Init();
+        GameObject.Find("SecondSkillButton").GetComponent<SecondSkillButton>().Init();
     }
 
     protected override void Update()
@@ -44,7 +50,7 @@ public class MyPlayerController : PlayerController
 
         _destPos = (Vector2)transform.position;
 
-        if(_moveJoystick._handleDir != Vector2.zero)
+        if (_moveJoystick._handleDir != Vector2.zero)
         {
             State = ActionState.Run;
             _destPos += _moveJoystick._handleDir * 1.5f * Time.deltaTime;
@@ -80,11 +86,10 @@ public class MyPlayerController : PlayerController
         State = ActionState.Attack;
 
         CH_Attack attackPacket = new CH_Attack();
-        attackPacket.AttackType = AttackType.Normal;
         Managers.Network.H_Send(attackPacket);
 
         yield return new WaitForSeconds(time);
-        
+
         State = ActionState.Idle;
         CheckUpdatedFlag();
         StartCoroutine(CoAttackCooldown());
@@ -109,7 +114,7 @@ public class MyPlayerController : PlayerController
         State = ActionState.Dash;
         float dashTime = 0.5f;
 
-        while(dashTime > 0)
+        while (dashTime > 0)
         {
             _destPos = (Vector2)transform.position;
             _destPos += dir * 10f * Time.deltaTime;
@@ -147,6 +152,22 @@ public class MyPlayerController : PlayerController
         Clear();
     }
 
+    public override bool UsingSkill(int skillId)
+    {
+        if (canSkill[skillId] == false)
+            return false;
+
+        canSkill[skillId] = false;
+
+        CH_UseSkill skillPacket = new CH_UseSkill();
+        skillPacket.SkillId = skillId;
+        Managers.Network.H_Send(skillPacket);
+
+        base.UsingSkill(skillId);
+        StartCoroutine(CoSkillCooldown(skillId, Managers.Data.SkillData[skillId].CoolTime));
+        return true;
+    }
+
     public void EndGame()
     {
         GameObject go = Managers.UI.GenerateUI("UI/GameEnd");
@@ -163,6 +184,12 @@ public class MyPlayerController : PlayerController
     {
         yield return new WaitForSeconds(delay);
         canDash = true;
+    }
+
+    IEnumerator CoSkillCooldown(int skillId, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        canSkill[skillId] = true;
     }
 
     void CheckUpdatedFlag()

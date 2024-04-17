@@ -35,6 +35,9 @@ enum MsgId {
   HC_MISSING_HOST = 27;
   CH_USE_SKILL = 28;
   HC_USE_SKILL = 29;
+  HC_REQUEST_CLASS = 30;
+  CH_SEND_CLASS = 31;
+  CH_SKILL_DAMAGE = 32;
 }
 
 enum ActionState {
@@ -65,19 +68,20 @@ enum JobType {
   SPEAR_MAN = 2;
 }
 
-enum AttackType {
-  NORMAL = 0;
-  SKILL1 = 1;
-  SKILL2 = 2;
-  SKILL3 = 3;
-}
-
 enum RejectionReason{
   SAME_NAME = 0;
   INCORRECT_PASSWORD = 1;
   FULL_ROOM = 2;
   BAD_NAME = 3;
   NO_SPECIAL_CHAR = 4;
+}
+
+message HC_RequestClass{
+  
+}
+
+message CH_SendClass{
+  JobType job = 1;
 }
 
 message HC_EnterGame {
@@ -106,12 +110,11 @@ message HC_Move {
 }
 
 message CH_Attack {
-  AttackType attackType = 1;
+
 }
 
 message HC_Attack {
   int32 objectId = 1;
-  AttackType attackType = 2;
 }
 
 message HC_ChangeHp {
@@ -210,6 +213,12 @@ message HC_UseSkill{
   int32 skillId = 2;
 }
 
+message CH_SkillDamage{
+  int32 skillId = 1;
+  float posX = 2;
+  float posY = 3;
+}
+
 message RoomInfo {
   int32 roomId = 1;
   string roomName = 2;
@@ -235,7 +244,7 @@ message ObjectInfo {
   string name = 2;
   PositionInfo posInfo = 3;
   StatInfo statInfo = 4;
-  JobType jobType = 5;
+  JobType class = 5;
 }
 
 message PositionInfo {
@@ -251,6 +260,8 @@ message StatInfo {
   float maxHp = 2;
   float speed = 3;
   float damage = 4;
+  int32 firstSkillId = 5;
+  int32 secondSkillId = 6;
 }
 
 message AttackInfo {

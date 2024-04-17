@@ -10,7 +10,7 @@ namespace HostServer.Game
 
 		object _lock = new object();
 		Dictionary<int, GameRoom> _rooms = new Dictionary<int, GameRoom>();
-		int _roomId = 1;
+		public int _roomId = 1;
 
 		public GameRoom Add()
 		{

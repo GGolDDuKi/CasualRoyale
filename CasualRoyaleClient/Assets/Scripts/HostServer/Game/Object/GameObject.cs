@@ -76,10 +76,10 @@ namespace HostServer.Game
 			set { Info.Name = value; }
 		}
 
-		public JobType Job
+		public JobType Class
 		{
-			get { return Info.JobType; }
-			set { Info.JobType = value; }
+			get { return Info.Class; }
+			set { Info.Class = value; }
 		}
 
 		#endregion
@@ -144,6 +144,18 @@ namespace HostServer.Game
 		{
 			get { return StatInfo.Damage; }
 			set { StatInfo.Damage = value; }
+		}
+
+		public int FirstSkillId
+        {
+			get { return StatInfo.FirstSkillId; }
+			set { StatInfo.FirstSkillId = value; }
+        }
+
+		public int SecondSkillId
+		{
+			get { return StatInfo.SecondSkillId; }
+			set { StatInfo.SecondSkillId = value; }
 		}
 
 		#endregion

@@ -12,8 +12,6 @@ public class CreatureController : BaseController
 
     public string Name { get; set; }
 
-    public JobType JobType { get; set; }
-
     #region PositionInfo PosInfo
 
     PositionInfo _positionInfo = new PositionInfo();
@@ -91,6 +89,8 @@ public class CreatureController : BaseController
             _stat.Hp = value.Hp;
             _stat.MaxHp = value.MaxHp;
             _stat.Speed = value.Speed;
+            _stat.FirstSkillId = value.FirstSkillId;
+            _stat.SecondSkillId = value.SecondSkillId;
         }
     }
 
@@ -118,6 +118,18 @@ public class CreatureController : BaseController
         set { StatInfo.Speed = value; }
     }
 
+    public int FirstSkillId
+    {
+        get { return StatInfo.FirstSkillId; }
+        set { StatInfo.FirstSkillId = value; }
+    }
+
+    public int SecondSkillId
+    {
+        get { return StatInfo.SecondSkillId; }
+        set { StatInfo.SecondSkillId = value; }
+    }
+
     #endregion
 
     protected bool _flipX = false;  //false면 Left, true면 Right
@@ -142,6 +154,8 @@ public class CreatureController : BaseController
         Back
     }
     protected DirectionY _directionY;
+
+    Coroutine _coroutine;
 
     #endregion
 
@@ -171,7 +185,7 @@ public class CreatureController : BaseController
 
     public void Attack()
     {
-        StartCoroutine(CoAttack());
+        _coroutine = StartCoroutine(CoAttack());
     }
 
     protected virtual IEnumerator CoAttack()
@@ -188,11 +202,13 @@ public class CreatureController : BaseController
         State = ActionState.Attack;
         yield return new WaitForSeconds(time);
         State = ActionState.Idle;
+        _coroutine = null;
     }
 
     public void Hit(float hp)
     {
-        StartCoroutine(CoHit(hp));
+        _coroutine = StartCoroutine(CoHit(hp));
+        StartCoroutine(CoRedBody());
     }
 
     protected virtual IEnumerator CoHit(float hp)
@@ -216,7 +232,31 @@ public class CreatureController : BaseController
         yield return new WaitForSeconds(time);
         
         if(State != ActionState.Dead)
+        {
             State = ActionState.Idle;
+            _coroutine = null;
+        }
+    }
+
+    IEnumerator CoRedBody()
+    {
+        float time = 0, timer = 0;
+
+        foreach (var anim in _animationClips)
+        {
+            if (anim.name == $"{_directionY.ToString()}Hit")
+                time = anim.length;
+        }
+
+        while (timer <= time)
+        {
+            Color color = new Color(1, timer / time, timer / time, 1);
+            _sprite.color = color;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        _sprite.color = Color.white;
     }
 
     public virtual void Die(HC_Die diePacket)
@@ -226,36 +266,58 @@ public class CreatureController : BaseController
 
     protected virtual IEnumerator CoDie(HC_Die diePacket)
     {
+        _coroutine = null;
         State = ActionState.Dead;
         yield return new WaitForSeconds(3.0f);
         Clear();
     }
 
+    public virtual bool UsingSkill(int skillId)
+    {
+        _coroutine = StartCoroutine(CoSkill(skillId));
+
+        return true;
+    }
+
     protected virtual IEnumerator CoSkill(int skillId)
     {
-
         if (!(State == ActionState.Idle || State == ActionState.Run))
             yield break;
 
         if (State == ActionState.Dead)
             yield break;
 
-        //TODO : 스킬매니저에서 스킬id로 스킬 불러와서 UsingSkill함수 호출
-
+        _skillName = Managers.Data.SkillData[skillId].SkillName;
         float time = 0;
         foreach (var anim in _animationClips)
         {
-            //TODO : 스킬매니저에서 id로 스킬 이름 불러와서 애니메이션 변경
-            if (anim.name == $"{_directionY.ToString()}Attack")
+            if (anim.name == $"{_directionY.ToString()}{_skillName}")
                 time = anim.length;
         }
-        // TODO : 스킬매니저에서 id로 스킬이름 불러와서 _skillName 변경
+
+        //TODO : 스킬매니저에서 스킬id로 스킬 불러와서 UsingSkill함수 호출
         State = ActionState.Skill;
 
         yield return new WaitForSeconds(time);
 
         State = ActionState.Idle;
         yield break;
+    }
+
+    void SkillEffect(int skillId)
+    {
+        switch (Managers.Data.SkillData[skillId].SkillType)
+        {
+            case "Immediate":
+                Vector2 skillPos = (Vector2)transform.position + LastDir * Managers.Data.SkillData[skillId].Range;
+                GameObject go = Managers.Resource.Instantiate("Effect/Skill");
+                go.transform.position = skillPos;
+                go.GetComponent<SkillEffect>().SetSkill(Id, skillId, LastDir);
+                break;
+
+            case "Projectile":
+                break;
+        }
     }
 
     //TODO : 스킬 아이디로 스킬 가져와서 효과 발동시키는 함수 -> 애니메이션에 이벤트로 추가해서 싱크 맞추기

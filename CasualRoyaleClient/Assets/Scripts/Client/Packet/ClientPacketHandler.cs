@@ -140,9 +140,11 @@ namespace Client
             }
         }
 
-        public static void HC_UseSkillHandler(PacketSession session, IMessage packet)
+        public static void HC_RequestClassHandler(PacketSession session, IMessage packet)
         {
-            throw new NotImplementedException();
+            CH_SendClass classPacket = new CH_SendClass();
+            classPacket.Job = Managers.User.Job;
+            Managers.Network.H_Send(classPacket);
         }
 
         public static void HC_MissingHostHandler(PacketSession session, IMessage packet)
@@ -239,6 +241,21 @@ namespace Client
             if(cc != null)
             {
                 cc.Attack();
+            }
+        }
+
+        public static void HC_UseSkillHandler(PacketSession session, IMessage packet)
+        {
+            HC_UseSkill skillPacket = packet as HC_UseSkill;
+
+            UnityEngine.GameObject go = Managers.Object.FindById(skillPacket.PlayerId);
+            if (go == null)
+                return;
+
+            CreatureController cc = go.GetComponent<CreatureController>();
+            if (cc != null)
+            {
+                cc.UsingSkill(skillPacket.SkillId);
             }
         }
 

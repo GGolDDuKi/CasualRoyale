@@ -32,7 +32,11 @@ class PacketManager
 		_onRecv.Add((ushort)MsgId.ShConnectClient, MakePacket<SH_ConnectClient>);
 		_handler.Add((ushort)MsgId.ShConnectClient, PacketHandler.SH_ConnectClientHandler);		
 		_onRecv.Add((ushort)MsgId.ChUseSkill, MakePacket<CH_UseSkill>);
-		_handler.Add((ushort)MsgId.ChUseSkill, PacketHandler.CH_UseSkillHandler);
+		_handler.Add((ushort)MsgId.ChUseSkill, PacketHandler.CH_UseSkillHandler);		
+		_onRecv.Add((ushort)MsgId.ChSendClass, MakePacket<CH_SendClass>);
+		_handler.Add((ushort)MsgId.ChSendClass, PacketHandler.CH_SendClassHandler);		
+		_onRecv.Add((ushort)MsgId.ChSkillDamage, MakePacket<CH_SkillDamage>);
+		_handler.Add((ushort)MsgId.ChSkillDamage, PacketHandler.CH_SkillDamageHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

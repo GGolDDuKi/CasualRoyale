@@ -44,7 +44,7 @@ public class SettingManager
     public void Init()
     {
         Width = 640;
-        Height = 480;
+        Height = 360;
         BGMVol = 1f;
         SFXVol = 1f;
     }
