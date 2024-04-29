@@ -35,9 +35,10 @@ enum MsgId {
   HC_MISSING_HOST = 27;
   CH_USE_SKILL = 28;
   HC_USE_SKILL = 29;
-  HC_REQUEST_CLASS = 30;
-  CH_SEND_CLASS = 31;
-  CH_SKILL_DAMAGE = 32;
+  HC_REQUEST_INFO = 30;
+  CH_SEND_INFO = 31;
+  CH_SKILL_EFFECT = 32;
+  CH_SKILL_DAMAGE = 33;
 }
 
 enum ActionState {
@@ -76,12 +77,13 @@ enum RejectionReason{
   NO_SPECIAL_CHAR = 4;
 }
 
-message HC_RequestClass{
+message HC_RequestInfo{
   
 }
 
-message CH_SendClass{
+message CH_SendInfo{
   JobType job = 1;
+  string name = 2;
 }
 
 message HC_EnterGame {
@@ -213,6 +215,11 @@ message HC_UseSkill{
   int32 skillId = 2;
 }
 
+message CH_SkillEffect{
+  int32 skillId = 1;
+  PositionInfo PosInfo = 2;
+}
+
 message CH_SkillDamage{
   int32 skillId = 1;
   float posX = 2;
@@ -253,7 +260,7 @@ message PositionInfo {
   float posY = 3;
   float lastDirX = 4;
   float lastDirY = 5;
-}
+}		
 
 message StatInfo {
   float hp = 1;

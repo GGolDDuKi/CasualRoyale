@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 
 namespace HostServer.Game
 {
@@ -21,7 +22,7 @@ namespace HostServer.Game
 			{
 				gameRoom.RoomId = _roomId;
 				_rooms.Add(_roomId, gameRoom);
-				Console.WriteLine($"Room[{gameRoom.RoomId}] 생성");
+				Debug.Log($"Room[{gameRoom.RoomId}] 생성");
 				_roomId++;
 			}
 

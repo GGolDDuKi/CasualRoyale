@@ -42,6 +42,16 @@ namespace HostServer.Game
                 return true;
         }
 
+        public static Vector2 operator *(Vector2 a, float b)
+        {
+            return new Vector2(a.x * b, a.y * b);
+        }
+
+        public static Vector2 operator /(Vector2 a, float b)
+        {
+            return new Vector2(a.x / b, a.y / b);
+        }
+
         public float magnitude { get { return (float)Math.Sqrt(sqrMagnitude); } }
 
         public float sqrMagnitude { get { return (x * x + y * y); } }

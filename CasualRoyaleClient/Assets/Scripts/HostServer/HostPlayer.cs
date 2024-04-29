@@ -32,13 +32,14 @@ class HostPlayer : MonoBehaviour
 		Debug.Log("Listening...");
 	}
 
-    public void Clear()
+    public bool Clear()
     {
         //SessionManager.Instance.Clear();
         _listener.CloseSocket();
 		this.transform.parent = Managers.Scene.CurrentScene.transform;
 		this.transform.SetParent(null);
 		Destroy(this.gameObject);
+		return true;
     }
 
     public async Task ConnectAsync(string publicIp, string privateIp, int port = 7778, int timeout = 5000)

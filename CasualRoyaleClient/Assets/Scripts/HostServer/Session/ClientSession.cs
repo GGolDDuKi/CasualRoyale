@@ -44,8 +44,8 @@ namespace HostServer
 				MyPlayer.Room = room;
 			}
 
-			HC_RequestClass classPacket = new HC_RequestClass();
-			Send(classPacket);
+			HC_RequestInfo infoPacket = new HC_RequestInfo();
+			Send(infoPacket);
 		}
 
 		public override void OnRecvPacket(ArraySegment<byte> buffer)

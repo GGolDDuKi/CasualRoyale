@@ -1,10 +1,9 @@
 using Google.Protobuf.Protocol;
+using System.Collections;
 using UnityEngine;
 
-public class ProjectileController : CreatureController
+public class ProjectileController : BaseController
 {
-    public GameObject target;
-
     private void Start()
     {
         Init();
@@ -24,38 +23,45 @@ public class ProjectileController : CreatureController
 
     protected override void Update()
     {
-        base.Update();
+        UpdateMove();
     }
 
-    protected override void UpdateMove()
+    protected void UpdateMove()
     {
         _destPos = Pos;
 
-        //switch (WeaponType)
-        //{
-        //    case WeaponType.Hg:
-        //        if ((_destPos - (Vector2)transform.position).magnitude > 20f * Time.deltaTime)
-        //        {
-        //            transform.position += ((Vector3)_destPos - transform.position).normalized * 20f * Time.deltaTime;
-        //        }
-        //        else
-        //        {
-        //            transform.position = _destPos;
-        //        }
-        //        break;
-        //}
-    }
-
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Player") || collision.gameObject.layer == LayerMask.NameToLayer("Environment")) 
+        if ((_destPos - (Vector2)transform.position).magnitude > 11f * Time.deltaTime)
         {
-            target = collision.gameObject;
+            transform.position += ((Vector3)_destPos - transform.position).normalized * 11f * Time.deltaTime;
+        }
+        else
+        {
+            transform.position = _destPos;
         }
     }
 
-    public void OnTriggerExit2D(Collider2D collision)
+    public void Destroy()
     {
-        target = null;
+        StartCoroutine(CoDestroy());
     }
+
+    public IEnumerator CoDestroy()
+    {
+        _destPos = Pos;
+        yield return new WaitUntil(() => (_destPos - (Vector2)transform.position).magnitude < 0.5f);
+        Managers.Object.Remove(Id);
+    }
+
+    //public void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.layer == LayerMask.NameToLayer("Player") || collision.gameObject.layer == LayerMask.NameToLayer("Environment")) 
+    //    {
+    //        target = collision.gameObject;
+    //    }
+    //}
+
+    //public void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    target = null;
+    //}
 }

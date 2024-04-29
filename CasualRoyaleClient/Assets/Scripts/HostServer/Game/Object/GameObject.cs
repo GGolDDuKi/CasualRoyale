@@ -11,19 +11,11 @@ namespace HostServer.Game
 
 		public GameRoom Room { get; set; }
 
-		public BoxCollider2D Collider
+		public virtual BoxCollider2D Collider
 		{
 			get
 			{
-				switch (ObjectType)
-				{
-					case GameObjectType.Projectile:
-						return new BoxCollider2D(PosInfo.PosX, PosInfo.PosY, 0.1f, 0.1f);
-					case GameObjectType.Player:
-						return new BoxCollider2D(PosInfo.PosX, PosInfo.PosY, 1, 2);
-					default:
-						return new BoxCollider2D(PosInfo.PosX, PosInfo.PosY, 0, 0);
-				}
+				return new BoxCollider2D(PosInfo.PosX, PosInfo.PosY, 1, 2);
 			}
 		}
 
@@ -171,26 +163,22 @@ namespace HostServer.Game
 
 		}
 
-		//public Vector2 GetFrontPos()
-		//{
-		//	return GetFrontPos();
-		//}
+        public Vector2 GetFrontPos(Vector2 destPos, float speed)
+        {
+			Vector2 direction = destPos - Pos;
+			float distance = direction.magnitude;
 
-		//public Vector2 GetFrontPos(Vector2 dir)
-		//{
-		//	Vector2 pos = Pos;
+			if (distance <= speed)
+				return destPos;
 
-		//	if (ObjectType == GameObjectType.Projectile)
-		//	{
-		//		float newX = pos.x + dir.x * 2.5f;
-		//		float newY = pos.y + dir.y * 2.5f;
+			Vector2 normalizedDirection = direction / distance;
 
-		//		return new Vector2(newX, newY);
-		//	}
-		//	return pos;
-		//}
+			Vector2 newPos = Pos + normalizedDirection * speed;
 
-		public virtual void OnDamaged(GameObject attacker, float damage)
+			return newPos;
+		}
+
+        public virtual void OnDamaged(GameObject attacker, float damage)
 		{
 			if (Room == null)
 				return;

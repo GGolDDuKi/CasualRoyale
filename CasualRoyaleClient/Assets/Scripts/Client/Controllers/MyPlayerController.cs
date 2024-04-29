@@ -157,6 +157,12 @@ public class MyPlayerController : PlayerController
         if (canSkill[skillId] == false)
             return false;
 
+        if (!(State == ActionState.Idle || State == ActionState.Run))
+            return false;
+
+        if (State == ActionState.Dead)
+            return false;
+
         canSkill[skillId] = false;
 
         CH_UseSkill skillPacket = new CH_UseSkill();

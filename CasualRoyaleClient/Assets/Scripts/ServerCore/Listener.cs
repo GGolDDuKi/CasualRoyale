@@ -14,6 +14,7 @@ namespace ServerCore
 		public void Init(IPEndPoint endPoint, Func<Session> sessionFactory, int register = 10, int backlog = 100)
 		{
 			_listenSocket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+			_listenSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
 			_sessionFactory += sessionFactory;
 
 			//소켓 준비 작업
@@ -33,7 +34,11 @@ namespace ServerCore
 
 		public void CloseSocket()
         {
-			_listenSocket.Close();
+            if (_listenSocket.Connected)
+            {
+				_listenSocket.Shutdown(SocketShutdown.Both);
+				_listenSocket.Close();
+            }
         }
 
 		//소켓의 연결 시도를 등록

@@ -8,73 +8,6 @@ public class CreatureController : BaseController
 {
     #region Fields
 
-    public int Id { get; set; }
-
-    public string Name { get; set; }
-
-    #region PositionInfo PosInfo
-
-    PositionInfo _positionInfo = new PositionInfo();
-    public PositionInfo PosInfo
-    {
-        get { return _positionInfo; }
-        set
-        {
-            if (_positionInfo.Equals(value))
-                return;
-
-            State = value.State;
-            Pos = new Vector2(value.PosX, value.PosY);
-            LastDir = new Vector2(value.LastDirX, value.LastDirY);
-        }
-    }
-
-    //캐릭터 상태
-    public ActionState State
-    {
-        get { return PosInfo.State; }
-        set
-        {
-            if (PosInfo.State == value)
-                return;
-
-            PosInfo.State = value;
-            _updated = true;
-        }
-    }
-
-    //캐릭터 위치
-    public Vector2 Pos
-    {
-        get { return new Vector2(PosInfo.PosX, PosInfo.PosY); }
-        set
-        {
-            if (PosInfo.PosX == value.x && PosInfo.PosY == value.y)
-                return;
-
-            PosInfo.PosX = value.x;
-            PosInfo.PosY = value.y;
-            _updated = true;
-        }
-    }
-
-    //캐릭터가 마지막으로 바라본 방향
-    public Vector2 LastDir
-    {
-        get { return new Vector2(PosInfo.LastDirX, PosInfo.LastDirY); }
-        set
-        {
-            if (PosInfo.LastDirX == value.x && PosInfo.LastDirY == value.y)
-                return;
-
-            PosInfo.LastDirX = value.x;
-            PosInfo.LastDirY = value.y;
-            _updated = true;
-        }
-    }
-
-    #endregion
-
     #region StatInfo StatInfo
 
     StatInfo _stat = new StatInfo();
@@ -133,10 +66,9 @@ public class CreatureController : BaseController
     #endregion
 
     protected bool _flipX = false;  //false면 Left, true면 Right
-    protected Vector2 _destPos = Vector2.zero;
-    protected bool _updated = false;
     protected Animator _animator;
     protected List<AnimationClip> _animationClips = new List<AnimationClip>();
+    protected AudioSource _audioSource;
     public string _skillName;
     public HpBar _hpBar;
     public Ghost _ghost;
@@ -171,6 +103,7 @@ public class CreatureController : BaseController
         _directionY = DirectionY.Front;
         _animator = GetComponent<Animator>();
         _animationClips.AddRange(_animator.runtimeAnimatorController.animationClips);
+        _audioSource = GetComponent<AudioSource>();
         _hpBar = Managers.UI.GenerateHpBar(this);
         _hpBar.SetHpBar(Hp, MaxHp);
         _ghost = GetComponent<Ghost>();
@@ -306,16 +239,32 @@ public class CreatureController : BaseController
 
     void SkillEffect(int skillId)
     {
+        Vector2 skillPos;
+
         switch (Managers.Data.SkillData[skillId].SkillType)
         {
             case "Immediate":
-                Vector2 skillPos = (Vector2)transform.position + LastDir * Managers.Data.SkillData[skillId].Range;
+                skillPos = (Vector2)transform.position + LastDir * Managers.Data.SkillData[skillId].Range;
                 GameObject go = Managers.Resource.Instantiate("Effect/Skill");
                 go.transform.position = skillPos;
-                go.GetComponent<SkillEffect>().SetSkill(Id, skillId, LastDir);
+                go.GetComponent<SkillEffect>().SetSkill(Id, skillId, Managers.Data.SkillData[skillId].SkillType, LastDir);
                 break;
 
             case "Projectile":
+                if(GetComponent<MyPlayerController>() != null)
+                {
+                    skillPos = (Vector2)transform.position + LastDir * 1;
+
+                    CH_SkillEffect effectPacket = new CH_SkillEffect();
+                    PositionInfo posInfo = new PositionInfo();
+                    effectPacket.SkillId = skillId;
+                    effectPacket.PosInfo = posInfo;
+                    effectPacket.PosInfo.PosX = skillPos.x;
+                    effectPacket.PosInfo.PosY = skillPos.y;
+                    effectPacket.PosInfo.LastDirX = LastDir.x;
+                    effectPacket.PosInfo.LastDirY = LastDir.y;
+                    Managers.Network.H_Send(effectPacket);
+                }
                 break;
         }
     }
@@ -354,6 +303,11 @@ public class CreatureController : BaseController
                 }
                 break;
         }
+    }
+
+    void FootStepSound()
+    {
+        Managers.Sound.Play(_audioSource, "Sounds/SFX/FootStep", Define.Sound.Effect, 1.5f);
     }
 
     protected virtual void UpdateAnimation()
@@ -446,11 +400,5 @@ public class CreatureController : BaseController
             transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             _flipX = false;
         }
-    }
-
-    public void Sync()
-    {
-        Vector3 _destPos = Pos;
-        transform.position = _destPos;
     }
 }

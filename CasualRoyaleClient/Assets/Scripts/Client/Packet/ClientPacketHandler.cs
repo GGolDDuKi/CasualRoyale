@@ -36,9 +36,17 @@ namespace Client
         public static void HC_DespawnHandler(PacketSession session, IMessage packet)
         {
             HC_Despawn despawnPacket = packet as HC_Despawn;
+
             foreach (int id in despawnPacket.ObjectIds)
             {
-                Managers.Object.Remove(id);
+                GameObjectType objectType = ObjectManager.GetObjectTypeById(id);
+                if(objectType == GameObjectType.Projectile)
+                {
+                    GameObject go = Managers.Object.FindById(id);
+                    go.GetComponent<ProjectileController>().Destroy();
+                }
+                else
+                    Managers.Object.Remove(id);
             }
         }
 
@@ -53,11 +61,11 @@ namespace Client
             if (Managers.Object.MyPlayer.Id == movePacket.ObjectId)
                 return;
 
-            CreatureController cc = go.GetComponent<CreatureController>();
-            if (cc == null)
+            BaseController bc = go.GetComponent<BaseController>();
+            if (bc == null)
                 return;
 
-            cc.PosInfo = movePacket.PosInfo;
+            bc.PosInfo = movePacket.PosInfo;
         }
 
         public static void SC_RejectLoginHandler(PacketSession session, IMessage packet)
@@ -140,11 +148,12 @@ namespace Client
             }
         }
 
-        public static void HC_RequestClassHandler(PacketSession session, IMessage packet)
+        public static void HC_RequestInfoHandler(PacketSession session, IMessage packet)
         {
-            CH_SendClass classPacket = new CH_SendClass();
-            classPacket.Job = Managers.User.Job;
-            Managers.Network.H_Send(classPacket);
+            CH_SendInfo infoPacket = new CH_SendInfo();
+            infoPacket.Job = Managers.User.Job;
+            infoPacket.Name = Managers.User.Name;
+            Managers.Network.H_Send(infoPacket);
         }
 
         public static void HC_MissingHostHandler(PacketSession session, IMessage packet)

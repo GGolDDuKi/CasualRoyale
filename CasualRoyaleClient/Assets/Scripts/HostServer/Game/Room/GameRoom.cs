@@ -90,6 +90,7 @@ namespace HostServer.Game
 				projectile.Room = this;
 
 				Map.ApplyMove(projectile, new Vector2(projectile.Pos.x, projectile.Pos.y));
+				//projectile.MoveAndCheckCollision(projectile.DestPos);
 			}
 
 			// 타인한테 정보 전송

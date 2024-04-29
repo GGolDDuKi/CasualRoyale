@@ -44,7 +44,7 @@ namespace ServerCore
 	public abstract class Session
 	{
 		Socket _socket;
-		int _disconnected = 0;
+		protected int _disconnected = 0;
 
 		RecvBuffer _recvBuffer = new RecvBuffer(65535);
 
@@ -103,7 +103,7 @@ namespace ServerCore
 			}
 		}
 
-		public void Disconnect()
+		public virtual void Disconnect()
 		{
 			if (Interlocked.Exchange(ref _disconnected, 1) == 1)
 				return;

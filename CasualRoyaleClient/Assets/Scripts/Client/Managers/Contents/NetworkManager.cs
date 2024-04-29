@@ -13,7 +13,6 @@ public class NetworkManager
 	ServerSession _hostSession = new ServerSession();
 
 	Listener _listener = new Listener();
-	AsyncConnector _connector = new AsyncConnector();
 
 	public void S_Send(IMessage packet)
 	{
@@ -50,12 +49,9 @@ public class NetworkManager
 
 	public void Clear()
     {
-		if(_hostSession != null)
-        {
-			_hostSession.Disconnect();
-			_hostSession = null;
-		}
-    }
+		_hostSession.Disconnect();
+		_hostSession = null;
+	}
 
 	public void Listen(string ip = null, int port = 7778)
 	{
@@ -67,6 +63,7 @@ public class NetworkManager
 
 	public async Task ConnectAsync(string publicIp, string privateIp, int port = 7778, int timeout = 5000)
 	{
+		AsyncConnector _connector = new AsyncConnector();
 		CancellationTokenSource cts = new CancellationTokenSource();
 		cts.CancelAfter(timeout);
 

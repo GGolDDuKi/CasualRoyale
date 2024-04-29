@@ -2,7 +2,6 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using UnityEngine;
 
 namespace ServerCore
 {
@@ -16,6 +15,7 @@ namespace ServerCore
 			for (int i = 0; i < count; i++)
 			{
 				Socket socket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+				socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
 				_sessionFactory = sessionFactory;
 
 				SocketAsyncEventArgs args = new SocketAsyncEventArgs();
@@ -56,7 +56,7 @@ namespace ServerCore
 			}
 			else
 			{
-				Debug.Log($"OnConnectCompleted Fail: {args.SocketError}");
+				//Debug.Log($"OnConnectCompleted Fail: {args.SocketError}");
 			}
 		}
 	}

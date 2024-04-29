@@ -35,8 +35,10 @@ namespace Host
 			_handler.Add((ushort)MsgId.ShConnectClient, PacketHandler.SH_ConnectClientHandler);
 			_onRecv.Add((ushort)MsgId.ChUseSkill, MakePacket<CH_UseSkill>);
 			_handler.Add((ushort)MsgId.ChUseSkill, PacketHandler.CH_UseSkillHandler);
-			_onRecv.Add((ushort)MsgId.ChSendClass, MakePacket<CH_SendClass>);
-			_handler.Add((ushort)MsgId.ChSendClass, PacketHandler.CH_SendClassHandler);
+			_onRecv.Add((ushort)MsgId.ChSendInfo, MakePacket<CH_SendInfo>);
+			_handler.Add((ushort)MsgId.ChSendInfo, PacketHandler.CH_SendInfoHandler);
+			_onRecv.Add((ushort)MsgId.ChSkillEffect, MakePacket<CH_SkillEffect>);
+			_handler.Add((ushort)MsgId.ChSkillEffect, PacketHandler.CH_SkillEffectHandler);
 			_onRecv.Add((ushort)MsgId.ChSkillDamage, MakePacket<CH_SkillDamage>);
 			_handler.Add((ushort)MsgId.ChSkillDamage, PacketHandler.CH_SkillDamageHandler);
 		}

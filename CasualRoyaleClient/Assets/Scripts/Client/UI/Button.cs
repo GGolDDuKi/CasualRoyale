@@ -4,6 +4,6 @@ public class Button : MonoBehaviour
 {
     public virtual void OnClick()
     {
-        Managers.Sound.Play("Sounds/UI/Button");
+        Managers.Sound.Play("Sounds/SFX/UI/Button");
     }
 }

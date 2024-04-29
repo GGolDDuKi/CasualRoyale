@@ -70,18 +70,17 @@ public class ObjectManager
 		}
         else if (objectType == GameObjectType.Projectile)
         {
-			//GameObject go = Managers.Resource.Instantiate("Bullets/HandgunBullet");
-			//go.name = "HandgunBullet";
+            GameObject go = Managers.Resource.Instantiate("Effect/Projectile");
 
-			//BulletController bc = go.GetComponent<BulletController>();
-			//bc.Id = info.ObjectId;
-			//bc.PosInfo = info.PosInfo;
-			//bc.StatInfo = info.StatInfo;
+            ProjectileController pc = go.GetComponent<ProjectileController>();
+			pc.Name = info.Name;
+			pc.Id = info.ObjectId;
+			pc.PosInfo = info.PosInfo;
+			go.GetComponent<SkillEffect>().SetSkill(pc.Name, pc.LastDir);
 
-			//_objects.Add(info.ObjectId, go);
-			//bc.Sync();
-			//break;
-		}
+			_objects.Add(info.ObjectId, go);
+			pc.Sync();
+        }
     }
 
 	public void Remove(int id)

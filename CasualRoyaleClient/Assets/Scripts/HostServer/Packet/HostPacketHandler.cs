@@ -4,10 +4,6 @@ using HostServer;
 using HostServer.Game;
 using ServerCore;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Host
 {
@@ -55,6 +51,36 @@ namespace Host
             go.GetComponent<HostPlayer>().Connect(connectPacket.PublicIp, connectPacket.PrivateIp);
         }
 
+        public static void CH_SkillEffectHandler(PacketSession session, IMessage packet)
+        {
+            CH_SkillEffect effectPacket = packet as CH_SkillEffect;
+            ClientSession clientSession = session as ClientSession;
+
+            Player player = clientSession.MyPlayer;
+            if (player == null)
+                return;
+
+            GameRoom room = player.Room;
+            if (room == null)
+                return;
+
+            Projectile projectile = HostServer.Game.ObjectManager.Instance.Add<Projectile>();
+            {
+                projectile.Owner = player;
+                projectile.SkillId = effectPacket.SkillId;
+                projectile.PosInfo.PosX = effectPacket.PosInfo.PosX;
+                projectile.PosInfo.PosY = effectPacket.PosInfo.PosY;
+                projectile.PosInfo.LastDirX = effectPacket.PosInfo.LastDirX;
+                projectile.PosInfo.LastDirY = effectPacket.PosInfo.LastDirY;
+                projectile.StartPos = projectile.Pos;
+                projectile.DestPos = projectile.Pos + (projectile.LastDir * Managers.Data.SkillData[projectile.SkillId].Range);
+                projectile.Name = Managers.Data.SkillData[projectile.SkillId].SkillName;
+                projectile.Room = room;
+            }
+
+            room.Push(room.EnterGame, projectile);
+        }
+
         public static void CH_SkillDamageHandler(PacketSession session, IMessage packet)
         {
             CH_SkillDamage damagePacket = packet as CH_SkillDamage;
@@ -71,9 +97,9 @@ namespace Host
             room.Push(room.HandleSkillDamage, player, damagePacket);
         }
 
-        public static void CH_SendClassHandler(PacketSession session, IMessage packet)
+        public static void CH_SendInfoHandler(PacketSession session, IMessage packet)
         {
-            CH_SendClass classPacket = packet as CH_SendClass;
+            CH_SendInfo infoPacket = packet as CH_SendInfo;
             ClientSession clientSession = session as ClientSession;
             
             Player player = clientSession.MyPlayer;
@@ -85,9 +111,9 @@ namespace Host
                 return;
 
             {
-                player.Class = classPacket.Job;
+                player.Class = infoPacket.Job;
 
-                player.Info.Name = $"Player_{player.Info.ObjectId}";
+                player.Info.Name = $"{infoPacket.Name}";
                 player.Info.PosInfo.State = ActionState.Idle;
                 player.Info.PosInfo.PosX = 0;
                 player.Info.PosInfo.PosY = 0;

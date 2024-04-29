@@ -63,8 +63,8 @@ namespace Client
 			_handler.Add((ushort)MsgId.HcMissingHost, PacketHandler.HC_MissingHostHandler);
 			_onRecv.Add((ushort)MsgId.HcUseSkill, MakePacket<HC_UseSkill>);
 			_handler.Add((ushort)MsgId.HcUseSkill, PacketHandler.HC_UseSkillHandler);
-			_onRecv.Add((ushort)MsgId.HcRequestClass, MakePacket<HC_RequestClass>);
-			_handler.Add((ushort)MsgId.HcRequestClass, PacketHandler.HC_RequestClassHandler);
+			_onRecv.Add((ushort)MsgId.HcRequestInfo, MakePacket<HC_RequestInfo>);
+			_handler.Add((ushort)MsgId.HcRequestInfo, PacketHandler.HC_RequestInfoHandler);
 		}
 
 		public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

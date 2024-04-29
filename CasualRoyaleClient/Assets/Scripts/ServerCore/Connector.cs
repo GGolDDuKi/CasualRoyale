@@ -17,6 +17,7 @@ namespace ServerCore
 			{
 				// 휴대폰 설정
 				Socket socket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+				socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
 				_sessionFactory = sessionFactory;
 
 				SocketAsyncEventArgs args = new SocketAsyncEventArgs();

@@ -51,4 +51,10 @@ public class ServerSession : PacketSession
 			return "";
 		return input[0] + input[1].ToString().ToLower() + input.Substring(2);
 	}
+
+    public override void Disconnect()
+    {
+        base.Disconnect();
+		_disconnected = 0;
+    }
 }
