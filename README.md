@@ -1,2 +1,2 @@
-# CasualRoyale
+# PixelSquad
  
