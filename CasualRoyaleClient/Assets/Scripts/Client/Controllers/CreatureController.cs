@@ -87,7 +87,7 @@ public class CreatureController : BaseController
     }
     protected DirectionY _directionY;
 
-    Coroutine _coroutine;
+    protected Coroutine _coroutine;
 
     #endregion
 
@@ -116,9 +116,11 @@ public class CreatureController : BaseController
         UpdateHpBar();
     }
 
-    public void Attack()
+    public virtual bool Attack()
     {
         _coroutine = StartCoroutine(CoAttack());
+
+        return true;
     }
 
     protected virtual IEnumerator CoAttack()

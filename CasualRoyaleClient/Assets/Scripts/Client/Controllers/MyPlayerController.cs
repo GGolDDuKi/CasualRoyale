@@ -9,8 +9,8 @@ public class MyPlayerController : PlayerController
 
     [SerializeField] VirtualJoystick _moveJoystick;
 
-    private bool canDash = true;
-    private bool canAttack = true;
+    private bool _canDash = true;
+    private bool _canAttack = true;
     private Dictionary<int, bool> canSkill = new Dictionary<int, bool>();
 
     #endregion
@@ -66,15 +66,27 @@ public class MyPlayerController : PlayerController
         CheckUpdatedFlag();
     }
 
+    public override bool Attack()
+    {
+        if (_canAttack == false)
+            return false;
+
+        if (!(State == ActionState.Idle || State == ActionState.Run))
+            return false;
+
+        _coroutine = StartCoroutine(CoAttack());
+        return true;
+    }
+
     protected override IEnumerator CoAttack()
     {
         if (!(State == ActionState.Idle || State == ActionState.Run))
             yield break;
 
-        if (canAttack == false || LastDir == Vector2.zero)
+        if (_canAttack == false || LastDir == Vector2.zero)
             yield break;
 
-        canAttack = false;
+        _canAttack = false;
         float time = 0;
 
         foreach (var anim in _animationClips)
@@ -95,15 +107,24 @@ public class MyPlayerController : PlayerController
         StartCoroutine(CoAttackCooldown());
     }
 
+    public bool Dash()
+    {
+        if (_canDash == false)
+            return false;
+
+        if ((_moveJoystick._handleDir == Vector2.zero && LastDir == Vector2.zero))
+            return false;
+
+        if (!(State == ActionState.Idle || State == ActionState.Run))
+            return false;
+
+        _coroutine = StartCoroutine(CoDash());
+        return true;
+    }
+
     public IEnumerator CoDash()
     {
-        if (!(State == ActionState.Idle || State == ActionState.Run))
-            yield break;
-
-        if ((_moveJoystick._handleDir == Vector2.zero && LastDir == Vector2.zero) || canDash == false)
-            yield break;
-
-        canDash = false;
+        _canDash = false;
         Vector2 dir;
 
         if (_moveJoystick._handleDir == Vector2.zero)
@@ -160,9 +181,6 @@ public class MyPlayerController : PlayerController
         if (!(State == ActionState.Idle || State == ActionState.Run))
             return false;
 
-        if (State == ActionState.Dead)
-            return false;
-
         canSkill[skillId] = false;
 
         CH_UseSkill skillPacket = new CH_UseSkill();
@@ -180,16 +198,16 @@ public class MyPlayerController : PlayerController
         go.GetComponent<GameEnd>().Exit();
     }
 
-    IEnumerator CoAttackCooldown(float delay = 0.5f)
+    IEnumerator CoAttackCooldown()
     {
-        yield return new WaitForSeconds(delay);
-        canAttack = true;
+        yield return new WaitForSeconds(Managers.Data.ClassData[Class.ToString()].AttackDelay);
+        _canAttack = true;
     }
 
-    IEnumerator CoDashCooldown(float delay = 1.0f)
+    IEnumerator CoDashCooldown()
     {
-        yield return new WaitForSeconds(delay);
-        canDash = true;
+        yield return new WaitForSeconds(Managers.Data.ClassData[Class.ToString()].DashCooldown);
+        _canDash = true;
     }
 
     IEnumerator CoSkillCooldown(int skillId, float delay)

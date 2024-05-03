@@ -65,6 +65,8 @@ namespace Client
 			_handler.Add((ushort)MsgId.HcUseSkill, PacketHandler.HC_UseSkillHandler);
 			_onRecv.Add((ushort)MsgId.HcRequestInfo, MakePacket<HC_RequestInfo>);
 			_handler.Add((ushort)MsgId.HcRequestInfo, PacketHandler.HC_RequestInfoHandler);
+			_onRecv.Add((ushort)MsgId.HcHostDisconnect, MakePacket<HC_HostDisconnect>);
+			_handler.Add((ushort)MsgId.HcHostDisconnect, PacketHandler.HC_HostDisconnectHandler);
 		}
 
 		public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

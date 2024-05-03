@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Google.Protobuf.Protocol;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -47,13 +48,30 @@ namespace HostServer
 			}
 		}
 
+		public void DisconnectSession(int sessionId)
+        {
+			lock(_lock)
+            {
+				Dictionary<int, ClientSession> sessions = new Dictionary<int, ClientSession>(_sessions);
+				ClientSession session;
+				if (sessions.TryGetValue(sessionId, out session))
+                {
+					HC_HostDisconnect packet = new HC_HostDisconnect();
+					session.Send(packet);
+					session.Disconnect();
+                }
+			}
+		}
+
 		public void Clear()
         {
             lock (_lock)
             {
-				Dictionary<int, ClientSession> sessions = _sessions;
+				Dictionary<int, ClientSession> sessions = new Dictionary<int, ClientSession>(_sessions);
+				HC_HostDisconnect disconnectPacket = new HC_HostDisconnect();
 				foreach (ClientSession session in sessions.Values)
 				{
+					session.Send(disconnectPacket);
 					session.Disconnect();
 				}
 				sessions.Clear();

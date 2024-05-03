@@ -7,11 +7,24 @@ using System.Text;
 
 namespace Server
 {
+	public enum UserState
+	{
+		None,
+		Lobby,
+		Game
+	}
+
 	public class Lobby : JobSerializer
 	{
 		public int LobbyId { get; set; }
 
 		//TODO : 로비 유저랑 인게임 유저 분리해서 관리하면 좋을 듯?
+		Dictionary<int, User> _lobbyUsers = new Dictionary<int, User>();
+		public Dictionary<int, User> LobbyUsers { get { return _lobbyUsers; } }
+
+		Dictionary<int, User> _gameUsers = new Dictionary<int, User>();
+		public Dictionary<int, User> GameUsers { get { return _gameUsers; } }
+
 		Dictionary<int, User> _users = new Dictionary<int, User>();
 		public Dictionary<int, User> Users { get { return _users; } }
 
@@ -27,7 +40,7 @@ namespace Server
 
 		public void Update()
 		{
-            //Flush();
+            Flush();
         }
 
 		public void AddUser(User user)
@@ -61,8 +74,9 @@ namespace Server
 			user.Session.Send(acceptPacket);
 			Console.WriteLine($"{acceptPacket.UserInfo.Name} 로그인");
 
-			UpdateRoomList(newUser);
+			_lobbyUsers.Add(user.Id, user);
 
+			UpdateRoomList(newUser);
 		}
 
 		public void LeaveLobby(int objectId)
@@ -100,7 +114,7 @@ namespace Server
 			}
 
 			if (user == null)
-				Broadcast(roomList);
+				Broadcast(roomList, UserState.Lobby);
 			else
 				user.Session.Send(roomList);
 		}
@@ -129,6 +143,15 @@ namespace Server
 			user.Session.Send(acceptPacket);
 			Console.WriteLine($"{user.Name}님이 [{room.Name}]방 생성");
 
+			UpdateRoomList();
+		}
+
+		public void RemoveRoom(User user, HS_EndGame packet)
+		{
+			if (!_rooms.ContainsKey(packet.Room.RoomId))
+				return;
+
+			_rooms.Remove(packet.Room.RoomId);
 			UpdateRoomList();
 		}
 
@@ -177,6 +200,34 @@ namespace Server
 			UpdateRoomList();
         }
 
+		public void ChangeUserState(User user, UserState state = UserState.Lobby)
+        {
+            switch (state)
+            {
+				case UserState.Lobby:
+					{
+						User target;
+						if (_gameUsers.TryGetValue(user.Id, out target))
+						{
+							_gameUsers.Remove(user.Id);
+							_lobbyUsers.Add(user.Id, target);
+						}
+					}
+					break;
+
+				case UserState.Game:
+                    {
+						User target;
+						if (_lobbyUsers.TryGetValue(user.Id, out target))
+						{
+							_lobbyUsers.Remove(user.Id);
+							_gameUsers.Add(user.Id, target);
+						}
+					}
+					break;
+            }
+        }
+
 		public User FindPlayer(Func<User, bool> condition)
 		{
 			foreach (User user in _users.Values)
@@ -188,12 +239,30 @@ namespace Server
 			return null;
 		}
 
-		public void Broadcast(IMessage packet)
+		public void Broadcast(IMessage packet, UserState state = UserState.None)
 		{
-			foreach (User p in _users.Values)
-			{
-				p.Session.Send(packet);
+            switch (state)
+            {
+				case UserState.None:
+					foreach (User p in _users.Values)
+					{
+						p.Session.Send(packet);
+					}
+					break;
+				case UserState.Lobby:
+					foreach (User p in _lobbyUsers.Values)
+					{
+						p.Session.Send(packet);
+					}
+					break;
+				case UserState.Game:
+					foreach (User p in _gameUsers.Values)
+					{
+						p.Session.Send(packet);
+					}
+					break;
 			}
+			
 		}
 	}
 }

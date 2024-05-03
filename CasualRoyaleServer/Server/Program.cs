@@ -11,7 +11,7 @@ namespace Server
 		static Listener _listener = new Listener();
 		static List<System.Timers.Timer> _timers = new List<System.Timers.Timer>();
 
-		static void TickLobby(Lobby lobby, int tick = 100)
+		static void TickLobby(Lobby lobby, int tick = 1000)
 		{
 			var timer = new System.Timers.Timer();
 			timer.Interval = tick;
@@ -25,10 +25,10 @@ namespace Server
 		static void Main(string[] args)
 		{
 			Lobby lobby = LobbyManager.Instance.Add();
-			//TickLobby(lobby, 50)
+			TickLobby(lobby, 50);
 
-			// DNS (Domain Name System)
-			string host = Dns.GetHostName();
+            // DNS (Domain Name System)
+            string host = Dns.GetHostName();
             IPHostEntry ipHost = Dns.GetHostEntry(host);
 			
 			IPAddress ipAddr = IPAddress.Parse("0.0.0.0");

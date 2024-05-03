@@ -75,5 +75,6 @@ public class Managers : MonoBehaviour
         Scene.Clear();
         Pool.Clear();
         Sound.Clear();
+        Room.Clear();
     }
 }

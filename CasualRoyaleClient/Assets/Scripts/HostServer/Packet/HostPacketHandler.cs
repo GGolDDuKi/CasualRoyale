@@ -147,7 +147,13 @@ namespace Host
 
         public static void CH_ExitRoomHandler(PacketSession session, IMessage packet)
         {
-            throw new NotImplementedException();
+            ClientSession clientSession = session as ClientSession;
+
+            Player player = clientSession.MyPlayer;
+            if (player == null)
+                return;
+
+            SessionManager.Instance.DisconnectSession(clientSession.SessionId);
         }
     }
 }

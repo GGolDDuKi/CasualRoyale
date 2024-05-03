@@ -22,12 +22,22 @@ public class ExitToLobbyButton : Button
             HC_MissingHost missingHost = new HC_MissingHost();
             missingHost.HostId = Managers.Object.MyPlayer.Id;
             host.GetComponent<HostPlayer>().room.Broadcast(missingHost);
+            HS_EndGame endPacket = new HS_EndGame();
+            endPacket.Room = Managers.Room.MyRoom;
+            Managers.Network.S_Send(endPacket);
             yield return new WaitUntil(() => host.GetComponent<HostPlayer>().Clear());
         }
-        Managers.Object.Clear();
-        Managers.Network.Clear();
-        //Managers.Game.Host = false;
+        else
+        {
+            CH_ExitRoom exitPacket = new CH_ExitRoom();
+            exitPacket.Player = Managers.User.Info;
+            Managers.Network.H_Send(exitPacket);
+        }
 
+        Managers.Object.Clear();
+        CS_EndGame packet = new CS_EndGame();
+        Managers.Network.S_Send(packet);
+        Managers.Game.InGame = false;
         Managers.Scene.LoadScene(Define.Scene.Lobby);
     }
 }

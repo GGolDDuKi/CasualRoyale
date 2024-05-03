@@ -13,20 +13,6 @@ public class ObjectManager
 	List<GameObject> _players = new List<GameObject>();
 	public List<GameObject> Players { get { return _players; } }
 
-    //public Dictionary<int, BulletController> Projectiles
-    //{
-    //    get
-    //    {
-    //        Dictionary<int, BulletController> _bullets = new Dictionary<int, BulletController>();
-    //        foreach (var obj in _objects.Values)
-    //        {
-    //            if (obj.GetComponent<BulletController>() != null)
-    //                _bullets.Add(obj.GetComponent<BulletController>().Id, obj.GetComponent<BulletController>());
-    //        }
-    //        return _bullets;
-    //    }
-    //}
-
     public static GameObjectType GetObjectTypeById(int id)
 	{
 		int type = (id >> 24) & 0x7F;
@@ -52,6 +38,11 @@ public class ObjectManager
                 MyPlayer.PosInfo = info.PosInfo;
                 MyPlayer.StatInfo = info.StatInfo;
                 MyPlayer.Sync();
+
+				Managers.Game.InGame = true;
+				CS_StartGame startPacket = new CS_StartGame();
+				Managers.Network.S_Send(startPacket);
+				Managers.Room.Clear();
             }
 			else
 			{

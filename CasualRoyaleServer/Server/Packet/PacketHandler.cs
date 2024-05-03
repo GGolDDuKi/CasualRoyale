@@ -15,7 +15,18 @@ class PacketHandler
 
     public static void HS_EndGameHandler(PacketSession session, IMessage packet)
     {
-        throw new NotImplementedException();
+        HS_EndGame endPacket = packet as HS_EndGame;
+        ClientSession clientSession = session as ClientSession;
+
+        User user = clientSession.MyUser;
+        if (user == null)
+            return;
+
+        Lobby lobby = user.Lobby;
+        if (lobby == null)
+            return;
+
+        lobby.Push(lobby.RemoveRoom, user, endPacket);
     }
 
     public static void CS_LoginHandler(PacketSession session, IMessage packet)
@@ -32,7 +43,6 @@ class PacketHandler
             return;
 
         lobby.Push(lobby.EnterLobby, user, loginPacket);
-        lobby.Flush();
     }
 
     public static void CS_EnterRoomHandler(PacketSession session, IMessage packet)
@@ -49,7 +59,6 @@ class PacketHandler
             return;
 
         lobby.Push(lobby.EnterRoom, user, enterPacket);
-        lobby.Flush();
     }
 
     public static void CS_MakeRoomHandler(PacketSession session, IMessage packet)
@@ -67,7 +76,38 @@ class PacketHandler
             return;
 
         lobby.Push(lobby.AddRoom, user, roomPacket);
-        lobby.Flush();
+    }
+
+    public static void CS_EndGameHandler(PacketSession session, IMessage packet)
+    {
+        CS_EndGame updatePacket = packet as CS_EndGame;
+        ClientSession clientSession = session as ClientSession;
+
+        User user = clientSession.MyUser;
+        if (user == null)
+            return;
+
+        Lobby lobby = user.Lobby;
+        if (lobby == null)
+            return;
+
+        lobby.Push(lobby.ChangeUserState, user, UserState.Lobby);
+    }
+
+    public static void CS_StartGameHandler(PacketSession session, IMessage packet)
+    {
+        CS_StartGame updatePacket = packet as CS_StartGame;
+        ClientSession clientSession = session as ClientSession;
+
+        User user = clientSession.MyUser;
+        if (user == null)
+            return;
+
+        Lobby lobby = user.Lobby;
+        if (lobby == null)
+            return;
+
+        lobby.Push(lobby.ChangeUserState, user, UserState.Game);
     }
 
     public static void HS_UpdateRoomHandler(PacketSession session, IMessage packet)
@@ -84,6 +124,5 @@ class PacketHandler
             return;
 
         lobby.Push(lobby.UpdateRoom, updatePacket);
-        lobby.Flush();
     }
 }

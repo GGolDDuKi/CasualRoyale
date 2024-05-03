@@ -50,6 +50,8 @@ public class Define
         public float MaxHp { get; set; }
         public float Speed { get; set; }
         public float Damage { get; set; }
+        public float AttackDelay { get; set; }
+        public float DashCooldown { get; set; }
         public int FirstSkillId { get; set; }
         public int SecondSkillId { get; set; }
     }

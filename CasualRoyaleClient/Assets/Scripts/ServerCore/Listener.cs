@@ -17,11 +17,7 @@ namespace ServerCore
 			_listenSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
 			_sessionFactory += sessionFactory;
 
-			//소켓 준비 작업
 			_listenSocket.Bind(endPoint);
-
-			// 영업 시작
-			// backlog : 최대 대기수
 			_listenSocket.Listen(backlog);
 
 			for (int i = 0; i < register; i++)
@@ -34,11 +30,11 @@ namespace ServerCore
 
 		public void CloseSocket()
         {
-            if (_listenSocket.Connected)
-            {
-				_listenSocket.Shutdown(SocketShutdown.Both);
 				_listenSocket.Close();
-            }
+    //        if (_listenSocket.Connected)
+    //        {
+				//_listenSocket.Shutdown(SocketShutdown.Both);
+    //        }
         }
 
 		//소켓의 연결 시도를 등록

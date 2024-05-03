@@ -279,24 +279,3 @@ namespace HostServer.Game
 		}
 	}
 }
-//switch (shootPacket.WeaponType)
-//{
-//	case WeaponType.Hg:
-//		{
-//			Bullet bullet = ObjectManager.Instance.Add<Bullet>();
-//			if (bullet == null)
-//				return;
-
-//			bullet.Owner = player;
-//			bullet.PosInfo.State = ActionState.Run;
-//			bullet.PosInfo.DirX = shootPacket.PosInfo.DirX;
-//			bullet.PosInfo.DirY = shootPacket.PosInfo.DirY;
-//			bullet.PosInfo.PosX = shootPacket.PosInfo.WeaponPosX;
-//			bullet.PosInfo.PosY = shootPacket.PosInfo.WeaponPosY;
-//			bullet.Speed = 20f;
-//			bullet.WeaponType = WeaponType.Hg;
-
-//			Push(EnterGame, bullet);
-//		}
-//		break;
-//}

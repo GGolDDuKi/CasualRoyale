@@ -68,6 +68,14 @@ namespace ServerCore
 			}
 		}
 
+		public bool CheckSocket()
+        {
+			if (_socket == null)
+				return false;
+			else
+				return true;
+        }
+
 		public void Start(Socket socket)
 		{
 			_socket = socket;
@@ -108,8 +116,8 @@ namespace ServerCore
 			if (Interlocked.Exchange(ref _disconnected, 1) == 1)
 				return;
 
-			OnDisconnected(_socket.RemoteEndPoint);
-			_socket.Shutdown(SocketShutdown.Both);
+            OnDisconnected(_socket.RemoteEndPoint);
+            _socket.Shutdown(SocketShutdown.Both);
 			_socket.Close();
 			Clear();
 		}

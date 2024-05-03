@@ -14,14 +14,12 @@ namespace Client
         {
             HC_EnterGame enterGamePacket = packet as HC_EnterGame;
             Managers.Object.Add(enterGamePacket.Player, myPlayer: true);
-            Managers.Game.InGame = true;
         }
 
         public static void HC_LeaveGameHandler(PacketSession session, IMessage packet)
         {
             HC_LeaveGame leaveGameHandler = packet as HC_LeaveGame;
             Managers.Object.Clear();
-            Managers.Game.InGame = false;
         }
 
         public static void HC_SpawnHandler(PacketSession session, IMessage packet)
@@ -100,6 +98,9 @@ namespace Client
 
         public static void SC_RoomListHandler(PacketSession session, IMessage packet)
         {
+            if (Managers.Game.InGame == true)
+                return;
+
             SC_RoomList roomList = packet as SC_RoomList;
 
             //기존에 없던 방 추가, 없어진 방 삭제
@@ -113,7 +114,7 @@ namespace Client
                     else
                     {
                         Managers.Room.RoomInfo[room.RoomId] = room;
-                        Managers.Room.Room[room.RoomId].Init(room);
+                        Managers.Room.Room[room.RoomId].Init(Managers.Room.RoomInfo[room.RoomId]);
                     }
                 }
 
@@ -148,6 +149,15 @@ namespace Client
             }
         }
 
+        public static void HC_HostDisconnectHandler(PacketSession session, IMessage packet)
+        {
+            Managers.Network.Clear();
+            if(Managers.Scene.CurrentScene.SceneType == Define.Scene.Game && Managers.Game.InGame == true)
+            {
+                Managers.UI.GenerateUI("UI/MissingHost");
+            }
+        }
+
         public static void HC_RequestInfoHandler(PacketSession session, IMessage packet)
         {
             CH_SendInfo infoPacket = new CH_SendInfo();
@@ -158,6 +168,7 @@ namespace Client
 
         public static void HC_MissingHostHandler(PacketSession session, IMessage packet)
         {
+            Managers.Network.Clear();
             Managers.UI.GenerateUI("UI/MissingHost");
         }
 
@@ -200,7 +211,7 @@ namespace Client
             Managers.Scene.LoadScene(Define.Scene.Game);
 
             GameObject go = GameObject.Find("Host");
-            if(go == null)
+            if (go == null)
                 go = Managers.Resource.Instantiate("Host/Host");
             UnityEngine.Object.DontDestroyOnLoad(go);
 
@@ -214,7 +225,6 @@ namespace Client
             SC_AcceptEnter acceptPacket = packet as SC_AcceptEnter;
 
             Managers.Scene.LoadScene(Define.Scene.Game);
-            //TODD : 서버에서 보내준 호스트의 Ip로 연결시도
 
             Managers.Network.Connect(Managers.User.PublicIp, "127.0.0.1");
             //Managers.Network.Connect(acceptPacket.PublicIp, acceptPacket.PrivateIp);

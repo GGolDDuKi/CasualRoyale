@@ -39,6 +39,9 @@ enum MsgId {
   CH_SEND_INFO = 31;
   CH_SKILL_EFFECT = 32;
   CH_SKILL_DAMAGE = 33;
+  HC_HOST_DISCONNECT = 34;
+  CS_START_GAME = 35;
+  CS_END_GAME = 36;
 }
 
 enum ActionState {
@@ -224,6 +227,18 @@ message CH_SkillDamage{
   int32 skillId = 1;
   float posX = 2;
   float posY = 3;
+}
+
+message HC_HostDisconnect{
+  
+}
+
+message CS_StartGame{
+  
+}
+
+message CS_EndGame{
+  
 }
 
 message RoomInfo {

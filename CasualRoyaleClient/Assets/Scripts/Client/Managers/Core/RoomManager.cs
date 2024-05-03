@@ -24,12 +24,18 @@ public class RoomManager
         if (parent == null)
             return false;
 
+        List<int> removeRoom = new List<int>();
         foreach(Room room in Room.Values)
         {
             if (!RoomInfo.ContainsKey(room.RoomId))
             {
+                removeRoom.Add(room.RoomId);
                 Managers.Resource.Destroy(room.gameObject);
             }
+        }
+        foreach(int roomId in removeRoom)
+        {
+            Room.Remove(roomId);
         }
 
         foreach (RoomInfo room in RoomInfo.Values)
@@ -43,5 +49,11 @@ public class RoomManager
         }
 
         return true;
+    }
+
+    public void Clear()
+    {
+        RoomInfo.Clear();
+        Room.Clear();
     }
 }

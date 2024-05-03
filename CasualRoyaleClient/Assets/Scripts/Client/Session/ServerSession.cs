@@ -55,6 +55,6 @@ public class ServerSession : PacketSession
     public override void Disconnect()
     {
         base.Disconnect();
-		_disconnected = 0;
+		//_disconnected = 0;
     }
 }

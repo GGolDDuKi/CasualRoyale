@@ -17,14 +17,9 @@ class HostPlayer : MonoBehaviour
 
 	void Awake()
     {
-		room = HostServer.Game.RoomManager.Instance.Add();
-		TickRoom(room, 50);
-
-        // DNS (Domain Name System)
-
-        string host = Dns.GetHostName();
-        IPHostEntry ipHost = Dns.GetHostEntry(host);
-        //IPAddress ipAddr = IPAddress.Parse($"{ipHost.AddressList[1].ToString()}");
+		MakeRoom();
+        //string host = Dns.GetHostName();
+        //IPHostEntry ipHost = Dns.GetHostEntry(host);
         IPAddress ipAddr = IPAddress.Parse("0.0.0.0");
         IPEndPoint endPoint = new IPEndPoint(ipAddr, 7778);
 
@@ -32,13 +27,32 @@ class HostPlayer : MonoBehaviour
 		Debug.Log("Listening...");
 	}
 
+	void MakeRoom()
+    {
+		room = HostServer.Game.RoomManager.Instance.Add();
+		TickRoom(room, 50);
+	}
+
+	void RemoveRoom()
+    {
+		room = null;
+
+		foreach (var timer in _timers)
+		{
+			timer.Stop();
+			timer.Dispose();
+		}
+		_timers.Clear();
+	}
+
     public bool Clear()
     {
-        //SessionManager.Instance.Clear();
         _listener.CloseSocket();
-		this.transform.parent = Managers.Scene.CurrentScene.transform;
-		this.transform.SetParent(null);
-		Destroy(this.gameObject);
+        SessionManager.Instance.Clear();
+		RemoveRoom();
+        this.transform.parent = Managers.Scene.CurrentScene.transform;
+        this.transform.SetParent(null);
+        Destroy(this.gameObject);
 		return true;
     }
 
@@ -64,7 +78,7 @@ class HostPlayer : MonoBehaviour
 		}
 		catch (OperationCanceledException)
 		{
-			//일정시간 연결 안되면 예외
+			//일정시간 연결 안되면 종료
 			throw new TimeoutException("The operation has timed out.");
 		}
 	}
@@ -87,29 +101,6 @@ class HostPlayer : MonoBehaviour
 
 		_timers.Add(timer);
 	}
-
-    private void Update()
-    {
-   //     foreach(BulletController b in Managers.Object.Bullets.Values)
-   //     {
-			//if(b.target != null)
-   //         {
-			//	Player targetPlayer = room.Players[b.target.GetComponent<CreatureController>().Id];
-			//	Bullet bullet = room.Projectiles[b.Id] as Bullet;
-
-			//	foreach (Player p in room.Players.Values)
-			//	{
-			//		if (p.Id == targetPlayer.Id && p != bullet.Owner)
-			//		{
-   //                     HostServer.Game.GameObject target = p;
-			//			target.OnDamaged(bullet, bullet.Owner.StatInfo.Damage);
-			//			Debug.Log($"{bullet.Owner.Id}가 {p.Id}를 공격!");
-			//			room.Push(room.LeaveGame, bullet.Id);
-			//		}
-			//	}
-			//}
-   //     }
-    }
 }
 
 //IPAddress ipAddr = ipHost.AddressList[0];

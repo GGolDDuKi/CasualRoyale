@@ -11,8 +11,7 @@ public class NetworkManager
 {
 	ServerSession _session = new ServerSession();
 	ServerSession _hostSession = new ServerSession();
-
-	Listener _listener = new Listener();
+	public bool _host = false;
 
 	public void S_Send(IMessage packet)
 	{
@@ -21,12 +20,12 @@ public class NetworkManager
 
 	public void H_Send(IMessage packet)
 	{
-		_hostSession.Send(packet);
+        if (_hostSession.CheckSocket())
+			_hostSession.Send(packet);
 	}
 
 	public void Init(int port = 7777, string ip = null)
 	{
-		// DNS (Domain Name System)
 		IPAddress ipAddr;
 		if (ip == null)
 		{
@@ -45,23 +44,18 @@ public class NetworkManager
 		connector.Connect(endPoint,
 			() => { return _session; },
 			1);
+
+		//GameObject go = GameObject.Find("Host");
+		//go = Managers.Resource.Instantiate("Host/Host");
+		//UnityEngine.Object.DontDestroyOnLoad(go);
 	}
 
 	public void Clear()
     {
-		_hostSession.Disconnect();
-		_hostSession = null;
-	}
+        _hostSession = new ServerSession();
+    }
 
-	public void Listen(string ip = null, int port = 7778)
-	{
-		IPAddress ipAddr = IPAddress.Parse("0.0.0.0");
-		IPEndPoint endPoint = new IPEndPoint(ipAddr, port);
-
-		_listener.Init(endPoint, () => { return _hostSession; }, 5, 500);
-	}
-
-	public async Task ConnectAsync(string publicIp, string privateIp, int port = 7778, int timeout = 5000)
+    public async Task ConnectAsync(string publicIp, string privateIp, int port = 7778, int timeout = 5000)
 	{
 		AsyncConnector _connector = new AsyncConnector();
 		CancellationTokenSource cts = new CancellationTokenSource();
@@ -84,7 +78,6 @@ public class NetworkManager
 		}
 		catch (OperationCanceledException)
 		{
-			// 타임아웃 발생
 			throw new TimeoutException("The operation has timed out.");
 		}
 	}
