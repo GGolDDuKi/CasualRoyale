@@ -7,6 +7,7 @@ public class SkillEffect : MonoBehaviour
 {
     Animator _animator;
     List<AnimationClip> _animationClips = new List<AnimationClip>();
+    AudioSource _audioSource;
 
     int _userId;
     int _skillId;
@@ -21,6 +22,7 @@ public class SkillEffect : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _animationClips.AddRange(_animator.runtimeAnimatorController.animationClips);
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public void SetSkill(int userId, int skillId, string type, Vector2 lastDir)
@@ -71,6 +73,11 @@ public class SkillEffect : MonoBehaviour
         damagePacket.PosX = transform.position.x;
         damagePacket.PosY = transform.position.y;
         Managers.Network.H_Send(damagePacket);
+    }
+
+    void MakeSound(string path)
+    {
+        Managers.Sound.Play(_audioSource, $"Sounds/SFX/{path}", Define.Sound.Effect, 1.0f);
     }
 
     IEnumerator CoDuration(float time)

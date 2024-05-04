@@ -1,0 +1,395 @@
+Using pre-set license
+Built from '2022.3/staging' branch; Version is '2022.3.22f1 (887be4894c44) revision 8944612'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 11  (10.0.22631) 64bit Professional' Language: 'ko' Physical Memory: 15734 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2022.3.22f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker9
+-projectPath
+D:/Projects/PixelSquad/PixelSquadClient
+-logFile
+Logs/AssetImportWorker9.log
+-srvPort
+50845
+Successfully changed project path to: D:/Projects/PixelSquad/PixelSquadClient
+D:/Projects/PixelSquad/PixelSquadClient
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [45112] Host "[IP] 192.168.0.6 [Port] 0 [Flags] 2 [Guid] 2584490760 [EditorId] 2584490760 [Version] 1048832 [Id] WindowsEditor(7,MINUK) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [45112] Host "[IP] 192.168.0.6 [Port] 0 [Flags] 2 [Guid] 2584490760 [EditorId] 2584490760 [Version] 1048832 [Id] WindowsEditor(7,MINUK) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+[Physics::Module] Initialized MultithreadedJobDispatcher with 15 workers.
+Refreshing native plugins compatible for Editor in 45.44 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.3.22f1 (887be4894c44)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/Projects/PixelSquad/PixelSquadClient/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 3060 Laptop GPU (ID=0x2520)
+    Vendor:   NVIDIA
+    VRAM:     6010 MB
+    Driver:   31.0.15.4629
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56788
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll
+Registered in 0.040101 seconds.
+- Loaded All Assemblies, in  0.593 seconds
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Android Extension - Scanning For ADB Devices 4367 ms
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  4.871 seconds
+Domain Reload Profiling: 5454ms
+	BeginReloadAssembly (190ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (44ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (130ms)
+	LoadAllAssembliesAndSetupDomain (206ms)
+		LoadAssemblies (186ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (201ms)
+			TypeCache.Refresh (198ms)
+				TypeCache.ScanAssembly (179ms)
+			ScanForSourceGeneratedMonoScriptInfo (1ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (4872ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (4793ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (4546ms)
+			SetLoadedEditorAssemblies (6ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (3ms)
+			ProcessInitializeOnLoadAttributes (160ms)
+			ProcessInitializeOnLoadMethodAttributes (78ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+========================================================================
+Worker process is ready to serve import requests
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  1.159 seconds
+Refreshing native plugins compatible for Editor in 19.30 ms, found 4 plugins.
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Package Manager log level set to [2]
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.476 seconds
+Domain Reload Profiling: 2623ms
+	BeginReloadAssembly (205ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (6ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (27ms)
+	RebuildCommonClasses (36ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (55ms)
+	LoadAllAssembliesAndSetupDomain (840ms)
+		LoadAssemblies (697ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (274ms)
+			TypeCache.Refresh (230ms)
+				TypeCache.ScanAssembly (206ms)
+			ScanForSourceGeneratedMonoScriptInfo (31ms)
+			ResolveRequiredComponents (12ms)
+	FinalizeReload (1477ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1236ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (66ms)
+			SetLoadedEditorAssemblies (8ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (244ms)
+			ProcessInitializeOnLoadAttributes (798ms)
+			ProcessInitializeOnLoadMethodAttributes (95ms)
+			AfterProcessingInitializeOnLoad (25ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (25ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
+Refreshing native plugins compatible for Editor in 24.11 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5956 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 108 unused Assets / (0.5 MB). Loaded Objects now: 6438.
+Memory consumption went from 261.3 MB to 260.8 MB.
+Total: 5.553100 ms (FindLiveObjects: 0.452500 ms CreateObjectMapping: 0.258900 ms MarkObjects: 4.466500 ms  DeleteObjects: 0.373700 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/CFXR_Styles.cs: 14132385ef0a62dc85f08de4f5687ece -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleTextFontAsset.cs: 997a733798b2c803fc88cc92695e7ca4 -> 
+  custom:scripting/monoscript/fileName/CFXR_MaterialInspector.cs: 85a99159289e64398275fbc6500bb9a8 -> 
+  custom:scripting/monoscript/fileName/CFXR_ShaderImporter.cs: f0ef3fb7c5ca7b4517f50c44917fac9e -> 
+  custom:scripting/monoscript/fileName/CFXR_Effect.CameraShake.cs: 0cdf409b5aa8d4c25876d72b5c6a3b60 -> 
+  custom:CustomObjectIndexerAttribute: 72b91833f83ae208fae7752999fa3104 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/CFXR_EmissionBySurface.cs: 6294a85dd8a1718740abd2427d3ed0fe -> 
+  custom:scripting/monoscript/fileName/CFXR_ExpressionParser.cs: 215820334dc899aa183f0061c3ffd288 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleText.cs: 3f1f97f09f1dd1cf194149bcb9712660 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/CFXR_ShaderPostProcessor.cs: eee4c4410265e19bfd8b3e2c4c5b2a2d -> 
+  custom:scripting/monoscript/fileName/CFXR_UpgradeCheck.cs: ecbc382cf7f886ae36ac82906454b189 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 169314.757395 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Wood_01_mono.wav
+  artifactKey: Guid(93c2aa8c1b1e464469eb68eb3db85630) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Wood_01_mono.wav using Guid(93c2aa8c1b1e464469eb68eb3db85630) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a51db5a290982ed12341c28f234ba6bd') in 0.109510 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 53.925006 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Bow_Arrow/ARROW_Hit_Wood_Shield_stereo.wav
+  artifactKey: Guid(cfcb653d5ce9b7b488b2b9a0615891e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Bow_Arrow/ARROW_Hit_Wood_Shield_stereo.wav using Guid(cfcb653d5ce9b7b488b2b9a0615891e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e19fffd33bd03eba617c6fe623b941fc') in 0.011796 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.002281 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Bow_Arrow/BOW_Release_Arrow_Large_mono.wav
+  artifactKey: Guid(bb366d998605b3f42950aaa71cd2f85f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Bow_Arrow/BOW_Release_Arrow_Large_mono.wav using Guid(bb366d998605b3f42950aaa71cd2f85f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed1a2a518239514c73bf8345d4febb3a') in 0.010532 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 319.567852 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GROAN_Male_Hurt_Long_Pain_mono.wav
+  artifactKey: Guid(680ed7d77a7e6ca478b3d5dceb57c665) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GROAN_Male_Hurt_Long_Pain_mono.wav using Guid(680ed7d77a7e6ca478b3d5dceb57c665) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c557dd0514789d449219833c29820b47') in 0.012318 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_B_Hurt_Short_01_mono.wav
+  artifactKey: Guid(a4e803a901dee444c82fbd45bba758a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_B_Hurt_Short_01_mono.wav using Guid(a4e803a901dee444c82fbd45bba758a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d302a68de106e2923e95c78a9321713') in 0.011626 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_B_Hurt_Short_03_mono.wav
+  artifactKey: Guid(d03cb854194d8b948a9eff6065ea9728) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_B_Hurt_Short_03_mono.wav using Guid(d03cb854194d8b948a9eff6065ea9728) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6251d9c3bf4dde9fecfdadc4ab4de0f') in 0.011192 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.016900 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_B_Hurt_Short_06_mono.wav
+  artifactKey: Guid(b1fc381d5d876f046b26c9df42b7e3fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_B_Hurt_Short_06_mono.wav using Guid(b1fc381d5d876f046b26c9df42b7e3fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7dc1a099cd0cf3d7254e85630a8f2e7e') in 0.013100 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000024 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_B_Hurt_Short_07_mono.wav
+  artifactKey: Guid(829dfe614e7bcf847ae519942fcb25dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_B_Hurt_Short_07_mono.wav using Guid(829dfe614e7bcf847ae519942fcb25dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '86d77fb811dde4f649bdf475a4f7ddc2') in 0.012721 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000029 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_Hurt_02_mono.wav
+  artifactKey: Guid(9e44953b7c3080d478b9e242a67ab9c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_Hurt_02_mono.wav using Guid(9e44953b7c3080d478b9e242a67ab9c0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a94ed84749924a1f8ad91358b2b25fae') in 0.011657 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_Hurt_04_mono.wav
+  artifactKey: Guid(afce792d0e1e3a841ab2f4ae603db0a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_Hurt_04_mono.wav using Guid(afce792d0e1e3a841ab2f4ae603db0a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4347451de9d82df3b62da3e2be483863') in 0.011476 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.018609 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_Subtle_Hurt_mono.wav
+  artifactKey: Guid(acc2591a39cedb04494f08bd57b9febb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_Subtle_Hurt_mono.wav using Guid(acc2591a39cedb04494f08bd57b9febb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30e29309cc479816343013cfec6074ca') in 0.013072 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Boy_6yo_Hurt_Long_02_mono.wav
+  artifactKey: Guid(8c917ad00bb5f0c40b1d8a81656fdeb6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Boy_6yo_Hurt_Long_02_mono.wav using Guid(8c917ad00bb5f0c40b1d8a81656fdeb6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6c369deaca5a19295f8a1c7600a6215c') in 0.013092 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Boy_6yo_Hurt_Short_01_mono.wav
+  artifactKey: Guid(6c31922e88c5985479261e54082bea3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Boy_6yo_Hurt_Short_01_mono.wav using Guid(6c31922e88c5985479261e54082bea3d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '62401b865c6c038ff2a73273ec430709') in 0.011428 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Boy_6yo_Hurt_Short_05_mono.wav
+  artifactKey: Guid(2e453451c33edf149950370c5fc8e6f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Boy_6yo_Hurt_Short_05_mono.wav using Guid(2e453451c33edf149950370c5fc8e6f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a56dcba3f4fd1584543f7e8e4a90057b') in 0.012347 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Female_36yo_Hurt_01_mono.wav
+  artifactKey: Guid(afcebb82f6d3e174aa15e1f48d49ca97) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Female_36yo_Hurt_01_mono.wav using Guid(afcebb82f6d3e174aa15e1f48d49ca97) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b81d39078dfe0286cedb721dab0a0c99') in 0.011897 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_Hurt_03_mono.wav
+  artifactKey: Guid(365a9af404d6b914294286970243326f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_Hurt_03_mono.wav using Guid(365a9af404d6b914294286970243326f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8131dfb11c3e60720d7386add9f380ec') in 0.012486 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_B_Hurt_Short_08_mono.wav
+  artifactKey: Guid(541dbe29cb83c7946956d52732c7701f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/GRUNT_Male_B_Hurt_Short_08_mono.wav using Guid(541dbe29cb83c7946956d52732c7701f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '82a1380ee8720dda53cf4a9707fd125c') in 0.013667 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Female_36yo_Hurt_02_mono.wav
+  artifactKey: Guid(bf18a9a35a67c174a90c7327f1b7ffa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Female_36yo_Hurt_02_mono.wav using Guid(bf18a9a35a67c174a90c7327f1b7ffa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc2e24e8f431115497fb4299ee47eeec') in 0.012762 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 26.685726 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Female_36yo_Hurt_06_mono.wav
+  artifactKey: Guid(5dbc0046e00400f42800584befc638a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Female_36yo_Hurt_06_mono.wav using Guid(5dbc0046e00400f42800584befc638a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a64ec6d41dd2d81d04c1f895ccd2a09f') in 0.011636 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Female_36yo_Hurt_08_mono.wav
+  artifactKey: Guid(069c98417391483438eafbc4f317d3ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Female_36yo_Hurt_08_mono.wav using Guid(069c98417391483438eafbc4f317d3ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cf158e2658dbb8249990d7294ec46fdc') in 0.011636 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 4.868983 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Girl_4yo_Hurt_Long_02_mono.wav
+  artifactKey: Guid(b36d3487d93636e4884f1c989e941d82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Girl_4yo_Hurt_Long_02_mono.wav using Guid(b36d3487d93636e4884f1c989e941d82) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '43f85472487b6c67f7d22b117bf574a4') in 0.013694 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 8.663100 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Girl_4yo_Hurt_Short_06_mono.wav
+  artifactKey: Guid(05885cbe3ef8a0241a0eebe5fd449328) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Girl_4yo_Hurt_Short_06_mono.wav using Guid(05885cbe3ef8a0241a0eebe5fd449328) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0f051a3f2b926a2117a0d4063ae5a63') in 0.010254 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 22.653696 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Combo_Triple_mono.wav
+  artifactKey: Guid(5d6f246c9b7d7434a8a80c582d154279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Combo_Triple_mono.wav using Guid(5d6f246c9b7d7434a8a80c582d154279) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c2a75c863cd1fe4fbbe12f7fc862823f') in 0.009438 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 8.890153 seconds.
+  path: Assets/Universal Sound FX/THUNDER/THUNDER_Clap_Rumble_04_stereo.wav
+  artifactKey: Guid(d22b7acf5c44c794aae0e90febdf6d5e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/THUNDER/THUNDER_Clap_Rumble_04_stereo.wav using Guid(d22b7acf5c44c794aae0e90febdf6d5e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '59ab00d3b68f0a1ea323aec0cc3beb29') in 0.023472 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+TcpMessagingSession - receive error: operation aborted. errorcode: 995, details: 스레드 종료 또는 응용 프로그램 요청 때문에 I/O 작업이 취소되었습니다.
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

@@ -1,0 +1,483 @@
+Using pre-set license
+Built from '2022.3/staging' branch; Version is '2022.3.22f1 (887be4894c44) revision 8944612'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 11  (10.0.22631) 64bit Professional' Language: 'ko' Physical Memory: 15734 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2022.3.22f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker6
+-projectPath
+D:/Projects/PixelSquad/PixelSquadClient
+-logFile
+Logs/AssetImportWorker6.log
+-srvPort
+50845
+Successfully changed project path to: D:/Projects/PixelSquad/PixelSquadClient
+D:/Projects/PixelSquad/PixelSquadClient
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [18148] Host "[IP] 192.168.0.6 [Port] 0 [Flags] 2 [Guid] 3944438464 [EditorId] 3944438464 [Version] 1048832 [Id] WindowsEditor(7,MINUK) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [18148] Host "[IP] 192.168.0.6 [Port] 0 [Flags] 2 [Guid] 3944438464 [EditorId] 3944438464 [Version] 1048832 [Id] WindowsEditor(7,MINUK) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+[Physics::Module] Initialized MultithreadedJobDispatcher with 15 workers.
+Refreshing native plugins compatible for Editor in 86.72 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.3.22f1 (887be4894c44)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/Projects/PixelSquad/PixelSquadClient/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 3060 Laptop GPU (ID=0x2520)
+    Vendor:   NVIDIA
+    VRAM:     6010 MB
+    Driver:   31.0.15.4629
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56236
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll
+Registered in 0.042877 seconds.
+- Loaded All Assemblies, in  0.665 seconds
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Android Extension - Scanning For ADB Devices 4932 ms
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  5.470 seconds
+Domain Reload Profiling: 6125ms
+	BeginReloadAssembly (260ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (45ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (129ms)
+	LoadAllAssembliesAndSetupDomain (209ms)
+		LoadAssemblies (255ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (202ms)
+			TypeCache.Refresh (201ms)
+				TypeCache.ScanAssembly (185ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (5470ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (5388ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5103ms)
+			SetLoadedEditorAssemblies (6ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (4ms)
+			ProcessInitializeOnLoadAttributes (196ms)
+			ProcessInitializeOnLoadMethodAttributes (79ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+========================================================================
+Worker process is ready to serve import requests
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  1.772 seconds
+Refreshing native plugins compatible for Editor in 26.32 ms, found 4 plugins.
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Package Manager log level set to [2]
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.572 seconds
+Domain Reload Profiling: 3328ms
+	BeginReloadAssembly (208ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (5ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (25ms)
+	RebuildCommonClasses (39ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (61ms)
+	LoadAllAssembliesAndSetupDomain (1438ms)
+		LoadAssemblies (1166ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (408ms)
+			TypeCache.Refresh (352ms)
+				TypeCache.ScanAssembly (316ms)
+			ScanForSourceGeneratedMonoScriptInfo (39ms)
+			ResolveRequiredComponents (16ms)
+	FinalizeReload (1573ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1273ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (67ms)
+			SetLoadedEditorAssemblies (10ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (200ms)
+			ProcessInitializeOnLoadAttributes (867ms)
+			ProcessInitializeOnLoadMethodAttributes (95ms)
+			AfterProcessingInitializeOnLoad (34ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (30ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.09 seconds
+Refreshing native plugins compatible for Editor in 16.90 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5956 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 108 unused Assets / (0.5 MB). Loaded Objects now: 6438.
+Memory consumption went from 261.3 MB to 260.8 MB.
+Total: 4.398700 ms (FindLiveObjects: 0.402300 ms CreateObjectMapping: 0.166500 ms MarkObjects: 3.490100 ms  DeleteObjects: 0.338500 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/CFXR_Styles.cs: 14132385ef0a62dc85f08de4f5687ece -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleTextFontAsset.cs: 997a733798b2c803fc88cc92695e7ca4 -> 
+  custom:scripting/monoscript/fileName/CFXR_MaterialInspector.cs: 85a99159289e64398275fbc6500bb9a8 -> 
+  custom:scripting/monoscript/fileName/CFXR_ShaderImporter.cs: f0ef3fb7c5ca7b4517f50c44917fac9e -> 
+  custom:scripting/monoscript/fileName/CFXR_Effect.CameraShake.cs: 0cdf409b5aa8d4c25876d72b5c6a3b60 -> 
+  custom:CustomObjectIndexerAttribute: 72b91833f83ae208fae7752999fa3104 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/CFXR_EmissionBySurface.cs: 6294a85dd8a1718740abd2427d3ed0fe -> 
+  custom:scripting/monoscript/fileName/CFXR_ExpressionParser.cs: 215820334dc899aa183f0061c3ffd288 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleText.cs: 3f1f97f09f1dd1cf194149bcb9712660 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/CFXR_ShaderPostProcessor.cs: eee4c4410265e19bfd8b3e2c4c5b2a2d -> 
+  custom:scripting/monoscript/fileName/CFXR_UpgradeCheck.cs: ecbc382cf7f886ae36ac82906454b189 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 168991.156442 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Hit_Sword_RR1_mono.wav
+  artifactKey: Guid(8019e8477cf2d9d4588cf5f097b41bfe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Hit_Sword_RR1_mono.wav using Guid(8019e8477cf2d9d4588cf5f097b41bfe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8633bfbe0acfbb4918d30e766d1e5856') in 0.124052 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000025 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Hit_Sword_RR6_mono.wav
+  artifactKey: Guid(bc4a851ad32500444aaf7305891108b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Hit_Sword_RR6_mono.wav using Guid(bc4a851ad32500444aaf7305891108b5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bca97bf3c915e5d08f96e259fad7d3ae') in 0.012223 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Hit_Sword_RR10_mono.wav
+  artifactKey: Guid(fabdc5e9ceb83b948a1dc3239fe3a95a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Hit_Sword_RR10_mono.wav using Guid(fabdc5e9ceb83b948a1dc3239fe3a95a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f6655e13822b2f341c45a7de90d7618f') in 0.012487 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000037 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Hit_Sword_RR4_mono.wav
+  artifactKey: Guid(e29771db172deea46b09e82314553b3f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Hit_Sword_RR4_mono.wav using Guid(e29771db172deea46b09e82314553b3f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f3c9db7eb75db93f3fc205e4390a1aa') in 0.010736 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Hit_Sword_RR8_mono.wav
+  artifactKey: Guid(0661cea98fa496e46ab1caa59f6b20d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Hit_Sword_RR8_mono.wav using Guid(0661cea98fa496e46ab1caa59f6b20d9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '454bf2c32f700d85fd164240baf1e5dd') in 0.009966 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 13.017730 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Swing_Hit_Metal_Armor_mono.wav
+  artifactKey: Guid(399ae31c7ca5c2240b2d47fe699f681c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Swing_Hit_Metal_Armor_mono.wav using Guid(399ae31c7ca5c2240b2d47fe699f681c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8c98169196ee86cc4c4d8cae06ffbab9') in 0.012349 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Swing_Hit_Metal_Sword_Bright_stereo.wav
+  artifactKey: Guid(cce712dcf77576147bc5ca511a3370d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Swing_Hit_Metal_Sword_Bright_stereo.wav using Guid(cce712dcf77576147bc5ca511a3370d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '26df2c32ad16cf949fb58c32fb81d32a') in 0.015880 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.006566 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Swing_Hit_Solid_Metal_Deep_mono.wav
+  artifactKey: Guid(c80677557ff6efc4181829cafab845de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Swing_Hit_Solid_Metal_Deep_mono.wav using Guid(c80677557ff6efc4181829cafab845de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70c89520f58e343083ed4c3dacf5c80b') in 0.011191 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Swing_Hit_Wood_Shield_Break_Much_Debris_stereo.wav
+  artifactKey: Guid(8c9fbab8a6f9b4741be96014d9bd788a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Swing_Hit_Wood_Shield_Break_Much_Debris_stereo.wav using Guid(8c9fbab8a6f9b4741be96014d9bd788a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fec3d79a7d1300cb1e8d9786b0378fcb') in 0.015885 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 14.766691 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Swing_Hit_Wood_Shield_Cracks_stereo.wav
+  artifactKey: Guid(aa26989ed992c5e42a4be74dcfbc5e91) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Swing_Hit_Wood_Shield_Cracks_stereo.wav using Guid(aa26989ed992c5e42a4be74dcfbc5e91) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cdc5e10b56951db0da1134d6c700148e') in 0.011548 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.003532 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Swing_Stab_Body_Gore_stereo.wav
+  artifactKey: Guid(c3c95ac93a858ea478fa667958f84f8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Swing_Stab_Body_Gore_stereo.wav using Guid(c3c95ac93a858ea478fa667958f84f8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15c9bf827ad357081bb2a25b93fb26e9') in 0.010660 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.018238 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Whoosh_Hit_Armor_Hard_RR2_mono.wav
+  artifactKey: Guid(d70571328b9f0fa4d8bc2d0bdc7e6686) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Whoosh_Hit_Armor_Hard_RR2_mono.wav using Guid(d70571328b9f0fa4d8bc2d0bdc7e6686) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '11d364e686a7ffa46e49c390c47d3012') in 0.011184 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.006906 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Whoosh_Hit_Armor_Hard_RR5_mono.wav
+  artifactKey: Guid(02ac5c00f96ec2442955656da5aec566) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Whoosh_Hit_Armor_Hard_RR5_mono.wav using Guid(02ac5c00f96ec2442955656da5aec566) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd7c973681fe73c27c9217def946a8b36') in 0.012150 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 18.208504 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Whoosh_Hit_Armor_Hard_RR8_mono.wav
+  artifactKey: Guid(4dc921904d1e03a478b1341b4c158c84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Whoosh_Hit_Armor_Hard_RR8_mono.wav using Guid(4dc921904d1e03a478b1341b4c158c84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '706af10801b4c9df16f2e310320dbc91') in 0.011523 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.008530 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Whoosh_Hit_Sword_Hard_RR1_mono.wav
+  artifactKey: Guid(04d12d824cb4bd543ad158eb05cb6a76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Whoosh_Hit_Sword_Hard_RR1_mono.wav using Guid(04d12d824cb4bd543ad158eb05cb6a76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8f0256d009ba33416c91f832913142dc') in 0.012287 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.006962 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Whoosh_Hit_Sword_Hard_RR4_mono.wav
+  artifactKey: Guid(2a76d31e9e42775458e3852eeeaedfc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Whoosh_Hit_Sword_Hard_RR4_mono.wav using Guid(2a76d31e9e42775458e3852eeeaedfc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9695c008a8605a0ea457b50b9e27af3d') in 0.015233 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 9.313973 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Whoosh_Hit_Sword_Hard_RR8_mono.wav
+  artifactKey: Guid(abe22195b0f48e349a978f1866455fc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Whoosh_Hit_Sword_Hard_RR8_mono.wav using Guid(abe22195b0f48e349a978f1866455fc9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0bb27ac00ad0bb9a6fd980a218d6481e') in 0.013460 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.113014 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Whoosh_Hit_Sword_Hard_RR10_mono.wav
+  artifactKey: Guid(9aea6725efe35ad498d05a78cbda746d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Swords/SWORD_Whoosh_Hit_Sword_Hard_RR10_mono.wav using Guid(9aea6725efe35ad498d05a78cbda746d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd003e6244f340f50db4d45ef245fd654') in 0.011727 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 131.732162 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Hammer/HAMMER_Hit_Body_Gore_stereo.wav
+  artifactKey: Guid(c7e2366c7a424b34196cd52618c484be) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Hammer/HAMMER_Hit_Body_Gore_stereo.wav using Guid(c7e2366c7a424b34196cd52618c484be) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c1d75b4a53260a784adebc5c8f9958d') in 0.011011 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Hammer/HAMMER_Hit_Metal_Armor_stereo.wav
+  artifactKey: Guid(ee8244fd830039e42aeec47962ba4051) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Hammer/HAMMER_Hit_Metal_Armor_stereo.wav using Guid(ee8244fd830039e42aeec47962ba4051) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd4adae4dd769b0c7168d72f61b07c3ae') in 0.011894 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Hammer/HAMMER_Hit_Wood_Shield_Break_Much_Debris_stereo.wav
+  artifactKey: Guid(9815fc51e3c633f4293917e849212baa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Hammer/HAMMER_Hit_Wood_Shield_Break_Much_Debris_stereo.wav using Guid(9815fc51e3c633f4293917e849212baa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4359bff0c9edcbe5c7608a2cdbdbdf8b') in 0.010947 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 47.457436 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_03_mono.wav
+  artifactKey: Guid(96662ec8f802ece4b8151574d1d44846) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_03_mono.wav using Guid(96662ec8f802ece4b8151574d1d44846) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f5c3090231d77f6b6d2f85d776559b08') in 0.010201 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_05_mono.wav
+  artifactKey: Guid(7f62e4ed684fd724ea3855dde3fd47e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_05_mono.wav using Guid(7f62e4ed684fd724ea3855dde3fd47e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '31a2402aef42f0855231820ed43ddf1e') in 0.010577 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_07_mono.wav
+  artifactKey: Guid(3b0c3737b0f5c9a47b28b6d611496930) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_07_mono.wav using Guid(3b0c3737b0f5c9a47b28b6d611496930) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e86381110b2421a58572e9639eb1494a') in 0.011234 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_09_mono.wav
+  artifactKey: Guid(3a07bcdca4a282f45a8e83d058b00364) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_09_mono.wav using Guid(3a07bcdca4a282f45a8e83d058b00364) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e855151fbbd6c2499a6558e506b44b2') in 0.010470 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.017983 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Brick_04_mono.wav
+  artifactKey: Guid(16ce0b09c90583c42ac8b6cf2ceba172) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Brick_04_mono.wav using Guid(16ce0b09c90583c42ac8b6cf2ceba172) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6165d6660912929a8887e35aa57bd149') in 0.012331 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000026 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Brick_03_mono.wav
+  artifactKey: Guid(d8d0c6bc262d4b54c8b31f9d993fa7f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Brick_03_mono.wav using Guid(d8d0c6bc262d4b54c8b31f9d993fa7f3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ddb6b270d4dbb85dbe6f99dc1e93fb4c') in 0.011275 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Generic_01_mono.wav
+  artifactKey: Guid(ca77f4608f12f9f42b0f205c23023f6f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Generic_01_mono.wav using Guid(ca77f4608f12f9f42b0f205c23023f6f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '519e29130c83c322f496d6a329ba0ac7') in 0.011969 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Generic_03_mono.wav
+  artifactKey: Guid(52039cba02e42e84ab257ff433fbbb92) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Generic_03_mono.wav using Guid(52039cba02e42e84ab257ff433fbbb92) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d47cbf26581f7bd1d738b7403da73a3') in 0.012110 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Generic_06_mono.wav
+  artifactKey: Guid(5d6697cff1ff5f945aa9c4a52a6d4e77) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Generic_06_mono.wav using Guid(5d6697cff1ff5f945aa9c4a52a6d4e77) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1d06a04020b9e3a95352c80061cefebb') in 0.011353 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.016067 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Generic_07_mono.wav
+  artifactKey: Guid(b9073402f0815b54684f1e5ad8438188) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Generic_07_mono.wav using Guid(b9073402f0815b54684f1e5ad8438188) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8f2905012560134b7f3094205b597bc') in 0.011744 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Metal_05_mono.wav
+  artifactKey: Guid(36b05b28e08c6714f917b0e463dcacfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Metal_05_mono.wav using Guid(36b05b28e08c6714f917b0e463dcacfd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d8af4107512105fdd503611d60dfa65') in 0.013150 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Generic_08_mono.wav
+  artifactKey: Guid(0b4a60ad9cd23344cbf03b2acd3d06ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Generic_08_mono.wav using Guid(0b4a60ad9cd23344cbf03b2acd3d06ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6f0a6695826725635370a91fb56a7c79') in 0.012481 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Crack_01_mono.wav
+  artifactKey: Guid(e11c4d8e2c31aa547bfc76c66aacb2e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Crack_01_mono.wav using Guid(e11c4d8e2c31aa547bfc76c66aacb2e4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd0a597edc8fac38b97c0d41bdffcb7f3') in 0.011502 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Metal_02_mono.wav
+  artifactKey: Guid(3a237ad53e2ec6e4e8d9c93ad8a19184) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/WEAPONS/Melee/Blunt/BLUNT_Swing_Hit_Metal_02_mono.wav using Guid(3a237ad53e2ec6e4e8d9c93ad8a19184) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'beae486fe642d82b421f64ec73c4a6d6') in 0.012912 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+TcpMessagingSession - receive error: operation aborted. errorcode: 995, details: 스레드 종료 또는 응용 프로그램 요청 때문에 I/O 작업이 취소되었습니다.
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

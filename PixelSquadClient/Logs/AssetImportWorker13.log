@@ -1,0 +1,515 @@
+Using pre-set license
+Built from '2022.3/staging' branch; Version is '2022.3.22f1 (887be4894c44) revision 8944612'; Using compiler version '192829333'; Build Type 'Release'
+OS: 'Windows 11  (10.0.22631) 64bit Professional' Language: 'ko' Physical Memory: 15734 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2022.3.22f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker13
+-projectPath
+D:/Projects/PixelSquad/PixelSquadClient
+-logFile
+Logs/AssetImportWorker13.log
+-srvPort
+50845
+Successfully changed project path to: D:/Projects/PixelSquad/PixelSquadClient
+D:/Projects/PixelSquad/PixelSquadClient
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [28740] Host "[IP] 192.168.0.6 [Port] 0 [Flags] 2 [Guid] 1290766490 [EditorId] 1290766490 [Version] 1048832 [Id] WindowsEditor(7,MINUK) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+
+Player connection [28740] Host "[IP] 192.168.0.6 [Port] 0 [Flags] 2 [Guid] 1290766490 [EditorId] 1290766490 [Version] 1048832 [Id] WindowsEditor(7,MINUK) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+
+[Physics::Module] Initialized MultithreadedJobDispatcher with 15 workers.
+Refreshing native plugins compatible for Editor in 77.50 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2022.3.22f1 (887be4894c44)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path D:/Projects/PixelSquad/PixelSquadClient/Assets
+GfxDevice: creating device client; threaded=0; jobified=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce RTX 3060 Laptop GPU (ID=0x2520)
+    Vendor:   NVIDIA
+    VRAM:     6010 MB
+    Driver:   31.0.15.4629
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56644
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2022.3.22f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll
+Registered in 0.045061 seconds.
+- Loaded All Assemblies, in  0.647 seconds
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Android Extension - Scanning For ADB Devices 4527 ms
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  5.072 seconds
+Domain Reload Profiling: 5709ms
+	BeginReloadAssembly (233ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (50ms)
+	RebuildNativeTypeToScriptingClass (17ms)
+	initialDomainReloadingComplete (134ms)
+	LoadAllAssembliesAndSetupDomain (203ms)
+		LoadAssemblies (228ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (196ms)
+			TypeCache.Refresh (195ms)
+				TypeCache.ScanAssembly (179ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (5073ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (4996ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (4725ms)
+			SetLoadedEditorAssemblies (7ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (3ms)
+			ProcessInitializeOnLoadAttributes (172ms)
+			ProcessInitializeOnLoadMethodAttributes (90ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+========================================================================
+Worker process is ready to serve import requests
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  2.392 seconds
+Refreshing native plugins compatible for Editor in 18.12 ms, found 4 plugins.
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Native extension for Android target not found
+Package Manager log level set to [2]
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.589 seconds
+Domain Reload Profiling: 3953ms
+	BeginReloadAssembly (282ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (9ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (37ms)
+	RebuildCommonClasses (55ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (86ms)
+	LoadAllAssembliesAndSetupDomain (1928ms)
+		LoadAssemblies (1820ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (292ms)
+			TypeCache.Refresh (246ms)
+				TypeCache.ScanAssembly (222ms)
+			ScanForSourceGeneratedMonoScriptInfo (33ms)
+			ResolveRequiredComponents (11ms)
+	FinalizeReload (1589ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (1367ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (70ms)
+			SetLoadedEditorAssemblies (10ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (285ms)
+			ProcessInitializeOnLoadAttributes (856ms)
+			ProcessInitializeOnLoadMethodAttributes (108ms)
+			AfterProcessingInitializeOnLoad (38ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (28ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.10 seconds
+Refreshing native plugins compatible for Editor in 15.09 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5956 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 108 unused Assets / (0.5 MB). Loaded Objects now: 6438.
+Memory consumption went from 261.4 MB to 260.9 MB.
+Total: 5.226700 ms (FindLiveObjects: 0.456100 ms CreateObjectMapping: 0.209200 ms MarkObjects: 3.958500 ms  DeleteObjects: 0.601600 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:scripting/monoscript/fileName/CFXR_Styles.cs: 14132385ef0a62dc85f08de4f5687ece -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleTextFontAsset.cs: 997a733798b2c803fc88cc92695e7ca4 -> 
+  custom:scripting/monoscript/fileName/CFXR_MaterialInspector.cs: 85a99159289e64398275fbc6500bb9a8 -> 
+  custom:scripting/monoscript/fileName/CFXR_ShaderImporter.cs: f0ef3fb7c5ca7b4517f50c44917fac9e -> 
+  custom:scripting/monoscript/fileName/CFXR_Effect.CameraShake.cs: 0cdf409b5aa8d4c25876d72b5c6a3b60 -> 
+  custom:CustomObjectIndexerAttribute: 72b91833f83ae208fae7752999fa3104 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:scripting/monoscript/fileName/CFXR_EmissionBySurface.cs: 6294a85dd8a1718740abd2427d3ed0fe -> 
+  custom:scripting/monoscript/fileName/CFXR_ExpressionParser.cs: 215820334dc899aa183f0061c3ffd288 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:scripting/monoscript/fileName/CFXR_ParticleText.cs: 3f1f97f09f1dd1cf194149bcb9712660 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:scripting/monoscript/fileName/CFXR_ShaderPostProcessor.cs: eee4c4410265e19bfd8b3e2c4c5b2a2d -> 
+  custom:scripting/monoscript/fileName/CFXR_UpgradeCheck.cs: ecbc382cf7f886ae36ac82906454b189 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 169715.477374 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Female_36yo_Hurt_05_mono.wav
+  artifactKey: Guid(91b4a31a05fd1f843837b32fc15e9a25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Female_36yo_Hurt_05_mono.wav using Guid(91b4a31a05fd1f843837b32fc15e9a25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ffd022f68ef549cb17ab18ff9310dcee') in 0.103329 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 4.784662 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Female_36yo_Hurt_12_mono.wav
+  artifactKey: Guid(becd5f58e9b30ec4eb2cd91eee813d37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Female_36yo_Hurt_12_mono.wav using Guid(becd5f58e9b30ec4eb2cd91eee813d37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b3f861198581c81f60459debf1678a45') in 0.011893 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 8.675395 seconds.
+  path: Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Girl_4yo_Hurt_Short_05_mono.wav
+  artifactKey: Guid(363ed43dcdc28c34eaea2bf071caf315) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Grunts_Groans_Hurt/VOICE_Girl_4yo_Hurt_Short_05_mono.wav using Guid(363ed43dcdc28c34eaea2bf071caf315) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36700a369144f81bc734535c00085cf6') in 0.010588 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 9.668688 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_2_mono.wav
+  artifactKey: Guid(f05f5540d1542bf4baa47bbf5ce93d1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_2_mono.wav using Guid(f05f5540d1542bf4baa47bbf5ce93d1a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '83826d6e3975201e80159c048b7d274b') in 0.013030 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.006141 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_5_mono.wav
+  artifactKey: Guid(1680aae2d93d3204d8f1ac76853634f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_5_mono.wav using Guid(1680aae2d93d3204d8f1ac76853634f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae8cacf0e6e288a3ece9509beba19401') in 0.011191 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.009499 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_8_mono.wav
+  artifactKey: Guid(3bca8baeffdd25e42a4c33aca73491bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_8_mono.wav using Guid(3bca8baeffdd25e42a4c33aca73491bf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f2105f62cf4c08350f2b6dcb4a6f183d') in 0.012286 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.006564 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Additional_2_mono.wav
+  artifactKey: Guid(fa251d221025bd04d9c219dbaaa1c076) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Additional_2_mono.wav using Guid(fa251d221025bd04d9c219dbaaa1c076) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f5482c3995e5e680cefd767c83deee76') in 0.012019 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.008218 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Ahh_1_Subtle_mono.wav
+  artifactKey: Guid(23d484937914cdf4f9616ca52d966832) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Ahh_1_Subtle_mono.wav using Guid(23d484937914cdf4f9616ca52d966832) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd399c9f41bb0aa37202da263e1e4131b') in 0.011158 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.006429 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Alright_2_mono.wav
+  artifactKey: Guid(c8744b042703d5449b7a5621a6c9445b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Alright_2_mono.wav using Guid(c8744b042703d5449b7a5621a6c9445b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d931ab8aa0cb7614543c665f45ce8ca') in 0.011328 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.003985 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Are_1_mono.wav
+  artifactKey: Guid(9b0fbeeac2d379d419c701e4f4abccc4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Are_1_mono.wav using Guid(9b0fbeeac2d379d419c701e4f4abccc4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0dde522a5637d042a1df90ad54ab1890') in 0.011659 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.006330 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Attack_2_mono.wav
+  artifactKey: Guid(ed9deb4573718ce44acdabd2394458a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Attack_2_mono.wav using Guid(ed9deb4573718ce44acdabd2394458a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd3e98516a7ccb21518e6be5649373a5') in 0.011095 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.008235 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Awaiting_Instructions_1_mono.wav
+  artifactKey: Guid(7ae2609079365a9408e9b198a66dd202) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Awaiting_Instructions_1_mono.wav using Guid(7ae2609079365a9408e9b198a66dd202) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2d3711ce97eedbb96131d02395cdd63c') in 0.011834 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 12.720779 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Combo_Quad_mono.wav
+  artifactKey: Guid(ce5de364a5ae2044bb97f6b7f9dd6c77) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Combo_Quad_mono.wav using Guid(ce5de364a5ae2044bb97f6b7f9dd6c77) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '329fa27288ab4a9da4883c144eb9bedd') in 0.009692 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.058318 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Confirmed_1_mono.wav
+  artifactKey: Guid(a72e06950e0f46c40b0329eb4c58a95d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Confirmed_1_mono.wav using Guid(a72e06950e0f46c40b0329eb4c58a95d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5aae2da7e730c5cdbdd18989d3e6abf4') in 0.011016 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.008324 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Coordinates_1_mono.wav
+  artifactKey: Guid(d3594d9d05ff7144099692fb1ce6e36c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Coordinates_1_mono.wav using Guid(d3594d9d05ff7144099692fb1ce6e36c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '21dba32db15e6fe9055c81b96d3c6641') in 0.011078 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.927619 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Copy_That_1_mono.wav
+  artifactKey: Guid(38943895396b7aa409b3721f82a745b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Copy_That_1_mono.wav using Guid(38943895396b7aa409b3721f82a745b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cd766102b2901f2b2154c3e9e4fc7544') in 0.010599 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.006836 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Cover_2_Aggressive_mono.wav
+  artifactKey: Guid(927e8f8ff757e9447882b81fbc5e604f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Cover_2_Aggressive_mono.wav using Guid(927e8f8ff757e9447882b81fbc5e604f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b78b59dc3a587ee74a676803be66f5b2') in 0.010683 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.044924 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Defend_This_Position_1_mono.wav
+  artifactKey: Guid(18e183b8e3b4c134283f8b4b3f05b1d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Defend_This_Position_1_mono.wav using Guid(18e183b8e3b4c134283f8b4b3f05b1d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f7b644c6ebe541830e5657a3720f4f83') in 0.010202 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.008324 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Down_1_mono.wav
+  artifactKey: Guid(4df68e064f8dd5242b2dd87b8baa2525) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Down_1_mono.wav using Guid(4df68e064f8dd5242b2dd87b8baa2525) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00e11880785bbd6018fa1852b1939448') in 0.012857 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.006845 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Enemy_1_mono.wav
+  artifactKey: Guid(1e7e0417d4f5a704aa5ee1dfbf5421c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Enemy_1_mono.wav using Guid(1e7e0417d4f5a704aa5ee1dfbf5421c2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c983f8123c93c3ea6159c022cdf7ffd') in 0.011825 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.007308 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Enemy_Down_4_mono.wav
+  artifactKey: Guid(468b742c77cd7614898a8eb8ffd15dee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Enemy_Down_4_mono.wav using Guid(468b742c77cd7614898a8eb8ffd15dee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec4820cc756d11113ec6629b1acd4174') in 0.010886 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.140594 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Energy_Low_1_mono.wav
+  artifactKey: Guid(328bc243d093f734bb330f081b246feb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Energy_Low_1_mono.wav using Guid(328bc243d093f734bb330f081b246feb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd01e52ccb2fc19b90709a87d5b553549') in 0.011755 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.006433 seconds.
+  path: Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Enter_1_mono.wav
+  artifactKey: Guid(346172dedba0c304a91d4a52d76f3f23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/VOICES/Words_Phrases/Male_A/VOICE_MALE_Enter_1_mono.wav using Guid(346172dedba0c304a91d4a52d76f3f23) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f3d588cc95241ba1d063f8390e1248a') in 0.013024 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 7.463529 seconds.
+  path: Assets/Universal Sound FX/THUNDER/THUNDER_Clap_Rumble_03_stereo.wav
+  artifactKey: Guid(863ad7f426a8a7f42aacb5e7ed7caa71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/THUNDER/THUNDER_Clap_Rumble_03_stereo.wav using Guid(863ad7f426a8a7f42aacb5e7ed7caa71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '27a0c86980412944bfc1a3468525718a') in 0.016614 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.010335 seconds.
+  path: Assets/Universal Sound FX/THUNDER/THUNDER_Rumble_02_mono.wav
+  artifactKey: Guid(2afa01bf13394634c985f72e62892a4d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/THUNDER/THUNDER_Rumble_02_mono.wav using Guid(2afa01bf13394634c985f72e62892a4d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a70b934952bdc5de87e739c488eeafb3') in 0.013336 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 13.933847 seconds.
+  path: Assets/Universal Sound FX/ELECTRICITY/ELECTRICITY_Fuzzy_Spikey_loop_mono.wav
+  artifactKey: Guid(ba9f0a1e93537be4385daf53f847186b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/ELECTRICITY/ELECTRICITY_Fuzzy_Spikey_loop_mono.wav using Guid(ba9f0a1e93537be4385daf53f847186b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eeef34a447e097246846b3cb2e33e8bb') in 0.010918 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.002645 seconds.
+  path: Assets/Universal Sound FX/ELECTRICITY/ELECTRICITY_Spark_03_mono.wav
+  artifactKey: Guid(96df279fb6bdac140a9ffa68a6d50d56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/ELECTRICITY/ELECTRICITY_Spark_03_mono.wav using Guid(96df279fb6bdac140a9ffa68a6d50d56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '907247430556b9ffb144ba8bcb2d3ae6') in 0.010227 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.003338 seconds.
+  path: Assets/Universal Sound FX/ELECTRICITY/ELECTRICITY_Subtle_loop_mono.wav
+  artifactKey: Guid(c70f02290a95e434c944cc5aa45ed337) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/ELECTRICITY/ELECTRICITY_Subtle_loop_mono.wav using Guid(c70f02290a95e434c944cc5aa45ed337) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '54a5cc05b3d3462cf6156baaf804dcf7') in 0.010735 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 7.743033 seconds.
+  path: Assets/Universal Sound FX/RIPS_TEARS/RIP_Tear_03_mono.wav
+  artifactKey: Guid(45b10a356cc89dc4d8cb5a539fb2bb56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/RIPS_TEARS/RIP_Tear_03_mono.wav using Guid(45b10a356cc89dc4d8cb5a539fb2bb56) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c57977ae2bb892a48280886162af1f5') in 0.011743 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.008268 seconds.
+  path: Assets/Universal Sound FX/RIPS_TEARS/RIP_Tear_06_mono.wav
+  artifactKey: Guid(45e3db9dc63cf314cbca87654dac9969) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/RIPS_TEARS/RIP_Tear_06_mono.wav using Guid(45e3db9dc63cf314cbca87654dac9969) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c3af187941e1ad6ccb076652173ca256') in 0.011620 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 18.379784 seconds.
+  path: Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Deep_mono.wav
+  artifactKey: Guid(28ef5f145c7159b4d843382da4c57766) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Deep_mono.wav using Guid(28ef5f145c7159b4d843382da4c57766) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c1b72adfe3172b8619e23d6c748d092c') in 0.011090 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.005250 seconds.
+  path: Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Metallic_Bright_mono.wav
+  artifactKey: Guid(e3448981b492c6740b70e1aac752e070) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Metallic_Bright_mono.wav using Guid(e3448981b492c6740b70e1aac752e070) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '65b64f7036ea4ef5322d7601077a4515') in 0.012150 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.005978 seconds.
+  path: Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Smooth_mono.wav
+  artifactKey: Guid(13a8f34906ab72f428f6b603596a3086) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Smooth_mono.wav using Guid(13a8f34906ab72f428f6b603596a3086) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '360ace8a598ab0414663cd1e69eea0b0') in 0.010448 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.004198 seconds.
+  path: Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Tap_01_mono.wav
+  artifactKey: Guid(f07420823f4d7d7458107e4c754c4e21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Tap_01_mono.wav using Guid(f07420823f4d7d7458107e4c754c4e21) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '61d9247eb0c1b709504c4880c2ab18f8') in 0.010365 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.005567 seconds.
+  path: Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Tap_04_mono.wav
+  artifactKey: Guid(60b39a980fdc1744ab3f4e887f3ab1d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Tap_04_mono.wav using Guid(60b39a980fdc1744ab3f4e887f3ab1d4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db690924a55ef2eb776a5aa4c88fdc9c') in 0.010470 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.006991 seconds.
+  path: Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Tap_07_mono.wav
+  artifactKey: Guid(e9a05393665d2104cb7f506372e37862) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Tap_07_mono.wav using Guid(e9a05393665d2104cb7f506372e37862) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '482b13872ff5eb71c479a9bbcd9a9655') in 0.010120 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.005961 seconds.
+  path: Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Tap_10_mono.wav
+  artifactKey: Guid(b25e21899dde94148b65c74f53c4b75c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Tap_10_mono.wav using Guid(b25e21899dde94148b65c74f53c4b75c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75ca02184e1b21ca15862c0900bdfa5d') in 0.010607 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.005035 seconds.
+  path: Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Tap_13_mono.wav
+  artifactKey: Guid(a7ae871fcb434c34e88ac3ddf8301254) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Tap_13_mono.wav using Guid(a7ae871fcb434c34e88ac3ddf8301254) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c8628c4a99fc608015b8c89c6d670eb') in 0.010889 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.005344 seconds.
+  path: Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Tap_16_mono.wav
+  artifactKey: Guid(b3ff4aa497aca1442a2891559fdd4886) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Universal Sound FX/USER_INTERFACES/Clicks_Taps/UI_Click_Tap_16_mono.wav using Guid(b3ff4aa497aca1442a2891559fdd4886) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '168839f80e8b63a7e8bafc0b49db7554') in 0.010232 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+TcpMessagingSession - receive error: operation aborted. errorcode: 995, details: 스레드 종료 또는 응용 프로그램 요청 때문에 I/O 작업이 취소되었습니다.
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

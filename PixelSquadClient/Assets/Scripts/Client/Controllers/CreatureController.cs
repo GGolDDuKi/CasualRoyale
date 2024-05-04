@@ -271,8 +271,6 @@ public class CreatureController : BaseController
         }
     }
 
-    //TODO : 스킬 아이디로 스킬 가져와서 효과 발동시키는 함수 -> 애니메이션에 이벤트로 추가해서 싱크 맞추기
-
     protected virtual void UpdateMove()
     {
         _destPos = Pos;
@@ -307,9 +305,9 @@ public class CreatureController : BaseController
         }
     }
 
-    void FootStepSound()
+    void MakeSound(string path)
     {
-        Managers.Sound.Play(_audioSource, "Sounds/SFX/FootStep", Define.Sound.Effect, 1.5f);
+        Managers.Sound.Play(_audioSource, $"Sounds/SFX/{path}", Define.Sound.Effect, 1.0f);
     }
 
     protected virtual void UpdateAnimation()
