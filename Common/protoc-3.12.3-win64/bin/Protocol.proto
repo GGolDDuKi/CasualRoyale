@@ -32,16 +32,21 @@ enum MsgId {
   SH_CONNECT_CLIENT = 24;
   HC_WINNER = 25;
   HC_END_GAME = 26;
-  HC_MISSING_HOST = 27;
-  CH_USE_SKILL = 28;
-  HC_USE_SKILL = 29;
-  HC_REQUEST_INFO = 30;
-  CH_SEND_INFO = 31;
-  CH_SKILL_EFFECT = 32;
-  CH_SKILL_DAMAGE = 33;
-  HC_HOST_DISCONNECT = 34;
-  CS_START_GAME = 35;
-  CS_END_GAME = 36;
+  CH_USE_SKILL = 27;
+  HC_USE_SKILL = 28;
+  HC_REQUEST_INFO = 29;
+  CH_SEND_INFO = 30;
+  CH_SKILL_EFFECT = 31;
+  CH_SKILL_DAMAGE = 32;
+  HC_HOST_DISCONNECT = 33;
+  CS_ENTER_GAME = 34;
+  CS_LEAVE_GAME = 35;
+  CH_READY = 36;
+  HC_CAN_START = 37;
+  CH_START_GAME = 38;
+  HC_START_GAME = 39;
+  CH_EMOTE = 40;
+  HC_EMOTE = 41;
 }
 
 enum ActionState {
@@ -80,6 +85,11 @@ enum RejectionReason{
   NO_SPECIAL_CHAR = 4;
 }
 
+enum Authority{
+  CLIENT = 0;
+  HOST = 1;
+}
+
 message HC_RequestInfo{
   
 }
@@ -91,6 +101,7 @@ message CH_SendInfo{
 
 message HC_EnterGame {
   ObjectInfo player = 1;
+  Authority auth = 2;
 }
 
 message HC_LeaveGame {
@@ -178,11 +189,13 @@ message SC_RejectEnter {
 message SC_AcceptEnter {
   string publicIp = 1;
   string privateIp = 2;
+  int32 port = 3;
 }
 
 message SH_ConnectClient{
   string publicIp = 1;
   string privateIp = 2;
+  int32 port = 3;
 }
 
 message CS_MakeRoom {
@@ -203,10 +216,6 @@ message HC_Winner{
 
 message HC_EndGame{
   
-}
-
-message HC_MissingHost{
-  int32 hostId = 1;
 }
 
 message CH_UseSkill{
@@ -233,12 +242,37 @@ message HC_HostDisconnect{
   
 }
 
-message CS_StartGame{
+message CS_EnterGame{
   
 }
 
-message CS_EndGame{
+message CS_LeaveGame{
   
+}
+
+message CH_Ready{
+  bool ready = 1;
+}
+
+message HC_CanStart{
+  bool start = 1;
+}
+
+message CH_StartGame{
+  
+}
+
+message HC_StartGame{
+  repeated ObjectInfo players = 1;
+}
+
+message CH_Emote{
+  string emoteName = 1;
+}
+
+message HC_Emote{
+  int32 id = 1;
+  string emoteName = 2;
 }
 
 message RoomInfo {

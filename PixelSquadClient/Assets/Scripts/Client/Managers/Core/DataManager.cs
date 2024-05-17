@@ -12,8 +12,6 @@ public interface ILoader<Key, Value>
 public class DataManager
 {
     public Dictionary<int, SkillInfo> SkillData = new Dictionary<int, SkillInfo>();
-    //public Dictionary<int, Skill> Skills = new Dictionary<int, Skill>();
-
     public Dictionary<string, ClassInfo> ClassData = new Dictionary<string, ClassInfo>();
 
     public void Init()

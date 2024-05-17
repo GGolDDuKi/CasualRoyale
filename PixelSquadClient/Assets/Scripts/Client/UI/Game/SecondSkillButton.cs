@@ -13,6 +13,6 @@ public class SecondSkillButton : Button
     public override void OnClick()
     {
         if (Managers.Object.MyPlayer.UsingSkill(Managers.Object.MyPlayer.SecondSkillId))
-            StartCoroutine(transform.GetChild(1).GetComponent<SkillCooldown>().CoCooldown(Managers.Data.SkillData[Managers.Object.MyPlayer.SecondSkillId].CoolTime));
+            StartCoroutine(transform.GetChild(1).GetComponent<SkillCooldown>().CoCooldown(Managers.Data.SkillData[Managers.Object.MyPlayer.SecondSkillId].Cooldown));
     }
 }

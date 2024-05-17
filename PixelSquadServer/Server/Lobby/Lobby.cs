@@ -159,7 +159,7 @@ namespace Server
         {
 			GameRoom room = _rooms[packet.RoomId];
 
-			if(room.CurMember == room.MaxMember)
+			if(room.CurMember >= room.MaxMember)
             {
 				SC_RejectEnter rejectPacket = new SC_RejectEnter();
 				rejectPacket.Reason = RejectionReason.FullRoom;
@@ -172,10 +172,12 @@ namespace Server
 				SC_AcceptEnter acceptPacket = new SC_AcceptEnter();
 				acceptPacket.PublicIp = _users[room.HostId].PublicIp;
 				acceptPacket.PrivateIp = _users[room.HostId].PrivateIp;
+				acceptPacket.Port = _users[room.HostId].Port;
 
 				SH_ConnectClient connectPacket = new SH_ConnectClient();
 				connectPacket.PublicIp = user.PublicIp;
 				connectPacket.PrivateIp = user.PrivateIp;
+				connectPacket.Port = user.Port;
 
 				user.Session.Send(acceptPacket);
 				_users[room.HostId].Session.Send(connectPacket);

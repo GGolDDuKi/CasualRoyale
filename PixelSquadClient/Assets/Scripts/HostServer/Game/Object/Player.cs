@@ -8,6 +8,8 @@ namespace HostServer.Game
 	public class Player : GameObject
 	{
 		public ClientSession Session { get; set; }
+		public bool Ready { get; set; } = false;
+		public Authority Authority { get; set; } = Authority.Client;
 
 		public Player()
 		{

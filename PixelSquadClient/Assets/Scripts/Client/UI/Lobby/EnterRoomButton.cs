@@ -25,8 +25,5 @@ public class EnterRoomButton : Button
         enterPacket.RoomId = room.RoomId;
 
         Managers.Network.S_Send(enterPacket);
-
-        //Managers.Scene.LoadScene(Define.Scene.Game);
-        //Managers.Network.Init();
     }
 }

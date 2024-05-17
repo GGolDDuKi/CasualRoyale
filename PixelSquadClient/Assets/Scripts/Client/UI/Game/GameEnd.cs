@@ -13,31 +13,12 @@ public class GameEnd : MonoBehaviour
 
     public void Monitor()
     {
-        StartCoroutine(CoFadeOut(Monitoring));
+        StartCoroutine(Managers.UI.CoFadeOut(this.gameObject, Monitoring));
     }
 
     public void Exit()
     {
-        StartCoroutine(CoFadeOut(ExitLobby));
-    }
-
-    IEnumerator CoFadeOut(Action action)
-    {
-        float time = 0f;
-        float maxTime = 3.0f;
-
-        while(time <= maxTime)
-        {
-            Color color = GetComponent<Image>().color;
-            color.a = Mathf.Lerp(0f, 1f, time / maxTime);
-            GetComponent<Image>().color = color;
-
-            time += Time.deltaTime;
-            yield return null;
-        }
-
-        action.Invoke();
-        yield break;
+        StartCoroutine(Managers.UI.CoFadeOut(this.gameObject, ExitLobby));
     }
 
     void ExitLobby()

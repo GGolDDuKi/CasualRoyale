@@ -11,6 +11,8 @@ namespace HostServer.Game
 	{
 		public int RoomId { get; set; }
 
+		public Player Host { get; set; }
+
 		Dictionary<int, Player> _players = new Dictionary<int, Player>();
 		public Dictionary<int, Player> Players { get { return _players; } }
 
@@ -19,16 +21,24 @@ namespace HostServer.Game
 
 		public Dictionary<int, Player> AlivePlayers { get; set; } = new Dictionary<int, Player>();
 
+		Dictionary<int, Vector2> _startPosition = new Dictionary<int, Vector2>()
+		{
+			{ 0, new Vector2(-20, 1) },
+			{ 1, new Vector2(20, 1) },
+			{ 2, new Vector2(0, -10) },
+			{ 3, new Vector2(0, 10) }
+		};
+
 		public Map Map { get; private set; } = new Map();
 
 		public int Rank { get; set; } = 0;
+		public bool GameStart { get; set; } = false;
 
 		public void Init()
 		{
 
 		}
 
-		// 누군가 주기적으로 호출해줘야 한다
 		public void Update()
 		{
 			foreach (Projectile projectile in _projectiles.Values)
@@ -53,6 +63,10 @@ namespace HostServer.Game
 				AlivePlayers.Add(gameObject.Id, player);
 				player.Room = this;
 				Rank++;
+				
+				if (Managers.Room.MyRoom.CurMember == 0)
+					Host = player;
+
 				Managers.Room.MyRoom.CurMember++;
 
 				Map.ApplyMove(player, new Vector2(player.Pos.x, player.Pos.y));
@@ -61,6 +75,10 @@ namespace HostServer.Game
 				{
 					HC_EnterGame enterPacket = new HC_EnterGame();
 					enterPacket.Player = player.Info;
+					if (Host == player)
+						enterPacket.Auth = Authority.Host;
+					else
+						enterPacket.Auth = Authority.Client;
 					player.Session.Send(enterPacket);
 
 					HC_Spawn spawnPacket = new HC_Spawn();
@@ -145,6 +163,52 @@ namespace HostServer.Game
 			}
 		}
 
+		public void UpdateReadyState(Player player, CH_Ready readyPacket)
+        {
+			if (player == null)
+				return;
+
+			player.Ready = readyPacket.Ready;
+
+            HC_CanStart startPacket = new HC_CanStart();
+			startPacket.Start = CanStartGame();
+			Host.Session.Send(startPacket);
+        }
+
+		public bool CanStartGame()
+        {
+			if (_players.Count <= 1)
+				return false;
+
+			int count = 0;
+			foreach(var player in _players.Values)
+				if (player.Ready)
+					count++;
+
+			if (count >= _players.Count - 1)
+				return true;
+			else
+				return false;
+        }
+
+		public void InitGame()
+        {
+			GameStart = true;
+			int index = 0;
+			HC_StartGame startPacket = new HC_StartGame();
+
+			foreach(var player in _players.Values)
+            {
+				ObjectInfo info = player.Info;
+				info.PosInfo.PosX = _startPosition[index].x;
+				info.PosInfo.PosY = _startPosition[index].y;
+				startPacket.Players.Add(info);
+				index++;
+            }
+
+			Broadcast(startPacket);
+        }
+
 		public void HandleMove(Player player, CH_Move movePacket)
 		{
 			if (player == null)
@@ -184,12 +248,20 @@ namespace HostServer.Game
 
 			Broadcast(attack);
 
+			//아래는 게임 시작 후에만 실행되는 코드(준비 단계에서는 실행되면 안되는 코드)
+			if (GameStart == false)
+				return;
+
 			HandleDamage(player, player.Damage, player.AttackCollider);
 		}
 
 		public void HandleSkillDamage(Player player, CH_SkillDamage damagePacket)
 		{
 			if (player == null)
+				return;
+
+			//아래는 게임 시작 후에만 실행되는 코드(준비 단계에서는 실행되면 안되는 코드)
+			if (GameStart == false)
 				return;
 
 			BoxCollider2D newCol = new BoxCollider2D(damagePacket.PosX, damagePacket.PosY, Managers.Data.SkillData[damagePacket.SkillId].Width, Managers.Data.SkillData[damagePacket.SkillId].Height);
@@ -225,16 +297,17 @@ namespace HostServer.Game
 			Broadcast(skill, player);
 		}
 
-		public Player FindPlayer(Func<GameObject, bool> condition)
-		{
-			foreach (Player player in _players.Values)
-			{
-				if (condition.Invoke(player))
-					return player;
-			}
+		public void HandleEmotion(Player player, CH_Emote emotePacket)
+        {
+			if (player == null)
+				return;
 
-			return null;
-		}
+			HC_Emote packet = new HC_Emote();
+			packet.Id = player.Id;
+			packet.EmoteName = emotePacket.EmoteName;
+
+			Broadcast(packet, player);
+        }
 
 		public int GetRank()
         {

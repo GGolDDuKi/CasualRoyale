@@ -13,6 +13,6 @@ public class FirstSkillButton : Button
     public override void OnClick()
     {
         if(Managers.Object.MyPlayer.UsingSkill(Managers.Object.MyPlayer.FirstSkillId))
-            StartCoroutine(transform.GetChild(1).GetComponent<SkillCooldown>().CoCooldown(Managers.Data.SkillData[Managers.Object.MyPlayer.FirstSkillId].CoolTime));
+            StartCoroutine(transform.GetChild(1).GetComponent<SkillCooldown>().CoCooldown(Managers.Data.SkillData[Managers.Object.MyPlayer.FirstSkillId].Cooldown));
     }
 }

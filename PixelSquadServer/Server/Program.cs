@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
+using MySql.Data.MySqlClient;
+using Server.Data;
 using ServerCore;
 
 namespace Server
@@ -24,7 +26,10 @@ namespace Server
 
 		static void Main(string[] args)
 		{
-			Lobby lobby = LobbyManager.Instance.Add();
+            ConfigManager.LoadConfig();
+            //DataManager.LoadData();
+
+            Lobby lobby = LobbyManager.Instance.Add();
 			TickLobby(lobby, 50);
 
             // DNS (Domain Name System)
@@ -50,3 +55,24 @@ namespace Server
 //IPAddress ipAddr = IPAddress.Parse("192.168.0.6");
 //IPAddress ipAddr = IPAddress.Parse("192.168.219.106");
 //IPAddress ipAddr = IPAddress.Parse($"{ipHost.AddressList[1].ToString()}");
+
+
+//try
+//{
+//	using (MySqlConnection mysql = new MySqlConnection(ConfigManager.Config.connectionString))
+//	{
+//		mysql.Open();
+//		string insertQuery = "INSERT INTO accountTBL (id, password) VALUES ('dduki1', '1234');";
+
+//		MySqlCommand command = new MySqlCommand(insertQuery, mysql);
+
+//		if (command.ExecuteNonQuery() != 1)
+//                     Console.WriteLine("Failed to insert data.");
+//		else
+//                     Console.WriteLine($"Successed to insert data");
+//	}
+//}
+//catch (Exception exc)
+//{
+//             Console.WriteLine(exc.Message);
+//}

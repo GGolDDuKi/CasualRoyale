@@ -8,15 +8,8 @@ public class GameScene : BaseScene
 
         SceneType = Define.Scene.Game;
 
-        Screen.SetResolution(640, 360, false);
         Application.runInBackground = true;
-
-        //GameObject host = GameObject.Find("Host");
-        //if(host != null)
-        //{
-        //    host.transform.parent = Managers.Scene.CurrentScene.transform;
-        //    host.transform.SetParent(null);
-        //}
+        Managers.Game.SetGameUI();
     }
 
     public override void Clear()

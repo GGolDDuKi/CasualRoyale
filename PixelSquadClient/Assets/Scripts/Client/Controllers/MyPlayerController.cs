@@ -188,7 +188,7 @@ public class MyPlayerController : PlayerController
         Managers.Network.H_Send(skillPacket);
 
         base.UsingSkill(skillId);
-        StartCoroutine(CoSkillCooldown(skillId, Managers.Data.SkillData[skillId].CoolTime));
+        StartCoroutine(CoSkillCooldown(skillId, Managers.Data.SkillData[skillId].Cooldown));
         return true;
     }
 

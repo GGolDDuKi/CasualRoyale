@@ -59,6 +59,14 @@ namespace ServerCore
 		public abstract void OnSend(int numOfBytes);
 		public abstract void OnDisconnected(EndPoint endPoint);
 
+		public bool isConnected()
+        {
+			if (_socket == null)
+				return false;
+
+			return _socket.Connected;
+        }
+
 		void Clear()
 		{
 			lock (_lock)

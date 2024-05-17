@@ -34,7 +34,6 @@ public class Define
 
     public class SkillInfo
     {
-        public int SkillId { get; set; }
         public string SkillName { get; set; }
         public string SkillType { get; set; }
         public string Description { get; set; }
@@ -42,7 +41,7 @@ public class Define
         public float Width { get; set; }
         public float Height { get; set; }
         public float DmgRatio { get; set; }
-        public float CoolTime { get; set; }
+        public float Cooldown { get; set; }
     }
 
     public class ClassInfo

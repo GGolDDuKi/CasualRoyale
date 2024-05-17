@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class ExitToLobbyButton : Button
 {
-    public override async void OnClick()
+    public override void OnClick()
     {
         base.OnClick();
 
@@ -19,13 +19,10 @@ public class ExitToLobbyButton : Button
         GameObject host = GameObject.Find("Host");
         if (host != null)
         {
-            HC_MissingHost missingHost = new HC_MissingHost();
-            missingHost.HostId = Managers.Object.MyPlayer.Id;
-            host.GetComponent<HostPlayer>().room.Broadcast(missingHost);
+            yield return new WaitUntil(() => host.GetComponent<HostPlayer>().Clear());
             HS_EndGame endPacket = new HS_EndGame();
             endPacket.Room = Managers.Room.MyRoom;
             Managers.Network.S_Send(endPacket);
-            yield return new WaitUntil(() => host.GetComponent<HostPlayer>().Clear());
         }
         else
         {
@@ -35,9 +32,9 @@ public class ExitToLobbyButton : Button
         }
 
         Managers.Object.Clear();
-        CS_EndGame packet = new CS_EndGame();
+        CS_LeaveGame packet = new CS_LeaveGame();
         Managers.Network.S_Send(packet);
-        Managers.Game.InGame = false;
+        Managers.Game.Init();
         Managers.Scene.LoadScene(Define.Scene.Lobby);
     }
 }

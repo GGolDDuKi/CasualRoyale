@@ -31,19 +31,20 @@ public class ObjectManager
 				_objects.Add(info.ObjectId, go);
 				_players.Add(go);
 
-                MyPlayer = go.GetComponent<MyPlayerController>();
-                MyPlayer.Id = info.ObjectId;
+				MyPlayer = go.GetComponent<MyPlayerController>();
+				MyPlayer.Id = info.ObjectId;
 				MyPlayer.Name = info.Name;
 				MyPlayer.Class = info.Class;
-                MyPlayer.PosInfo = info.PosInfo;
-                MyPlayer.StatInfo = info.StatInfo;
-                MyPlayer.Sync();
+				MyPlayer.PosInfo = info.PosInfo;
+				MyPlayer.StatInfo = info.StatInfo;
+				MyPlayer.Sync();
 
 				Managers.Game.InGame = true;
-				CS_StartGame startPacket = new CS_StartGame();
+
+				CS_EnterGame startPacket = new CS_EnterGame();
 				Managers.Network.S_Send(startPacket);
 				Managers.Room.Clear();
-            }
+			}
 			else
 			{
 				GameObject go = Managers.Resource.Instantiate($"Creatures/{info.Class}/Player");
@@ -51,13 +52,13 @@ public class ObjectManager
 				_players.Add(go);
 
 				PlayerController pc = go.GetComponent<PlayerController>();
-                pc.Id = info.ObjectId;
+				pc.Id = info.ObjectId;
 				pc.Name = info.Name;
 				pc.Class = info.Class;
 				pc.PosInfo = info.PosInfo;
-                pc.StatInfo = info.StatInfo;
-                pc.Sync();
-            }
+				pc.StatInfo = info.StatInfo;
+				pc.Sync();
+			}
 		}
         else if (objectType == GameObjectType.Projectile)
         {

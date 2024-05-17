@@ -30,12 +30,12 @@ namespace ServerCore
 
 		public void CloseSocket()
         {
+			if (_listenSocket != null)
+			{
 				_listenSocket.Close();
-    //        if (_listenSocket.Connected)
-    //        {
-				//_listenSocket.Shutdown(SocketShutdown.Both);
-    //        }
-        }
+				_listenSocket = null;
+			}
+		}
 
 		//소켓의 연결 시도를 등록
 		void RegisterAccept(SocketAsyncEventArgs args)

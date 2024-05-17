@@ -30,6 +30,22 @@ namespace HostServer
 			}
 		}
 
+		public ClientSession Generate(ClientSession newSession)
+		{
+			lock (_lock)
+			{
+				int sessionId = ++_sessionId;
+
+				ClientSession session = newSession;
+				session.SessionId = sessionId;
+				_sessions.Add(sessionId, session);
+
+				Console.WriteLine($"Connected : {sessionId}");
+
+				return session;
+			}
+		}
+
 		public ClientSession Find(int id)
 		{
 			lock (_lock)
@@ -71,7 +87,8 @@ namespace HostServer
 				HC_HostDisconnect disconnectPacket = new HC_HostDisconnect();
 				foreach (ClientSession session in sessions.Values)
 				{
-					session.Send(disconnectPacket);
+					if (session.MyPlayer.Authority != Authority.Host)
+						session.Send(disconnectPacket);
 					session.Disconnect();
 				}
 				sessions.Clear();

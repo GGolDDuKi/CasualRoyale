@@ -1,3 +1,4 @@
 {
-  "dataPath": "../../../../../PixelBattleClient/Assets/Resources/Data"
+  "dataPath": "../../../../../PixelSquadClient/Assets/Resources/Data",
+  "connectionString": "Server=localhost;Port=3306;Database=PixelSquad;Uid=root;Pwd=dduki1520310asd@"
 }

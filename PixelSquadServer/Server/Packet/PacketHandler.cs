@@ -78,9 +78,9 @@ class PacketHandler
         lobby.Push(lobby.AddRoom, user, roomPacket);
     }
 
-    public static void CS_EndGameHandler(PacketSession session, IMessage packet)
+    public static void CS_LeaveGameHandler(PacketSession session, IMessage packet)
     {
-        CS_EndGame updatePacket = packet as CS_EndGame;
+        CS_LeaveGame updatePacket = packet as CS_LeaveGame;
         ClientSession clientSession = session as ClientSession;
 
         User user = clientSession.MyUser;
@@ -94,9 +94,9 @@ class PacketHandler
         lobby.Push(lobby.ChangeUserState, user, UserState.Lobby);
     }
 
-    public static void CS_StartGameHandler(PacketSession session, IMessage packet)
+    public static void CS_EnterGameHandler(PacketSession session, IMessage packet)
     {
-        CS_StartGame updatePacket = packet as CS_StartGame;
+        CS_EnterGame updatePacket = packet as CS_EnterGame;
         ClientSession clientSession = session as ClientSession;
 
         User user = clientSession.MyUser;

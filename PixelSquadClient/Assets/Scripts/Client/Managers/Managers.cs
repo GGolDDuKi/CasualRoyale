@@ -62,8 +62,8 @@ public class Managers : MonoBehaviour
             _instance = go.GetComponent<Managers>();
 
             _instance._pool.Init();
-            _instance._network.Init();
             _instance._user.Init();
+            _instance._network.Init();
             _instance._sound.Init();
             _instance._setting.Init();
             _instance._data.Init();

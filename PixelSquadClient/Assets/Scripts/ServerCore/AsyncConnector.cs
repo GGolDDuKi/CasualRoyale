@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace ServerCore
 {
@@ -16,6 +17,21 @@ namespace ServerCore
 			{
 				Socket socket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 				socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+
+				try
+				{
+					IPAddress ipAddr = IPAddress.Parse($"{Managers.User.PrivateIp}");
+					IPEndPoint localEndPoint = new IPEndPoint(ipAddr, 50000);
+					socket.Bind(localEndPoint);
+				}
+				catch (SocketException ex)
+				{
+					if (ex.SocketErrorCode == SocketError.AddressAlreadyInUse)
+					{
+						Debug.Log("이미 바인딩된 엔드포인트입니다.");
+					}
+				}
+
 				_sessionFactory = sessionFactory;
 
 				SocketAsyncEventArgs args = new SocketAsyncEventArgs();

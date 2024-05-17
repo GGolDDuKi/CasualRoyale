@@ -13,7 +13,6 @@ public class LobbyScene : BaseScene
 
         SceneType = Define.Scene.Lobby;
 
-        Screen.SetResolution(640, 360, false);
         Application.runInBackground = true;
     }
 

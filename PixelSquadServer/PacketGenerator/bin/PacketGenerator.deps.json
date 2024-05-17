@@ -1,11 +1,11 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v3.1",
+    "name": ".NETCoreApp,Version=v6.0",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v3.1": {
+    ".NETCoreApp,Version=v6.0": {
       "PacketGenerator/1.0.0": {
         "dependencies": {
           "Google.Protobuf": "3.12.3",
@@ -29,14 +29,7 @@
       },
       "System.Buffers/4.5.1": {},
       "System.Memory/4.5.2": {},
-      "System.Runtime.CompilerServices.Unsafe/4.7.1": {
-        "runtime": {
-          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {
-            "assemblyVersion": "4.0.6.0",
-            "fileVersion": "4.700.20.12001"
-          }
-        }
-      }
+      "System.Runtime.CompilerServices.Unsafe/4.7.1": {}
     }
   },
   "libraries": {

@@ -17,8 +17,7 @@ public abstract class BaseScene : MonoBehaviour
         if (obj == null)
             Managers.Resource.Instantiate("UI/EventSystem").name = "@EventSystem";
 
-        Screen.SetResolution(Managers.Setting.Width, Managers.Setting.Height, false);
-        GameObject.Find("Canvas").GetComponent<CanvasScaler>().referenceResolution = new Vector2(Managers.Setting.Width, Managers.Setting.Height);
+        Managers.Setting.SetScreen();
     }
 
     public abstract void Clear();

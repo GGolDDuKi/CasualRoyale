@@ -11,13 +11,30 @@ namespace ServerCore
 	{
 		Func<Session> _sessionFactory;
 
-		public void Connect(IPEndPoint endPoint, Func<Session> sessionFactory, int count = 1)
+		public void Connect(IPEndPoint endPoint, Func<Session> sessionFactory, bool bind = false, int port = 50000, int count = 1)
 		{
+			Socket socket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+			socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+			if (bind)
+			{
+				try
+				{
+					Debug.Log($"{Managers.User.PrivateIp}");
+					IPAddress ipAddr = IPAddress.Parse($"{Managers.User.PrivateIp}");
+					IPEndPoint localEndPoint = new IPEndPoint(ipAddr, port);
+					socket.Bind(localEndPoint);
+				}
+				catch (SocketException ex)
+				{
+					if (ex.SocketErrorCode == SocketError.AddressAlreadyInUse)
+					{
+						Debug.Log("이미 바인딩된 엔드포인트입니다.");
+					}
+				}
+			}
+
 			for (int i = 0; i < count; i++)
 			{
-				// 휴대폰 설정
-				Socket socket = new Socket(endPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-				socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
 				_sessionFactory = sessionFactory;
 
 				SocketAsyncEventArgs args = new SocketAsyncEventArgs();
@@ -51,6 +68,7 @@ namespace ServerCore
 			else
 			{
 				Debug.Log($"OnConnectCompleted Fail: {args.SocketError}");
+				args.Dispose();
 			}
 		}
 	}

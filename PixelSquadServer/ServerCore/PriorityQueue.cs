@@ -46,7 +46,6 @@ namespace ServerCore
 			_heap.RemoveAt(lastIndex);
 			lastIndex--;
 
-			// 역으로 내려가는 도장깨기 시작
 			int now = 0;
 			while (true)
 			{

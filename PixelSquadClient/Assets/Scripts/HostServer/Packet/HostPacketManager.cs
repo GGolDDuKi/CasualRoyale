@@ -41,6 +41,12 @@ namespace Host
 			_handler.Add((ushort)MsgId.ChSkillEffect, PacketHandler.CH_SkillEffectHandler);
 			_onRecv.Add((ushort)MsgId.ChSkillDamage, MakePacket<CH_SkillDamage>);
 			_handler.Add((ushort)MsgId.ChSkillDamage, PacketHandler.CH_SkillDamageHandler);
+			_onRecv.Add((ushort)MsgId.ChReady, MakePacket<CH_Ready>);
+			_handler.Add((ushort)MsgId.ChReady, PacketHandler.CH_ReadyHandler);
+			_onRecv.Add((ushort)MsgId.ChStartGame, MakePacket<CH_StartGame>);
+			_handler.Add((ushort)MsgId.ChStartGame, PacketHandler.CH_StartGameHandler);
+			_onRecv.Add((ushort)MsgId.ChEmote, MakePacket<CH_Emote>);
+			_handler.Add((ushort)MsgId.ChEmote, PacketHandler.CH_EmoteHandler);
 		}
 
 		public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

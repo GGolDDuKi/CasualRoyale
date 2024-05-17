@@ -12,6 +12,7 @@ public class NetworkManager
 	ServerSession _session = new ServerSession();
 	ServerSession _hostSession = new ServerSession();
 	public bool _host = false;
+    public int _port = default(int);
 
 	public void S_Send(IMessage packet)
 	{
@@ -20,8 +21,7 @@ public class NetworkManager
 
 	public void H_Send(IMessage packet)
 	{
-        if (_hostSession.CheckSocket())
-			_hostSession.Send(packet);
+		_hostSession.Send(packet);
 	}
 
 	public void Init(int port = 7777, string ip = null)
@@ -29,25 +29,19 @@ public class NetworkManager
 		IPAddress ipAddr;
 		if (ip == null)
 		{
-            //string host = "DDuKi.iptime.org";
-            string host = Dns.GetHostName();
+            string host = "DDuKi.iptime.org";
+            //string host = Dns.GetHostName();
             IPHostEntry ipHost = Dns.GetHostEntry(host);
-			ipAddr = IPAddress.Parse($"{ipHost.AddressList[1].ToString()}");
+            IPAddress[] ipAddrs = ipHost.AddressList;
+            ipAddr = IPAddress.Parse($"{ipAddrs[ipAddrs.Length - 1].ToString()}");
 		}
 		else
 			ipAddr = IPAddress.Parse(ip);
 
 		IPEndPoint endPoint = new IPEndPoint(ipAddr, port);
-
 		Connector connector = new Connector();
-
-		connector.Connect(endPoint,
-			() => { return _session; },
-			1);
-
-		//GameObject go = GameObject.Find("Host");
-		//go = Managers.Resource.Instantiate("Host/Host");
-		//UnityEngine.Object.DontDestroyOnLoad(go);
+        _port = UnityEngine.Random.Range(30000, 50000);
+        connector.Connect(endPoint, () => { return _session; }, true, _port, 1);
 	}
 
 	public void Clear()
@@ -55,40 +49,88 @@ public class NetworkManager
         _hostSession = new ServerSession();
     }
 
-    public async Task ConnectAsync(string publicIp, string privateIp, int port = 7778, int timeout = 5000)
-	{
-		AsyncConnector _connector = new AsyncConnector();
-		CancellationTokenSource cts = new CancellationTokenSource();
-		cts.CancelAfter(timeout);
-
-		try
-		{
-			IPAddress ipAddr = IPAddress.Parse(privateIp);
-			IPEndPoint endPoint = new IPEndPoint(ipAddr, port);
-
-			bool isConnect = await _connector.ConnectAsync(endPoint, () => { isConnect = true; return _hostSession; });
-
-			if (isConnect == false)
-			{
-				ipAddr = IPAddress.Parse(publicIp);
-				endPoint = new IPEndPoint(ipAddr, port);
-
-				isConnect = await _connector.ConnectAsync(endPoint, () => { isConnect = true; return _hostSession; });
-			}
-		}
-		catch (OperationCanceledException)
-		{
-			throw new TimeoutException("The operation has timed out.");
-		}
-	}
-
-	public void Connect(string publicIp, string privateIp, int port = 7778, int timeout = 5000)
+    public void Connect(string publicIp, string privateIp, int port = 50000, bool bind = false, int count = 3)
     {
-		Task.Run(async () =>
+        IPAddress ipAddr = IPAddress.Parse(privateIp);
+        IPEndPoint endPoint = new IPEndPoint(ipAddr, 50000);
+
+        Connector _connector = new Connector();
+        _connector.Connect(endPoint, () => { return _hostSession; }, bind, _port, count);
+
+        ipAddr = IPAddress.Parse(publicIp);
+        endPoint = new IPEndPoint(ipAddr, port);
+        _connector.Connect(endPoint, () => { return _hostSession; }, bind, _port, count);
+
+        //TODO : 연결 안 된 경우 처리
+    }
+
+    public void ConnectSelf(string ip, int port = 20000)
+    {
+        IPAddress ipAddr = IPAddress.Parse(ip);
+        IPEndPoint endPoint = new IPEndPoint(ipAddr, 20000);
+
+        Connector _connector = new Connector();
+        _connector.Connect(endPoint, () => { return _hostSession; }, false, 20000, 1);
+
+        //TODO : 연결 안 된 경우 처리
+    }
+
+    //public async Task ConnectAsync(string publicIp, string privateIp, int port = 50000, int timeout = 5000)
+    //{
+    //    AsyncConnector _connector = new AsyncConnector();
+    //    CancellationTokenSource cts = new CancellationTokenSource();
+    //    cts.CancelAfter(timeout);
+
+    //    try
+    //    {
+    //        IPAddress ipAddr = IPAddress.Parse(privateIp);
+    //        IPEndPoint endPoint = new IPEndPoint(ipAddr, port);
+
+    //        bool isConnect = await _connector.ConnectAsync(endPoint, () => { isConnect = true; return _hostSession; });
+
+    //        if (isConnect == false)
+    //        {
+    //            ipAddr = IPAddress.Parse(publicIp);
+    //            endPoint = new IPEndPoint(ipAddr, port);
+
+    //            isConnect = await _connector.ConnectAsync(endPoint, () => { isConnect = true; return _hostSession; });
+    //        }
+    //    }
+    //    catch (OperationCanceledException)
+    //    {
+    //        throw new TimeoutException("The operation has timed out.");
+    //    }
+    //}
+
+    //public void Connect(string publicIp, string privateIp, int port = 50000, int timeout = 5000)
+    //{
+    //    Task.Run(async () =>
+    //    {
+    //        await ConnectAsync(publicIp, privateIp, port, timeout);
+    //    });
+    //}
+
+    public void StartListen()
+    {
+        IPAddress ipAddr = IPAddress.Parse("0.0.0.0");
+        IPEndPoint endPoint = new IPEndPoint(ipAddr, 50000);
+        Listener _listener = new Listener();
+        _listener.Init(endPoint, () => { return _hostSession; });
+        Debug.Log("Listening...");
+
+        // 5초 후에 Listen을 중지합니다.
+        Task.Delay(TimeSpan.FromSeconds(5)).ContinueWith(t => StopListen(_listener));
+    }
+
+    public void StopListen(Listener listener)
+	{
+		if (listener != null)
 		{
-			await ConnectAsync(publicIp, privateIp, port, timeout);
-		});
+			listener.CloseSocket();
+			Debug.Log("Stopped listening...");
+		}
 	}
+
 
 	public void Update()
 	{

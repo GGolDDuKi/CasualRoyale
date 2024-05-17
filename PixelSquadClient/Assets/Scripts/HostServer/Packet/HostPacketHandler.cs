@@ -48,7 +48,8 @@ namespace Host
             SH_ConnectClient connectPacket = packet as SH_ConnectClient;
 
             UnityEngine.GameObject go = UnityEngine.GameObject.Find("Host");
-            go.GetComponent<HostPlayer>().Connect(connectPacket.PublicIp, connectPacket.PrivateIp);
+            //Managers.Network.StartListen();
+            go.GetComponent<HostPlayer>().Connect(connectPacket.PublicIp, connectPacket.PrivateIp, connectPacket.Port, true, 3);
         }
 
         public static void CH_SkillEffectHandler(PacketSession session, IMessage packet)
@@ -79,6 +80,54 @@ namespace Host
             }
 
             room.Push(room.EnterGame, projectile);
+        }
+
+        public static void CH_EmoteHandler(PacketSession session, IMessage packet)
+        {
+            CH_Emote emotePacket = packet as CH_Emote;
+            ClientSession clientSession = session as ClientSession;
+
+            Player player = clientSession.MyPlayer;
+            if (player == null)
+                return;
+
+            GameRoom room = player.Room;
+            if (room == null)
+                return;
+
+            room.Push(room.HandleEmotion, player, emotePacket);
+        }
+
+        public static void CH_StartGameHandler(PacketSession session, IMessage packet)
+        {
+            CH_StartGame startPacket = packet as CH_StartGame;
+            ClientSession clientSession = session as ClientSession;
+
+            Player player = clientSession.MyPlayer;
+            if (player == null)
+                return;
+
+            GameRoom room = player.Room;
+            if (room == null)
+                return;
+
+            room.Push(room.InitGame);
+        }
+
+        public static void CH_ReadyHandler(PacketSession session, IMessage packet)
+        {
+            CH_Ready readyPacket = packet as CH_Ready;
+            ClientSession clientSession = session as ClientSession;
+
+            Player player = clientSession.MyPlayer;
+            if (player == null)
+                return;
+
+            GameRoom room = player.Room;
+            if (room == null)
+                return;
+
+            room.Push(room.UpdateReadyState, player, readyPacket);
         }
 
         public static void CH_SkillDamageHandler(PacketSession session, IMessage packet)

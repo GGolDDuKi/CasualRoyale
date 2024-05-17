@@ -76,6 +76,9 @@ namespace HostServer.Game
 
         private bool CheckCollision()
         {
+            if (Room.GameStart == false)
+                return false;
+
             BoxCollider2D newCol = new BoxCollider2D(Pos.x, Pos.y, Collider.width, Collider.height);
 
             foreach (Player p in Room.Players.Values)

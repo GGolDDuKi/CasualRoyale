@@ -230,7 +230,6 @@ public class CreatureController : BaseController
                 time = anim.length;
         }
 
-        //TODO : 스킬매니저에서 스킬id로 스킬 불러와서 UsingSkill함수 호출
         State = ActionState.Skill;
 
         yield return new WaitForSeconds(time);

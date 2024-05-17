@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Client
 {
@@ -13,6 +14,23 @@ namespace Client
         public static void HC_EnterGameHandler(PacketSession session, IMessage packet)
         {
             HC_EnterGame enterGamePacket = packet as HC_EnterGame;
+            Managers.Game.Authority = enterGamePacket.Auth;
+            GameObject go;
+
+            switch (Managers.Game.Authority)
+            {
+                case Authority.Client:
+                    go = GameObject.Find("ReadyButton");
+                    if (go == null)
+                        Managers.UI.GenerateUI("ReadyButton");
+                    break;
+                case Authority.Host:
+                    go = GameObject.Find("StartButton");
+                    if (go == null)
+                        Managers.UI.GenerateUI("StartButton");
+                    break;
+            }
+
             Managers.Object.Add(enterGamePacket.Player, myPlayer: true);
         }
 
@@ -96,6 +114,56 @@ namespace Client
             Managers.Scene.LoadScene(Define.Scene.Lobby);
         }
 
+        public static void HC_StartGameHandler(PacketSession session, IMessage packet)
+        {
+            HC_StartGame startPacket = packet as HC_StartGame;
+            GameObject go;
+
+            foreach (var info in startPacket.Players)
+            {
+                go = Managers.Object.FindById(info.ObjectId);
+                go.GetComponent<PlayerController>().Pos = new Vector2(info.PosInfo.PosX, info.PosInfo.PosY);
+                go.transform.position = go.GetComponent<PlayerController>().Pos;
+            }
+
+            switch (Managers.Game.Authority)
+            {
+                case Authority.Client:
+                    go = GameObject.Find("ReadyButton");
+                    if (go != null)
+                        Managers.Resource.Destroy(go);
+                    break;
+                case Authority.Host:
+                    go = GameObject.Find("StartButton");
+                    if (go != null)
+                        Managers.Resource.Destroy(go);
+                    break;
+            }
+
+            GameObject ui = Managers.UI.GenerateUI("GameStartNotice");
+            ui.GetComponent<MonoBehaviour>().StartCoroutine(Managers.UI.CoFadeInText(ui, () => { Managers.Resource.Destroy(ui); }));
+        }
+
+        public static void HC_EmoteHandler(PacketSession session, IMessage packet)
+        {
+            HC_Emote emotePacket = packet as HC_Emote;
+
+            UnityEngine.GameObject go = Managers.Object.FindById(emotePacket.Id);
+            if (go == null)
+                return;
+
+            if (Managers.Object.MyPlayer.Id == emotePacket.Id)
+                return;
+
+            PlayerController pc = go.GetComponent<PlayerController>();
+            if (pc == null)
+                return;
+
+            Emotion emotion = Managers.UI.GenerateEmotion(pc);
+            emotion.SetEmotion(emotePacket.EmoteName);
+            emotion.GetComponent<MonoBehaviour>().StartCoroutine(Managers.UI.CoFadeIn(emotion.gameObject, () => { Managers.Resource.Destroy(emotion.gameObject); }));
+        }
+
         public static void SC_RoomListHandler(PacketSession session, IMessage packet)
         {
             if (Managers.Game.InGame == true)
@@ -147,6 +215,14 @@ namespace Client
             {
                 return;
             }
+        }
+
+        public static void HC_CanStartHandler(PacketSession session, IMessage packet)
+        {
+            HC_CanStart startPacket = packet as HC_CanStart;
+
+            GameObject go = GameObject.Find("StartButton");
+            go.GetComponent<StartButton>().ChangeState(startPacket.Start);
         }
 
         public static void HC_HostDisconnectHandler(PacketSession session, IMessage packet)
@@ -215,9 +291,7 @@ namespace Client
                 go = Managers.Resource.Instantiate("Host/Host");
             UnityEngine.Object.DontDestroyOnLoad(go);
 
-            //Managers.Game.Host = true;
-
-            Managers.Network.Connect(Managers.User.PublicIp, "127.0.0.1");
+            Managers.Network.ConnectSelf("127.0.0.1");
         }
 
         public static void SC_AcceptEnterHandler(PacketSession session, IMessage packet)
@@ -226,8 +300,9 @@ namespace Client
 
             Managers.Scene.LoadScene(Define.Scene.Game);
 
-            Managers.Network.Connect(Managers.User.PublicIp, "127.0.0.1");
-            //Managers.Network.Connect(acceptPacket.PublicIp, acceptPacket.PrivateIp);
+            //Managers.Network.StartListen();
+            //Managers.Network.Connect(Managers.User.PublicIp, "127.0.0.1");
+            Managers.Network.Connect(acceptPacket.PublicIp, acceptPacket.PrivateIp, acceptPacket.Port, true, 3);
         }
 
         public static void SC_RejectEnterHandler(PacketSession session, IMessage packet)

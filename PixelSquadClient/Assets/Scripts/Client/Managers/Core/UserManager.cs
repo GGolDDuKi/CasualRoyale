@@ -65,6 +65,7 @@ public class UserManager
     {
         string host = Dns.GetHostName();
         IPHostEntry ipHost = Dns.GetHostEntry(host);
-        PrivateIp = ipHost.AddressList[1].ToString();
+        IPAddress[] ipAddr = ipHost.AddressList;
+        PrivateIp = ipAddr[ipAddr.Length - 1].ToString();
     }
 }

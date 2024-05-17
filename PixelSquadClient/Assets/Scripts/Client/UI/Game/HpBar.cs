@@ -4,32 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class HpBar : MonoBehaviour
+public class HpBar : FollowingUI
 {
-    CreatureController cc;
-    RectTransform rect;
     Image fill;
-    TMP_Text objectName;
 
     private void Update()
     {
-        if(cc != null)
-        {
-            rect.position = new Vector2(cc.transform.position.x, cc.transform.position.y + 1.5f);
-        }
+        FollowObject(1.5f);
     }
 
-    public void Init(CreatureController cc)
+    public override void Init(CreatureController cc)
     {
-        Canvas canvas = transform.parent.parent.GetComponent<Canvas>();
-        if(canvas.worldCamera == null)
-            canvas.worldCamera = Camera.main;
-
-        this.cc = cc;
-        rect = GetComponent<RectTransform>();
+        base.Init(cc);
         fill = transform.GetChild(0).GetComponent<Image>();
-        objectName = transform.GetChild(1).GetComponent<TMP_Text>();
-        objectName.text = cc.Name;
     }
 
     public void SetHpBar(float curHp, float maxHp)

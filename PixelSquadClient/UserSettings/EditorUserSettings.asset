@@ -24,12 +24,15 @@ EditorUserSettings:
       value: 0254005503505e5f0f5f5a7b437b5d4440164b79297a7135287b4c60e7b93561
       flags: 0
     RecentlyUsedSceneGuid-6:
-      value: 0506575601055d5e0f5d597a47775e4410164c7c79787769282a4b37e4b7316f
+      value: 0254505207575a0d540d547b1277094414154a7c7a7e70342f7a1c30e7e1646b
       flags: 0
     RecentlyUsedSceneGuid-7:
-      value: 050206555602590a5f565d7712775d44474f4d737e2a22327b2d4d63bae3316d
+      value: 0506575601055d5e0f5d597a47775e4410164c7c79787769282a4b37e4b7316f
       flags: 0
     RecentlyUsedSceneGuid-8:
+      value: 050206555602590a5f565d7712775d44474f4d737e2a22327b2d4d63bae3316d
+      flags: 0
+    RecentlyUsedSceneGuid-9:
       value: 560101505d00080f555d5f73437b5d4417161a782a2a76677b7b4967b1e3676f
       flags: 0
     UnityEditor.ShaderGraph.Blackboard:
@@ -48,7 +51,10 @@ EditorUserSettings:
       value: 337f73
       flags: 0
     UnityRemoteDevice:
-      value: 225f4d46245b0d4902070862342649191512
+      value: 2d5e5a03
+      flags: 0
+    UnityRemoteJoystickSource:
+      value: 315459091150
       flags: 0
     vcSharedLogLevel:
       value: 0d5e400f0650

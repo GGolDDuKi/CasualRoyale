@@ -59,14 +59,18 @@ namespace Client
 			_handler.Add((ushort)MsgId.HcWinner, PacketHandler.HC_WinnerHandler);
 			_onRecv.Add((ushort)MsgId.HcEndGame, MakePacket<HC_EndGame>);
 			_handler.Add((ushort)MsgId.HcEndGame, PacketHandler.HC_EndGameHandler);
-			_onRecv.Add((ushort)MsgId.HcMissingHost, MakePacket<HC_MissingHost>);
-			_handler.Add((ushort)MsgId.HcMissingHost, PacketHandler.HC_MissingHostHandler);
 			_onRecv.Add((ushort)MsgId.HcUseSkill, MakePacket<HC_UseSkill>);
 			_handler.Add((ushort)MsgId.HcUseSkill, PacketHandler.HC_UseSkillHandler);
 			_onRecv.Add((ushort)MsgId.HcRequestInfo, MakePacket<HC_RequestInfo>);
 			_handler.Add((ushort)MsgId.HcRequestInfo, PacketHandler.HC_RequestInfoHandler);
 			_onRecv.Add((ushort)MsgId.HcHostDisconnect, MakePacket<HC_HostDisconnect>);
 			_handler.Add((ushort)MsgId.HcHostDisconnect, PacketHandler.HC_HostDisconnectHandler);
+			_onRecv.Add((ushort)MsgId.HcCanStart, MakePacket<HC_CanStart>);
+			_handler.Add((ushort)MsgId.HcCanStart, PacketHandler.HC_CanStartHandler);
+			_onRecv.Add((ushort)MsgId.HcStartGame, MakePacket<HC_StartGame>);
+			_handler.Add((ushort)MsgId.HcStartGame, PacketHandler.HC_StartGameHandler);
+			_onRecv.Add((ushort)MsgId.HcEmote, MakePacket<HC_Emote>);
+			_handler.Add((ushort)MsgId.HcEmote, PacketHandler.HC_EmoteHandler);
 		}
 
 		public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
