@@ -3,7 +3,7 @@
     "m_SelectedProcess": {
         "deviceId": "R5CRC072LLJ",
         "name": "com.DDuKiStd.PixelSquad",
-        "processId": 5281,
+        "processId": 6383,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -48,6 +48,18 @@
             "deviceId": "R5CRC072LLJ",
             "name": "com.DDuKiStd.PixelSquad",
             "processId": 5281,
+            "exited": false
+        },
+        {
+            "deviceId": "R5CRC072LLJ",
+            "name": "com.DDuKiStd.PixelSquad",
+            "processId": 1891,
+            "exited": false
+        },
+        {
+            "deviceId": "R5CRC072LLJ",
+            "name": "com.DDuKiStd.PixelSquad",
+            "processId": 6383,
             "exited": false
         }
     ],

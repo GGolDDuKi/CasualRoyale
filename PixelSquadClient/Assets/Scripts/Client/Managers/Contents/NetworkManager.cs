@@ -6,6 +6,7 @@ using Google.Protobuf;
 using System.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
+using System.Net.NetworkInformation;
 
 public class NetworkManager
 {
@@ -40,11 +41,18 @@ public class NetworkManager
 
 		IPEndPoint endPoint = new IPEndPoint(ipAddr, port);
 		Connector connector = new Connector();
-        _port = UnityEngine.Random.Range(30000, 50000);
+
+        GetPortNumber();
         connector.Connect(endPoint, () => { return _session; }, true, _port, 1);
 	}
 
-	public void Clear()
+    public void GetPortNumber()
+    {
+        _port = UnityEngine.Random.Range(49152, 65535);
+        Debug.Log($"{_port}포트 할당");
+    }
+
+    public void Clear()
     {
         _hostSession = new ServerSession();
     }
