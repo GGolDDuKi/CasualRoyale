@@ -23,7 +23,7 @@ namespace ServerCore
                     IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, port);
                     Debug.Log($"{localEndPoint} 바인딩 시도");
                     socket.Bind(localEndPoint);
-                    GameObject.Find("EndPoint").GetComponent<TMP_Text>().text = $"{localEndPoint}";
+                    GameObject.Find("LocalEndPoint").GetComponent<TMP_Text>().text = $"{localEndPoint}";
                 }
                 catch (SocketException ex)
                 {
@@ -36,7 +36,7 @@ namespace ServerCore
                     }
                     else
                     {
-                        GameObject.Find("EndPoint").GetComponent<TMP_Text>().text = $"{ex}";
+                        GameObject.Find("LocalEndPoint").GetComponent<TMP_Text>().text = $"{ex}";
                     }
                 }
             }

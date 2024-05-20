@@ -3,7 +3,7 @@
     "m_SelectedProcess": {
         "deviceId": "R5CRC072LLJ",
         "name": "com.DDuKiStd.PixelSquad",
-        "processId": 6383,
+        "processId": 32356,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -60,6 +60,12 @@
             "deviceId": "R5CRC072LLJ",
             "name": "com.DDuKiStd.PixelSquad",
             "processId": 6383,
+            "exited": false
+        },
+        {
+            "deviceId": "R5CRC072LLJ",
+            "name": "com.DDuKiStd.PixelSquad",
+            "processId": 32356,
             "exited": false
         }
     ],

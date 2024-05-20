@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
 using System.Net.NetworkInformation;
+using TMPro;
 
 public class NetworkManager
 {
@@ -41,6 +42,7 @@ public class NetworkManager
 
 		IPEndPoint endPoint = new IPEndPoint(ipAddr, port);
 		Connector connector = new Connector();
+        GameObject.Find("ServerEndPoint").GetComponent<TMP_Text>().text = $"{endPoint}";
 
         GetPortNumber();
         connector.Connect(endPoint, () => { return _session; }, true, _port, 1);
