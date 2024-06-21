@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Server
 {
-    public class GameRoom
+    public class GameRoomInfo
     {
         #region RoomInfo Info
 

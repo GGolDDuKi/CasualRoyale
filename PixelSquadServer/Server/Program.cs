@@ -27,7 +27,6 @@ namespace Server
 		static void Main(string[] args)
 		{
             ConfigManager.LoadConfig();
-            //DataManager.LoadData();
 
             Lobby lobby = LobbyManager.Instance.Add();
 			TickLobby(lobby, 50);

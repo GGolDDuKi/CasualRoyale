@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Server
+namespace Server.Job
 {
 	public class JobSerializer
 	{

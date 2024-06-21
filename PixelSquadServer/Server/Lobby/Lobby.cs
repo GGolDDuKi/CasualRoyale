@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using Server;
+using Server.Job;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -28,8 +29,8 @@ namespace Server
 		Dictionary<int, User> _users = new Dictionary<int, User>();
 		public Dictionary<int, User> Users { get { return _users; } }
 
-		Dictionary<int, GameRoom> _rooms = new Dictionary<int, GameRoom>();
-		public Dictionary<int, GameRoom> Rooms { get { return _rooms; } }
+		Dictionary<int, GameRoomInfo> _rooms = new Dictionary<int, GameRoomInfo>();
+		public Dictionary<int, GameRoomInfo> Rooms { get { return _rooms; } }
 
 		int _roomCount = 0;
 
@@ -81,7 +82,7 @@ namespace Server
 
 		public void LeaveLobby(int objectId)
 		{
-			GameRoom room = null;
+			GameRoomInfo room = null;
 			foreach(var r in _rooms.Values)
             {
 				if(r.HostId == objectId)
@@ -101,7 +102,7 @@ namespace Server
 		public void UpdateRoomList(User user = null)
         {
 			SC_RoomList roomList = new SC_RoomList();
-			foreach (GameRoom room in _rooms.Values)
+			foreach (GameRoomInfo room in _rooms.Values)
 			{
 				RoomInfo roomInfo = new RoomInfo();
 				roomInfo.RoomId = room.Id;
@@ -121,10 +122,10 @@ namespace Server
 
 		public void AddRoom(User user, CS_MakeRoom packet)
         {
-			GameRoom room = new GameRoom();
+			GameRoomInfo room = new GameRoomInfo();
 			room.Info = packet.Room;
 
-			foreach(GameRoom r in _rooms.Values)
+			foreach(GameRoomInfo r in _rooms.Values)
             {
 				if (room.Info.RoomName == r.Name)
                 {
@@ -157,7 +158,7 @@ namespace Server
 
 		public void EnterRoom(User user, CS_EnterRoom packet)
         {
-			GameRoom room = _rooms[packet.RoomId];
+			GameRoomInfo room = _rooms[packet.RoomId];
 
 			if(room.CurMember >= room.MaxMember)
             {

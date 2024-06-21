@@ -71,57 +71,6 @@ class HostPlayer : MonoBehaviour
 		return true;
     }
 
-	public void Connect(string publicIp, string privateIp, int port = 50000, bool bind = false, int count = 3)
-	{
-		IPAddress ipAddr = IPAddress.Parse(privateIp);
-		IPEndPoint endPoint = new IPEndPoint(ipAddr, 50000);
-		ClientSession session = new ClientSession();
-
-		Connector _connector = new Connector();
-		_connector.Connect(endPoint, () => { return SessionManager.Instance.Generate(session); }, bind, count);
-
-		ipAddr = IPAddress.Parse(publicIp);
-		endPoint = new IPEndPoint(ipAddr, port);
-		_connector.Connect(endPoint, () => { return SessionManager.Instance.Generate(session); }, bind, count);
-
-		//TODO : 연결 안 된 경우 처리
-	}
-
-	//   public async Task ConnectAsync(string publicIp, string privateIp, int port = 50000, int timeout = 5000)
-	//{
-	//	CancellationTokenSource cts = new CancellationTokenSource();
-	//	cts.CancelAfter(timeout);
-
-	//	try
-	//	{
-	//		IPAddress ipAddr = IPAddress.Parse(privateIp);
-	//		IPEndPoint endPoint = new IPEndPoint(ipAddr, port);
-
-	//		bool isConnect = await _connector.ConnectAsync(endPoint, () => { isConnect = true; return SessionManager.Instance.Generate(); });
-
-	//		if (isConnect == false)
-	//		{
-	//			ipAddr = IPAddress.Parse(publicIp);
-	//			endPoint = new IPEndPoint(ipAddr, port);
-
-	//			isConnect = await _connector.ConnectAsync(endPoint, () => { isConnect = true; return SessionManager.Instance.Generate(); });
-	//		}
-	//	}
-	//	catch (OperationCanceledException)
-	//	{
-	//		//일정시간 연결 안되면 종료
-	//		throw new TimeoutException("The operation has timed out.");
-	//	}
-	//}
-
-	//public void Connect(string publicIp, string privateIp, int port = 50000, int timeout = 5000)
-	//{
-	//	Task.Run(async () =>
-	//	{
-	//		await ConnectAsync(publicIp, privateIp, port, timeout);
-	//	});
-	//}
-
 	void TickRoom(GameRoom room, int tick = 100)
 	{
 		var timer = new System.Timers.Timer();
