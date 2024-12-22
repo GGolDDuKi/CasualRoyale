@@ -1,0 +1,62 @@
+{
+  "0": {
+    "SkillName": "StrongAttack",
+    "SkillType": "Immediate",
+    "Description": "전방에 강력한 베기 공격을 가합니다.",
+    "Range": "1.5",
+    "Width": "1.5",
+    "Height": "1.5",
+    "DmgRatio": "2.0",
+    "Cooldown": "5.0"
+  },
+  "1": {
+    "SkillName": "SwordAuror",
+    "SkillType": "Projectile",
+    "Description": "바라보는 방향으로 검기를 발사합니다.",
+    "Range": "15",
+    "Width": "1",
+    "Height": "1",
+    "DmgRatio": "1.5",
+    "Cooldown": "5.0"
+  },
+  "2": {
+    "SkillName": "FireBall",
+    "SkillType": "Projectile",
+    "Description": "바라보는 방향으로 파이어볼을 발사합니다.",
+    "Range": "15",
+    "Width": "1",
+    "Height": "1",
+    "DmgRatio": "1.5",
+    "Cooldown": "5.0"
+  },
+  "3": {
+    "SkillName": "Thunder",
+    "SkillType": "Immediate",
+    "Description": "전방에 강력한 번개를 소환합니다",
+    "Range": "5",
+    "Width": "1.5",
+    "Height": "1.5",
+    "DmgRatio": "3",
+    "Cooldown": "5.0"
+  },
+  "4": {
+    "SkillName": "Rush",
+    "SkillType": "Rush",
+    "Description": "전방으로 돌진합니다.",
+    "Range": "10",
+    "Width": "1",
+    "Height": "1",
+    "DmgRatio": "1.5",
+    "Cooldown": "5.0"
+  },
+  "5": {
+    "SkillName": "Sting",
+    "SkillType": "Immediate",
+    "Description": "전방에 강력한 찌르기 공격을 합니다",
+    "Range": "1.5",
+    "Width": "1",
+    "Height": "1",
+    "DmgRatio": "3",
+    "Cooldown": "5.0"
+  }
+}

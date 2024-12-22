@@ -74,3 +74,12 @@ The following packages were updated:
   com.unity.cinemachine from version 2.9.7 to 2.10.0
   com.unity.render-pipelines.universal from version 14.0.10 to 14.0.11
   com.unity.visualscripting from version 1.9.2 to 1.9.4
+
+=== Sun Dec 22 14:50:27 2024
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.feature.2d from version 2.0.0 to 2.0.1
+  com.unity.mobile.android-logcat from version 1.4.1 to 1.4.2

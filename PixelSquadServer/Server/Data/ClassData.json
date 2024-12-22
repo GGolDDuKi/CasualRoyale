@@ -1,0 +1,29 @@
+{
+  "Knight": {
+    "MaxHp": "50",
+    "Speed": "2.0",
+    "Damage": "5.0",
+    "AttackDelay": "0.5",
+    "DashCooldown": "1",
+    "FirstSkillId": "0",
+    "SecondSkillId": "1"
+  },
+  "Magician": {
+    "MaxHp": "50",
+    "Speed": "2.0",
+    "Damage": "5.0",
+    "AttackDelay": "1",
+    "DashCooldown": "1",
+    "FirstSkillId": "2",
+    "SecondSkillId": "3"
+  },
+  "SpearMan": {
+    "MaxHp": "50",
+    "Speed": "2.0",
+    "Damage": "5.0",
+    "AttackDelay": "0.5",
+    "DashCooldown": "1",
+    "FirstSkillId": "4",
+    "SecondSkillId": "5"
+  }
+}

@@ -60,16 +60,15 @@ namespace Server.Room
 
 			if (type == GameObjectType.Player)
 			{
-				Player player = gameObject as Player;
-				_players.Add(gameObject.Id, player);
+				Player player = (Player)gameObject;
+
+                if (Players.Count == 0)
+                    Host = player;
+
+                Players.Add(gameObject.Id, player);
 				AlivePlayers.Add(gameObject.Id, player);
 				player.Room = this;
 				Rank++;
-
-				if (Managers.Room.MyRoom.CurMember == 0)
-					Host = player;
-
-				Managers.Room.MyRoom.CurMember++;
 
 				Map.ApplyMove(player, new Vector2(player.Pos.x, player.Pos.y));
 

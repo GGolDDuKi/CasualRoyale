@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.Protocol;
+using Server.Data;
 using Server.Define;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Server.Object
         {
             get
             {
-                return new BoxCollider2D(PosInfo.PosX, PosInfo.PosY, Managers.Data.SkillData[SkillId].Width, Managers.Data.SkillData[SkillId].Height);
+                return new BoxCollider2D(PosInfo.PosX, PosInfo.PosY, DataManager.Instance.GetSkillData(SkillId).Width, DataManager.Instance.GetSkillData(SkillId).Height);
             }
         }
 
@@ -86,7 +87,7 @@ namespace Server.Object
             {
                 if (BoxCollider2D.Collision(newCol, p.Collider) && p != Owner)
                 {
-                    p.OnDamaged(this, Owner.StatInfo.Damage * Managers.Data.SkillData[SkillId].DmgRatio);
+                    p.OnDamaged(this, Owner.StatInfo.Damage * DataManager.Instance.GetSkillData(SkillId).DmgRatio);
                     Room.Push(Room.LeaveGame, Id);
                     return true;
                 }
