@@ -19,21 +19,23 @@ public class ExitToLobbyButton : Button
         GameObject host = GameObject.Find("Host");
         if (host != null)
         {
-            yield return new WaitUntil(() => host.GetComponent<HostPlayer>().Clear());
+            //방장 퇴장 관리
+            //yield return new WaitUntil(() => host.GetComponent<HostPlayer>().Clear());
+            yield return null;
             HS_EndGame endPacket = new HS_EndGame();
             endPacket.Room = Managers.Room.MyRoom;
-            Managers.Network.S_Send(endPacket);
+            Managers.Network.Send(endPacket);
         }
         else
         {
             CH_ExitRoom exitPacket = new CH_ExitRoom();
             exitPacket.Player = Managers.User.Info;
-            Managers.Network.H_Send(exitPacket);
+            Managers.Network.Send(exitPacket);
         }
 
         Managers.Object.Clear();
         CS_LeaveGame packet = new CS_LeaveGame();
-        Managers.Network.S_Send(packet);
+        Managers.Network.Send(packet);
         Managers.Game.Init();
         Managers.Scene.LoadScene(Define.Scene.Lobby);
     }

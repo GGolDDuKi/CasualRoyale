@@ -10,6 +10,6 @@ public class SendRoomInfoButton : Button
         roomInfo = info.GetRoomInfo();
         CS_MakeRoom roomPacket = new CS_MakeRoom();
         roomPacket.Room = roomInfo;
-        Managers.Network.S_Send(roomPacket);
+        Managers.Network.Send(roomPacket);
     }
 }

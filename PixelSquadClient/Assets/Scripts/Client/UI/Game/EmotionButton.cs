@@ -16,7 +16,7 @@ public class EmotionButton : Button
 
         CH_Emote emotePacket = new CH_Emote();
         emotePacket.EmoteName = GetComponent<Image>().sprite.name;
-        Managers.Network.H_Send(emotePacket);
+        Managers.Network.Send(emotePacket);
         transform.parent.parent.gameObject.SetActive(false);
     }
 }

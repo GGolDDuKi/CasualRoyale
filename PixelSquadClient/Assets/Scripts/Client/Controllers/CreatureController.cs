@@ -264,7 +264,7 @@ public class CreatureController : BaseController
                     effectPacket.PosInfo.PosY = skillPos.y;
                     effectPacket.PosInfo.LastDirX = LastDir.x;
                     effectPacket.PosInfo.LastDirY = LastDir.y;
-                    Managers.Network.H_Send(effectPacket);
+                    Managers.Network.Send(effectPacket);
                 }
                 break;
         }

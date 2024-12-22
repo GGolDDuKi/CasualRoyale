@@ -72,7 +72,7 @@ public class SkillEffect : MonoBehaviour
         damagePacket.SkillId = _skillId;
         damagePacket.PosX = transform.position.x;
         damagePacket.PosY = transform.position.y;
-        Managers.Network.H_Send(damagePacket);
+        Managers.Network.Send(damagePacket);
     }
 
     void MakeSound(string path)

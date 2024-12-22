@@ -98,7 +98,7 @@ public class MyPlayerController : PlayerController
         State = ActionState.Attack;
 
         CH_Attack attackPacket = new CH_Attack();
-        Managers.Network.H_Send(attackPacket);
+        Managers.Network.Send(attackPacket);
 
         yield return new WaitForSeconds(time);
 
@@ -185,7 +185,7 @@ public class MyPlayerController : PlayerController
 
         CH_UseSkill skillPacket = new CH_UseSkill();
         skillPacket.SkillId = skillId;
-        Managers.Network.H_Send(skillPacket);
+        Managers.Network.Send(skillPacket);
 
         base.UsingSkill(skillId);
         StartCoroutine(CoSkillCooldown(skillId, Managers.Data.SkillData[skillId].Cooldown));
@@ -222,7 +222,7 @@ public class MyPlayerController : PlayerController
         {
             CH_Move movePacket = new CH_Move();
             movePacket.PosInfo = PosInfo;
-            Managers.Network.H_Send(movePacket);
+            Managers.Network.Send(movePacket);
             _updated = false;
         }
     }

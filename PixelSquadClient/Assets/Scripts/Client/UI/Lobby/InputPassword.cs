@@ -29,6 +29,6 @@ public class InputPassword : Button
         enterPacket.RoomId = room.RoomId;
         enterPacket.PassWord = Password;
 
-        Managers.Network.S_Send(enterPacket);
+        Managers.Network.Send(enterPacket);
     }
 }

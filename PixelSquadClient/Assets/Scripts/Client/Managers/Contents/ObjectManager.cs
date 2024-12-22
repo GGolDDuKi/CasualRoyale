@@ -42,7 +42,7 @@ public class ObjectManager
 				Managers.Game.InGame = true;
 
 				CS_EnterGame startPacket = new CS_EnterGame();
-				Managers.Network.S_Send(startPacket);
+				Managers.Network.Send(startPacket);
 				Managers.Room.Clear();
 			}
 			else

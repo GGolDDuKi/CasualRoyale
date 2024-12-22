@@ -12,6 +12,6 @@ public class LoginButton : Button
         CS_Login loginPacket = new CS_Login();
         loginPacket.Info = Managers.User.Info;
         loginPacket.Info.Name = inputName;
-        Managers.Network.S_Send(loginPacket);
+        Managers.Network.Send(loginPacket);
     }
 }
