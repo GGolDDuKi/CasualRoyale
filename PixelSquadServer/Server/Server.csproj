@@ -16,4 +16,8 @@
     <ProjectReference Include="..\ServerCore\ServerCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Game\" />
+  </ItemGroup>
+
 </Project>

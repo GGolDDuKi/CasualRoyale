@@ -31,8 +31,8 @@ public class NetworkManager
 		IPAddress ipAddr;
 		if (ip == null)
 		{
-            string host = "DDuKi.iptime.org";
-            //string host = Dns.GetHostName();
+            //string host = "DDuKi.iptime.org";
+            string host = Dns.GetHostName();
             IPHostEntry ipHost = Dns.GetHostEntry(host);
             IPAddress[] ipAddrs = ipHost.AddressList;
             ipAddr = IPAddress.Parse($"{ipAddrs[ipAddrs.Length - 1].ToString()}");
@@ -42,7 +42,6 @@ public class NetworkManager
 
 		IPEndPoint endPoint = new IPEndPoint(ipAddr, port);
 		Connector connector = new Connector();
-        GameObject.Find("ServerEndPoint").GetComponent<TMP_Text>().text = $"{endPoint}";
 
         GetPortNumber();
         connector.Connect(endPoint, () => { return _session; }, true, _port, 1);
