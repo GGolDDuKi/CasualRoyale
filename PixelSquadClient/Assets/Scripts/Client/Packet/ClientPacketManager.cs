@@ -4,109 +4,112 @@ using ServerCore;
 using System;
 using System.Collections.Generic;
 
-class PacketManager
+namespace Client
 {
-	#region Singleton
-	static PacketManager _instance = new PacketManager();
-	public static PacketManager Instance { get { return _instance; } }
-	#endregion
+    class PacketManager
+    {
+        #region Singleton
+        static PacketManager _instance = new PacketManager();
+        public static PacketManager Instance { get { return _instance; } }
+        #endregion
 
-	PacketManager()
-	{
-		Register();
-	}
+        PacketManager()
+        {
+            Register();
+        }
 
-	Dictionary<ushort, Action<PacketSession, ArraySegment<byte>, ushort>> _onRecv = new Dictionary<ushort, Action<PacketSession, ArraySegment<byte>, ushort>>();
-	Dictionary<ushort, Action<PacketSession, IMessage>> _handler = new Dictionary<ushort, Action<PacketSession, IMessage>>();
-		
-	public Action<PacketSession, IMessage, ushort> CustomHandler { get; set; }
+        Dictionary<ushort, Action<PacketSession, ArraySegment<byte>, ushort>> _onRecv = new Dictionary<ushort, Action<PacketSession, ArraySegment<byte>, ushort>>();
+        Dictionary<ushort, Action<PacketSession, IMessage>> _handler = new Dictionary<ushort, Action<PacketSession, IMessage>>();
 
-	public void Register()
-	{		
-		_onRecv.Add((ushort)MsgId.HcEnterGame, MakePacket<HC_EnterGame>);
-		_handler.Add((ushort)MsgId.HcEnterGame, PacketHandler.HC_EnterGameHandler);		
-		_onRecv.Add((ushort)MsgId.HcLeaveGame, MakePacket<HC_LeaveGame>);
-		_handler.Add((ushort)MsgId.HcLeaveGame, PacketHandler.HC_LeaveGameHandler);		
-		_onRecv.Add((ushort)MsgId.HcSpawn, MakePacket<HC_Spawn>);
-		_handler.Add((ushort)MsgId.HcSpawn, PacketHandler.HC_SpawnHandler);		
-		_onRecv.Add((ushort)MsgId.HcDespawn, MakePacket<HC_Despawn>);
-		_handler.Add((ushort)MsgId.HcDespawn, PacketHandler.HC_DespawnHandler);		
-		_onRecv.Add((ushort)MsgId.HcMove, MakePacket<HC_Move>);
-		_handler.Add((ushort)MsgId.HcMove, PacketHandler.HC_MoveHandler);		
-		_onRecv.Add((ushort)MsgId.HcAttack, MakePacket<HC_Attack>);
-		_handler.Add((ushort)MsgId.HcAttack, PacketHandler.HC_AttackHandler);		
-		_onRecv.Add((ushort)MsgId.HcChangeHp, MakePacket<HC_ChangeHp>);
-		_handler.Add((ushort)MsgId.HcChangeHp, PacketHandler.HC_ChangeHpHandler);		
-		_onRecv.Add((ushort)MsgId.HcDie, MakePacket<HC_Die>);
-		_handler.Add((ushort)MsgId.HcDie, PacketHandler.HC_DieHandler);		
-		_onRecv.Add((ushort)MsgId.ScRejectLogin, MakePacket<SC_RejectLogin>);
-		_handler.Add((ushort)MsgId.ScRejectLogin, PacketHandler.SC_RejectLoginHandler);		
-		_onRecv.Add((ushort)MsgId.ScAcceptLogin, MakePacket<SC_AcceptLogin>);
-		_handler.Add((ushort)MsgId.ScAcceptLogin, PacketHandler.SC_AcceptLoginHandler);		
-		_onRecv.Add((ushort)MsgId.ScRoomList, MakePacket<SC_RoomList>);
-		_handler.Add((ushort)MsgId.ScRoomList, PacketHandler.SC_RoomListHandler);		
-		_onRecv.Add((ushort)MsgId.ScRejectEnter, MakePacket<SC_RejectEnter>);
-		_handler.Add((ushort)MsgId.ScRejectEnter, PacketHandler.SC_RejectEnterHandler);		
-		_onRecv.Add((ushort)MsgId.ScAcceptEnter, MakePacket<SC_AcceptEnter>);
-		_handler.Add((ushort)MsgId.ScAcceptEnter, PacketHandler.SC_AcceptEnterHandler);		
-		_onRecv.Add((ushort)MsgId.ScAcceptMake, MakePacket<SC_AcceptMake>);
-		_handler.Add((ushort)MsgId.ScAcceptMake, PacketHandler.SC_AcceptMakeHandler);		
-		_onRecv.Add((ushort)MsgId.ScRejectMake, MakePacket<SC_RejectMake>);
-		_handler.Add((ushort)MsgId.ScRejectMake, PacketHandler.SC_RejectMakeHandler);		
-		_onRecv.Add((ushort)MsgId.HcWinner, MakePacket<HC_Winner>);
-		_handler.Add((ushort)MsgId.HcWinner, PacketHandler.HC_WinnerHandler);		
-		_onRecv.Add((ushort)MsgId.HcEndGame, MakePacket<HC_EndGame>);
-		_handler.Add((ushort)MsgId.HcEndGame, PacketHandler.HC_EndGameHandler);		
-		_onRecv.Add((ushort)MsgId.HcUseSkill, MakePacket<HC_UseSkill>);
-		_handler.Add((ushort)MsgId.HcUseSkill, PacketHandler.HC_UseSkillHandler);		
-		_onRecv.Add((ushort)MsgId.HcRequestInfo, MakePacket<HC_RequestInfo>);
-		_handler.Add((ushort)MsgId.HcRequestInfo, PacketHandler.HC_RequestInfoHandler);		
-		_onRecv.Add((ushort)MsgId.HcHostDisconnect, MakePacket<HC_HostDisconnect>);
-		_handler.Add((ushort)MsgId.HcHostDisconnect, PacketHandler.HC_HostDisconnectHandler);		
-		_onRecv.Add((ushort)MsgId.HcCanStart, MakePacket<HC_CanStart>);
-		_handler.Add((ushort)MsgId.HcCanStart, PacketHandler.HC_CanStartHandler);		
-		_onRecv.Add((ushort)MsgId.HcStartGame, MakePacket<HC_StartGame>);
-		_handler.Add((ushort)MsgId.HcStartGame, PacketHandler.HC_StartGameHandler);		
-		_onRecv.Add((ushort)MsgId.HcEmote, MakePacket<HC_Emote>);
-		_handler.Add((ushort)MsgId.HcEmote, PacketHandler.HC_EmoteHandler);
-	}
+        public Action<PacketSession, IMessage, ushort> CustomHandler { get; set; }
 
-	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
-	{
-		ushort count = 0;
+        public void Register()
+        {
+            _onRecv.Add((ushort)MsgId.HcEnterGame, MakePacket<HC_EnterGame>);
+            _handler.Add((ushort)MsgId.HcEnterGame, PacketHandler.HC_EnterGameHandler);
+            _onRecv.Add((ushort)MsgId.HcLeaveGame, MakePacket<HC_LeaveGame>);
+            _handler.Add((ushort)MsgId.HcLeaveGame, PacketHandler.HC_LeaveGameHandler);
+            _onRecv.Add((ushort)MsgId.HcSpawn, MakePacket<HC_Spawn>);
+            _handler.Add((ushort)MsgId.HcSpawn, PacketHandler.HC_SpawnHandler);
+            _onRecv.Add((ushort)MsgId.HcDespawn, MakePacket<HC_Despawn>);
+            _handler.Add((ushort)MsgId.HcDespawn, PacketHandler.HC_DespawnHandler);
+            _onRecv.Add((ushort)MsgId.HcMove, MakePacket<HC_Move>);
+            _handler.Add((ushort)MsgId.HcMove, PacketHandler.HC_MoveHandler);
+            _onRecv.Add((ushort)MsgId.HcAttack, MakePacket<HC_Attack>);
+            _handler.Add((ushort)MsgId.HcAttack, PacketHandler.HC_AttackHandler);
+            _onRecv.Add((ushort)MsgId.HcChangeHp, MakePacket<HC_ChangeHp>);
+            _handler.Add((ushort)MsgId.HcChangeHp, PacketHandler.HC_ChangeHpHandler);
+            _onRecv.Add((ushort)MsgId.HcDie, MakePacket<HC_Die>);
+            _handler.Add((ushort)MsgId.HcDie, PacketHandler.HC_DieHandler);
+            _onRecv.Add((ushort)MsgId.ScRejectLogin, MakePacket<SC_RejectLogin>);
+            _handler.Add((ushort)MsgId.ScRejectLogin, PacketHandler.SC_RejectLoginHandler);
+            _onRecv.Add((ushort)MsgId.ScAcceptLogin, MakePacket<SC_AcceptLogin>);
+            _handler.Add((ushort)MsgId.ScAcceptLogin, PacketHandler.SC_AcceptLoginHandler);
+            _onRecv.Add((ushort)MsgId.ScRoomList, MakePacket<SC_RoomList>);
+            _handler.Add((ushort)MsgId.ScRoomList, PacketHandler.SC_RoomListHandler);
+            _onRecv.Add((ushort)MsgId.ScRejectEnter, MakePacket<SC_RejectEnter>);
+            _handler.Add((ushort)MsgId.ScRejectEnter, PacketHandler.SC_RejectEnterHandler);
+            _onRecv.Add((ushort)MsgId.ScAcceptEnter, MakePacket<SC_AcceptEnter>);
+            _handler.Add((ushort)MsgId.ScAcceptEnter, PacketHandler.SC_AcceptEnterHandler);
+            _onRecv.Add((ushort)MsgId.ScAcceptMake, MakePacket<SC_AcceptMake>);
+            _handler.Add((ushort)MsgId.ScAcceptMake, PacketHandler.SC_AcceptMakeHandler);
+            _onRecv.Add((ushort)MsgId.ScRejectMake, MakePacket<SC_RejectMake>);
+            _handler.Add((ushort)MsgId.ScRejectMake, PacketHandler.SC_RejectMakeHandler);
+            _onRecv.Add((ushort)MsgId.HcWinner, MakePacket<HC_Winner>);
+            _handler.Add((ushort)MsgId.HcWinner, PacketHandler.HC_WinnerHandler);
+            _onRecv.Add((ushort)MsgId.HcEndGame, MakePacket<HC_EndGame>);
+            _handler.Add((ushort)MsgId.HcEndGame, PacketHandler.HC_EndGameHandler);
+            _onRecv.Add((ushort)MsgId.HcUseSkill, MakePacket<HC_UseSkill>);
+            _handler.Add((ushort)MsgId.HcUseSkill, PacketHandler.HC_UseSkillHandler);
+            _onRecv.Add((ushort)MsgId.HcRequestInfo, MakePacket<HC_RequestInfo>);
+            _handler.Add((ushort)MsgId.HcRequestInfo, PacketHandler.HC_RequestInfoHandler);
+            _onRecv.Add((ushort)MsgId.HcHostDisconnect, MakePacket<HC_HostDisconnect>);
+            _handler.Add((ushort)MsgId.HcHostDisconnect, PacketHandler.HC_HostDisconnectHandler);
+            _onRecv.Add((ushort)MsgId.HcCanStart, MakePacket<HC_CanStart>);
+            _handler.Add((ushort)MsgId.HcCanStart, PacketHandler.HC_CanStartHandler);
+            _onRecv.Add((ushort)MsgId.HcStartGame, MakePacket<HC_StartGame>);
+            _handler.Add((ushort)MsgId.HcStartGame, PacketHandler.HC_StartGameHandler);
+            _onRecv.Add((ushort)MsgId.HcEmote, MakePacket<HC_Emote>);
+            _handler.Add((ushort)MsgId.HcEmote, PacketHandler.HC_EmoteHandler);
+        }
 
-		ushort size = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
-		count += 2;
-		ushort id = BitConverter.ToUInt16(buffer.Array, buffer.Offset + count);
-		count += 2;
+        public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)
+        {
+            ushort count = 0;
 
-		Action<PacketSession, ArraySegment<byte>, ushort> action = null;
-		if (_onRecv.TryGetValue(id, out action))
-			action.Invoke(session, buffer, id);
-	}
+            ushort size = BitConverter.ToUInt16(buffer.Array, buffer.Offset);
+            count += 2;
+            ushort id = BitConverter.ToUInt16(buffer.Array, buffer.Offset + count);
+            count += 2;
 
-	void MakePacket<T>(PacketSession session, ArraySegment<byte> buffer, ushort id) where T : IMessage, new()
-	{
-		T pkt = new T();
-		pkt.MergeFrom(buffer.Array, buffer.Offset + 4, buffer.Count - 4);
+            Action<PacketSession, ArraySegment<byte>, ushort> action = null;
+            if (_onRecv.TryGetValue(id, out action))
+                action.Invoke(session, buffer, id);
+        }
 
-		if (CustomHandler != null)
-		{
-			CustomHandler.Invoke(session, pkt, id);
-		}
-		else
-		{
-			Action<PacketSession, IMessage> action = null;
-			if (_handler.TryGetValue(id, out action))
-				action.Invoke(session, pkt);
-		}
-	}
+        void MakePacket<T>(PacketSession session, ArraySegment<byte> buffer, ushort id) where T : IMessage, new()
+        {
+            T pkt = new T();
+            pkt.MergeFrom(buffer.Array, buffer.Offset + 4, buffer.Count - 4);
 
-	public Action<PacketSession, IMessage> GetPacketHandler(ushort id)
-	{
-		Action<PacketSession, IMessage> action = null;
-		if (_handler.TryGetValue(id, out action))
-			return action;
-		return null;
-	}
+            if (CustomHandler != null)
+            {
+                CustomHandler.Invoke(session, pkt, id);
+            }
+            else
+            {
+                Action<PacketSession, IMessage> action = null;
+                if (_handler.TryGetValue(id, out action))
+                    action.Invoke(session, pkt);
+            }
+        }
+
+        public Action<PacketSession, IMessage> GetPacketHandler(ushort id)
+        {
+            Action<PacketSession, IMessage> action = null;
+            if (_handler.TryGetValue(id, out action))
+                return action;
+            return null;
+        }
+    }
 }

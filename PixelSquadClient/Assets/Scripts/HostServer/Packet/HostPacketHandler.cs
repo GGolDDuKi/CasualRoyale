@@ -48,8 +48,8 @@ namespace Host
             SH_ConnectClient connectPacket = packet as SH_ConnectClient;
 
             UnityEngine.GameObject go = UnityEngine.GameObject.Find("Host");
-            //Managers.Network.StartListen();
-            go.GetComponent<HostPlayer>().Connect(connectPacket.PublicIp, connectPacket.PrivateIp, connectPacket.Port, true, 3);
+            Managers.Network.StartListen();
+            //go.GetComponent<HostPlayer>().Connect(connectPacket.PublicIp, connectPacket.PrivateIp, connectPacket.Port, true, 3);
         }
 
         public static void CH_SkillEffectHandler(PacketSession session, IMessage packet)
