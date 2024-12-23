@@ -16,9 +16,6 @@ public class UserManager
 
             Id = value.Id;
             Name = value.Name;
-            PublicIp = value.PublicIp;
-            PrivateIp = value.PrivateIp;
-            Port = value.Port;
             Job = value.Job;
         }
     }
@@ -35,24 +32,6 @@ public class UserManager
         set { Info.Name = value; }
     }
 
-    public string PublicIp
-    {
-        get { return Info.PublicIp; }
-        set { Info.PublicIp = value; }
-    }
-
-    public string PrivateIp
-    {
-        get { return Info.PrivateIp; }
-        set { Info.PrivateIp = value; }
-    }
-
-    public int Port
-    {
-        get { return Info.Port; }
-        set { Info.Port = value; }
-    }
-
     public JobType Job
     {
         get { return Info.Job; }
@@ -60,12 +39,4 @@ public class UserManager
     }
 
     #endregion
-
-    public void Init()
-    {
-        string host = Dns.GetHostName();
-        IPHostEntry ipHost = Dns.GetHostEntry(host);
-        IPAddress[] ipAddr = ipHost.AddressList;
-        PrivateIp = ipAddr[ipAddr.Length - 1].ToString();
-    }
 }

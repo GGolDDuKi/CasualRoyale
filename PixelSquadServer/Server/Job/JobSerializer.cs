@@ -23,6 +23,11 @@ namespace Server.Job
 			}
 		}
 
+		public virtual void Update()
+		{
+			Flush();
+		}
+
 		public void Flush()
 		{
 			while (true)

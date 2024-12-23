@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Google.Protobuf.Protocol;
+using UnityEngine;
 
 public class GameScene : BaseScene
 {
@@ -10,6 +11,11 @@ public class GameScene : BaseScene
 
         Application.runInBackground = true;
         Managers.Game.SetGameUI();
+
+        C_SendInfo infoPacket = new C_SendInfo();
+        infoPacket.Job = Managers.User.Job;
+        infoPacket.Name = Managers.User.Name;
+        Managers.Network.Send(infoPacket);
     }
 
     public override void Clear()

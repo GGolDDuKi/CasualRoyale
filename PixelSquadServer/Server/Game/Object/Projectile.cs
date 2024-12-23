@@ -68,7 +68,7 @@ namespace Server.Object
         private void UpdatePosition(Vector2 newPos)
         {
             Pos = newPos;
-            HC_Move mp = new HC_Move();
+            S_Move mp = new S_Move();
             mp.ObjectId = Id;
             PositionInfo posInfo = new PositionInfo();
             mp.PosInfo = posInfo;

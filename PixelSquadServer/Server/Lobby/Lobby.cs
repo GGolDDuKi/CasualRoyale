@@ -2,6 +2,8 @@
 using Google.Protobuf.Protocol;
 using Server;
 using Server.Job;
+using Server.Object;
+using Server.Room;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -29,8 +31,8 @@ namespace Server
 		Dictionary<int, User> _users = new Dictionary<int, User>();
 		public Dictionary<int, User> Users { get { return _users; } }
 
-		Dictionary<int, GameRoomInfo> _rooms = new Dictionary<int, GameRoomInfo>();
-		public Dictionary<int, GameRoomInfo> Rooms { get { return _rooms; } }
+		Dictionary<int, GameRoom> _rooms = new Dictionary<int, GameRoom>();
+		public Dictionary<int, GameRoom> Rooms { get { return _rooms; } }
 
 		int _roomCount = 0;
 
@@ -39,9 +41,9 @@ namespace Server
 
 		}
 
-		public void Update()
+		public override void Update()
 		{
-            Flush();
+			base.Update();
         }
 
 		public void AddUser(User user)
@@ -49,7 +51,7 @@ namespace Server
 			_users.Add(user.Id, user);
         }
 
-		public void EnterLobby(User user, CS_Login packet)
+		public void EnterLobby(User user, C_Login packet)
 		{
 			if (user == null)
 				return;
@@ -58,7 +60,7 @@ namespace Server
             {
 				if (packet.Info.Name == u.Name)
                 {
-					SC_RejectLogin rejectPacket = new SC_RejectLogin();
+					S_RejectLogin rejectPacket = new S_RejectLogin();
 					rejectPacket.Reason = RejectionReason.SameName;
 					user.Session.Send(rejectPacket);
 					return;
@@ -67,10 +69,10 @@ namespace Server
 
 			User newUser = _users[user.Id];
 			newUser.Info.Name = packet.Info.Name;
-			newUser.Info.PrivateIp = packet.Info.PrivateIp;
 			newUser.Lobby = this;
+			user = newUser;
 
-			SC_AcceptLogin acceptPacket = new SC_AcceptLogin();
+            S_AcceptLogin acceptPacket = new S_AcceptLogin();
 			acceptPacket.UserInfo = newUser.Info;
 			user.Session.Send(acceptPacket);
 			Console.WriteLine($"{acceptPacket.UserInfo.Name} 로그인");
@@ -82,13 +84,16 @@ namespace Server
 
 		public void LeaveLobby(int objectId)
 		{
-			GameRoomInfo room = null;
+			GameRoom room = null;
 			foreach(var r in _rooms.Values)
             {
-				if(r.HostId == objectId)
+				if(r.Info.HostId == objectId)
                 {
-					if (_rooms.Remove(r.Id, out room) == false)
+					if (_rooms.Remove(r.Info.Id, out room) == false)
+					{
+						RoomManager.Instance.Remove(r.Info.Id);
 						return;
+					}
                 }
             }
 
@@ -101,7 +106,7 @@ namespace Server
 
 		public void UpdateRoomList(User user = null)
         {
-			SC_RoomList roomList = new SC_RoomList();
+			S_RoomList roomList = new S_RoomList();
 			foreach (GameRoomInfo room in _rooms.Values)
 			{
 				RoomInfo roomInfo = new RoomInfo();
@@ -120,7 +125,7 @@ namespace Server
 				user.Session.Send(roomList);
 		}
 
-		public void AddRoom(User user, CS_MakeRoom packet)
+		public void AddRoom(User user, C_MakeRoom packet)
         {
 			GameRoomInfo room = new GameRoomInfo();
 			room.Info = packet.Room;
@@ -129,7 +134,7 @@ namespace Server
             {
 				if (room.Info.RoomName == r.Name)
                 {
-					SC_RejectMake rejectPacket = new SC_RejectMake();
+					S_RejectMake rejectPacket = new S_RejectMake();
 					rejectPacket.Reason = RejectionReason.SameName;
 					user.Session.Send(rejectPacket);
                     Console.WriteLine($"{user.Name}님의 방 생성 거절");
@@ -137,32 +142,36 @@ namespace Server
                 }
             }
 
-			room.Id = _roomCount++;
-			_rooms.Add(room.Id, room);
-			SC_AcceptMake acceptPacket = new SC_AcceptMake();
+            GameRoom newRoom = RoomManager.Instance.Add();
+			room.Id = newRoom.RoomId;
+
+            _rooms.Add(newRoom.RoomId, room);
+			S_AcceptMake acceptPacket = new S_AcceptMake();
 			acceptPacket.Room = room.Info;
 			user.Session.Send(acceptPacket);
+			user.Room = newRoom;
+
 			Console.WriteLine($"{user.Name}님이 [{room.Name}]방 생성");
 
 			UpdateRoomList();
 		}
 
-		public void RemoveRoom(User user, HS_EndGame packet)
+		public void RemoveRoom(Player player)
 		{
-			if (!_rooms.ContainsKey(packet.Room.RoomId))
+			if (!_rooms.ContainsKey(player.Room.RoomId))
 				return;
 
-			_rooms.Remove(packet.Room.RoomId);
+			_rooms.Remove(player.Room.RoomId);
 			UpdateRoomList();
 		}
 
-		public void EnterRoom(User user, CS_EnterRoom packet)
+		public void EnterRoom(User user, C_EnterRoom packet)
         {
 			GameRoomInfo room = _rooms[packet.RoomId];
 
 			if(room.CurMember >= room.MaxMember)
             {
-				SC_RejectEnter rejectPacket = new SC_RejectEnter();
+				S_RejectEnter rejectPacket = new S_RejectEnter();
 				rejectPacket.Reason = RejectionReason.FullRoom;
 				user.Session.Send(rejectPacket);
 				return;
@@ -170,35 +179,23 @@ namespace Server
 
 			if(room.Password == packet.PassWord)
             {
-				SC_AcceptEnter acceptPacket = new SC_AcceptEnter();
-				acceptPacket.PublicIp = _users[room.HostId].PublicIp;
-				acceptPacket.PrivateIp = _users[room.HostId].PrivateIp;
-				acceptPacket.Port = _users[room.HostId].Port;
-
-				SH_ConnectClient connectPacket = new SH_ConnectClient();
-				connectPacket.PublicIp = user.PublicIp;
-				connectPacket.PrivateIp = user.PrivateIp;
-				connectPacket.Port = user.Port;
-
+				S_AcceptEnter acceptPacket = new S_AcceptEnter();
 				user.Session.Send(acceptPacket);
-				_users[room.HostId].Session.Send(connectPacket);
+				user.Room = 
 
                 Console.WriteLine($"{user.Name}님이 {room.Name}에 입장하셨습니다.");
             }
             else
             {
-				SC_RejectEnter rejectPacket = new SC_RejectEnter();
+				S_RejectEnter rejectPacket = new S_RejectEnter();
 				rejectPacket.Reason = RejectionReason.IncorrectPassword;
 				user.Session.Send(rejectPacket);
             }
         }
 
-		public void UpdateRoom(HS_UpdateRoom packet)
+		public void UpdateRoom(RoomInfo info)
         {
-			if (packet == null)
-				return;
-
-			_rooms[packet.Info.RoomId].Info = packet.Info;
+			_rooms[info.RoomId].Info = info;
 
 			UpdateRoomList();
         }

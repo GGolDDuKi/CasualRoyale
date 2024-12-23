@@ -5,48 +5,45 @@ import "google/protobuf/timestamp.proto";
 option csharp_namespace = "Google.Protobuf.Protocol";
 
 enum MsgId {
-  HC_ENTER_GAME = 0;
-  HC_LEAVE_GAME = 1;
-  HC_SPAWN = 2;
-  HC_DESPAWN = 3;
-  CH_MOVE = 4;
-  HC_MOVE = 5;
-  CH_ATTACK = 6;
-  HC_ATTACK = 7;
-  HC_CHANGE_HP = 8;
-  HC_DIE = 9;
+  S_ENTER_GAME = 0;
+  S_LEAVE_GAME = 1;
+  S_SPAWN = 2;
+  S_DESPAWN = 3;
+  C_MOVE = 4;
+  S_MOVE = 5;
+  C_ATTACK = 6;
+  S_ATTACK = 7;
+  S_CHANGE_HP = 8;
+  S_DIE = 9;
   HS_UPDATE_ROOM = 10;
   HS_START_GAME = 11;
-  HS_END_GAME = 12;
-  CH_EXIT_ROOM = 13;
-  CS_LOGIN = 14;
-  SC_REJECT_LOGIN = 15;
-  SC_ACCEPT_LOGIN = 16;
-  SC_ROOM_LIST = 17;
-  CS_ENTER_ROOM = 18;
-  SC_REJECT_ENTER = 19;
-  SC_ACCEPT_ENTER = 20;
-  CS_MAKE_ROOM = 21;
-  SC_ACCEPT_MAKE = 22;
-  SC_REJECT_MAKE = 23;
-  SH_CONNECT_CLIENT = 24;
-  HC_WINNER = 25;
-  HC_END_GAME = 26;
-  CH_USE_SKILL = 27;
-  HC_USE_SKILL = 28;
-  HC_REQUEST_INFO = 29;
-  CH_SEND_INFO = 30;
-  CH_SKILL_EFFECT = 31;
-  CH_SKILL_DAMAGE = 32;
-  HC_HOST_DISCONNECT = 33;
-  CS_ENTER_GAME = 34;
-  CS_LEAVE_GAME = 35;
-  CH_READY = 36;
-  HC_CAN_START = 37;
-  CH_START_GAME = 38;
-  HC_START_GAME = 39;
-  CH_EMOTE = 40;
-  HC_EMOTE = 41;
+  C_LOGIN = 12;
+  S_REJECT_LOGIN = 13;
+  S_ACCEPT_LOGIN = 14;
+  S_ROOM_LIST = 15;
+  C_ENTER_ROOM = 16;
+  S_REJECT_ENTER = 17;
+  S_ACCEPT_ENTER = 18;
+  C_MAKE_ROOM = 19;
+  S_ACCEPT_MAKE = 20;
+  S_REJECT_MAKE = 21;
+  S_WINNER = 22;
+  C_USE_SKILL = 23;
+  S_USE_SKILL = 24;
+  HC_REQUEST_INFO = 25;
+  C_SEND_INFO = 26;
+  CH_SKILL_EFFECT = 27;
+  CH_SKILL_DAMAGE = 28;
+  HC_HOST_DISCONNECT = 29;
+  CS_ENTER_GAME = 30;
+  CH_READY = 31;
+  HC_CAN_START = 32;
+  CH_START_GAME = 33;
+  HC_START_GAME = 34;
+  CH_EMOTE = 35;
+  HC_EMOTE = 36;
+  C_LEAVE_GAME = 37;
+  S_END_GAME = 38;
 }
 
 enum ActionState {
@@ -90,55 +87,63 @@ enum Authority{
   HOST = 1;
 }
 
+message S_EndGame{
+  
+}
+
+message C_LeaveGame{
+  Authority authority = 1;
+}
+
 message HC_RequestInfo{
   
 }
 
-message CH_SendInfo{
+message C_SendInfo{
   JobType job = 1;
   string name = 2;
 }
 
-message HC_EnterGame {
+message S_EnterGame {
   ObjectInfo player = 1;
   Authority auth = 2;
 }
 
-message HC_LeaveGame {
+message S_LeaveGame {
 
 }
 
-message HC_Spawn {
+message S_Spawn {
   repeated ObjectInfo objects = 1;
 }
 
-message HC_Despawn {
+message S_Despawn {
   repeated int32 objectIds = 1;
 }
 
-message CH_Move {
+message C_Move {
   PositionInfo posInfo = 1;
 }
 
-message HC_Move {
+message S_Move {
   int32 objectId = 1;
   PositionInfo posInfo = 2;
 }
 
-message CH_Attack {
+message C_Attack {
 
 }
 
-message HC_Attack {
+message S_Attack {
   int32 objectId = 1;
 }
 
-message HC_ChangeHp {
+message S_ChangeHp {
   int32 objectId = 1;
   float hp = 2;
 }
 
-message HC_Die {
+message S_Die {
   int32 objectId = 1;
   int32 rank = 2;
   int32 attackerId = 3;
@@ -152,77 +157,57 @@ message HS_StartGame {
   RoomInfo room = 1;
 }
 
-message HS_EndGame {
-  RoomInfo room = 1;
-}
-
-message CH_ExitRoom {
-  UserInfo player = 1;
-}
-
-message CS_Login {
+message C_Login {
   UserInfo info = 1;
 }
 
-message SC_RejectLogin {
+message S_RejectLogin {
   RejectionReason reason = 1;
 }
 
-message SC_AcceptLogin {
+message S_AcceptLogin {
   UserInfo userInfo = 1;
 }
 
-message SC_RoomList {
+message S_RoomList {
   repeated RoomInfo rooms = 1;
 }
 
-message CS_EnterRoom {
+message C_EnterRoom {
   int32 playerId = 1;
   int32 roomId = 2;
   string passWord = 3;
 }
 
-message SC_RejectEnter {
+message S_RejectEnter {
   RejectionReason reason = 1;
 }
 
-message SC_AcceptEnter {
-  string publicIp = 1;
-  string privateIp = 2;
-  int32 port = 3;
+message S_AcceptEnter {
+
 }
 
-message SH_ConnectClient{
-  string publicIp = 1;
-  string privateIp = 2;
-  int32 port = 3;
-}
-
-message CS_MakeRoom {
+message C_MakeRoom {
   RoomInfo room = 1;
 }
 
-message SC_AcceptMake{
+message S_AcceptMake{
   RoomInfo room = 1;
 }
 
-message SC_RejectMake{
+message S_RejectMake{
   RejectionReason reason = 1;
 }
 
-message HC_Winner{
+message S_Winner{
   int32 rank = 1;
 }
 
-message HC_EndGame{
-  
-}
-
-message CH_UseSkill{
+message C_UseSkill{
   int32 skillId = 1;
 }
 
-message HC_UseSkill{
+message S_UseSkill{
   int32 playerId = 1;
   int32 skillId = 2;
 }
@@ -243,10 +228,6 @@ message HC_HostDisconnect{
 }
 
 message CS_EnterGame{
-  
-}
-
-message CS_LeaveGame{
   
 }
 
@@ -289,10 +270,7 @@ message RoomInfo {
 message UserInfo {
   int32 id = 1;
   string name = 2;
-  string publicIp = 3;
-  string privateIp = 4;
-  int32 port = 5;
-  JobType job = 6;
+  JobType job = 3;
 }
 
 message ObjectInfo {

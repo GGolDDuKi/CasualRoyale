@@ -29,7 +29,7 @@ namespace Server.Object
 
 			State = ActionState.Dead;
 
-			HC_Die diePacket = new HC_Die();
+			S_Die diePacket = new S_Die();
 			diePacket.ObjectId = Id;
 			diePacket.Rank = Room.GetRank();
 			diePacket.AttackerId = attacker.Id;

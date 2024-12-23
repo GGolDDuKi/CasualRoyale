@@ -10,8 +10,6 @@ public class RoomManager
 
     public Room _selected {  get; set; }
 
-    public RoomInfo MyRoom { get; set; }
-
     public bool UpdateRoomList()
     {
         Transform parent = null;

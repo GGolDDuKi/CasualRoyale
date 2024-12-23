@@ -97,7 +97,7 @@ public class MyPlayerController : PlayerController
 
         State = ActionState.Attack;
 
-        CH_Attack attackPacket = new CH_Attack();
+        C_Attack attackPacket = new C_Attack();
         Managers.Network.Send(attackPacket);
 
         yield return new WaitForSeconds(time);
@@ -151,7 +151,7 @@ public class MyPlayerController : PlayerController
         StartCoroutine(CoDashCooldown());
     }
 
-    protected override IEnumerator CoDie(HC_Die diePacket)
+    protected override IEnumerator CoDie(S_Die diePacket)
     {
         Camera.main.transform.SetParent(null);
         Managers.Game.Rank = diePacket.Rank;
@@ -183,7 +183,7 @@ public class MyPlayerController : PlayerController
 
         canSkill[skillId] = false;
 
-        CH_UseSkill skillPacket = new CH_UseSkill();
+        C_UseSkill skillPacket = new C_UseSkill();
         skillPacket.SkillId = skillId;
         Managers.Network.Send(skillPacket);
 
@@ -220,7 +220,7 @@ public class MyPlayerController : PlayerController
     {
         if (_updated)
         {
-            CH_Move movePacket = new CH_Move();
+            C_Move movePacket = new C_Move();
             movePacket.PosInfo = PosInfo;
             Managers.Network.Send(movePacket);
             _updated = false;

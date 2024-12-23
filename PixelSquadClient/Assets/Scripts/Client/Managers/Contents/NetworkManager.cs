@@ -22,9 +22,9 @@ public class NetworkManager
         string host = Dns.GetHostName();
 
         //#if UNITY_EDITOR
-        //IPHostEntry ipHost = Dns.GetHostEntry(host);
+        IPHostEntry ipHost = Dns.GetHostEntry(host);
         //#else
-        IPHostEntry ipHost = Dns.GetHostEntry("0.0.0.0");
+        //IPHostEntry ipHost = Dns.GetHostEntry("0.0.0.0");
         //#endif
         IPAddress ipAddr = ipHost.AddressList[ipHost.AddressList.Length - 1];
         IPEndPoint endPoint = new IPEndPoint(ipAddr, 7777);

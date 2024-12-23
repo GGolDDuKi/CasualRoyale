@@ -194,12 +194,12 @@ public class CreatureController : BaseController
         _sprite.color = Color.white;
     }
 
-    public virtual void Die(HC_Die diePacket)
+    public virtual void Die(S_Die diePacket)
     {
         StartCoroutine(CoDie(diePacket));
     }
 
-    protected virtual IEnumerator CoDie(HC_Die diePacket)
+    protected virtual IEnumerator CoDie(S_Die diePacket)
     {
         _coroutine = null;
         State = ActionState.Dead;

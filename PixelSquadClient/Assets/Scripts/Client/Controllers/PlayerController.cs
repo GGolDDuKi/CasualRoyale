@@ -11,7 +11,7 @@ public class PlayerController : CreatureController
 
     #endregion
 
-    protected override IEnumerator CoDie(HC_Die diePacket)
+    protected override IEnumerator CoDie(S_Die diePacket)
     {
         Managers.Object.RemovePlayer(this.gameObject);
 

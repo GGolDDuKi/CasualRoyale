@@ -9,9 +9,9 @@ using UnityEngine.UI;
 
 class PacketHandler
 {
-    public static void HC_EnterGameHandler(PacketSession session, IMessage packet)
+    public static void S_EnterGameHandler(PacketSession session, IMessage packet)
     {
-        HC_EnterGame enterGamePacket = packet as HC_EnterGame;
+        S_EnterGame enterGamePacket = (S_EnterGame)packet;
         Managers.Game.Authority = enterGamePacket.Auth;
         GameObject go;
 
@@ -32,24 +32,24 @@ class PacketHandler
         Managers.Object.Add(enterGamePacket.Player, myPlayer: true);
     }
 
-    public static void HC_LeaveGameHandler(PacketSession session, IMessage packet)
+    public static void S_LeaveGameHandler(PacketSession session, IMessage packet)
     {
-        HC_LeaveGame leaveGameHandler = packet as HC_LeaveGame;
+        S_LeaveGame leaveGameHandler = (S_LeaveGame)packet;
         Managers.Object.Clear();
     }
 
-    public static void HC_SpawnHandler(PacketSession session, IMessage packet)
+    public static void S_SpawnHandler(PacketSession session, IMessage packet)
     {
-        HC_Spawn spawnPacket = packet as HC_Spawn;
+        S_Spawn spawnPacket = packet as S_Spawn;
         foreach (ObjectInfo obj in spawnPacket.Objects)
         {
             Managers.Object.Add(obj, myPlayer: false);
         }
     }
 
-    public static void HC_DespawnHandler(PacketSession session, IMessage packet)
+    public static void S_DespawnHandler(PacketSession session, IMessage packet)
     {
-        HC_Despawn despawnPacket = packet as HC_Despawn;
+        S_Despawn despawnPacket = (S_Despawn)packet;
 
         foreach (int id in despawnPacket.ObjectIds)
         {
@@ -64,9 +64,9 @@ class PacketHandler
         }
     }
 
-    public static void HC_MoveHandler(PacketSession session, IMessage packet)
+    public static void S_MoveHandler(PacketSession session, IMessage packet)
     {
-        HC_Move movePacket = packet as HC_Move;
+        S_Move movePacket = (S_Move)packet;
 
         UnityEngine.GameObject go = Managers.Object.FindById(movePacket.ObjectId);
         if (go == null)
@@ -82,9 +82,9 @@ class PacketHandler
         bc.PosInfo = movePacket.PosInfo;
     }
 
-    public static void SC_RejectLoginHandler(PacketSession session, IMessage packet)
+    public static void S_RejectLoginHandler(PacketSession session, IMessage packet)
     {
-        SC_RejectLogin rejectPacket = packet as SC_RejectLogin;
+        S_RejectLogin rejectPacket = (S_RejectLogin)packet;
 
         switch (rejectPacket.Reason)
         {
@@ -103,9 +103,9 @@ class PacketHandler
         }
     }
 
-    public static void SC_AcceptLoginHandler(PacketSession session, IMessage packet)
+    public static void S_AcceptLoginHandler(PacketSession session, IMessage packet)
     {
-        SC_AcceptLogin loginPacket = packet as SC_AcceptLogin;
+        S_AcceptLogin loginPacket = packet as S_AcceptLogin;
 
         Managers.User.Info = loginPacket.UserInfo;
 
@@ -162,12 +162,12 @@ class PacketHandler
         emotion.GetComponent<MonoBehaviour>().StartCoroutine(Managers.UI.CoFadeIn(emotion.gameObject, () => { Managers.Resource.Destroy(emotion.gameObject); }));
     }
 
-    public static void SC_RoomListHandler(PacketSession session, IMessage packet)
+    public static void S_RoomListHandler(PacketSession session, IMessage packet)
     {
         if (Managers.Game.InGame == true)
             return;
 
-        SC_RoomList roomList = packet as SC_RoomList;
+        S_RoomList roomList = packet as S_RoomList;
 
         //기존에 없던 방 추가, 없어진 방 삭제
         {
@@ -231,33 +231,25 @@ class PacketHandler
         }
     }
 
-    public static void HC_RequestInfoHandler(PacketSession session, IMessage packet)
-    {
-        CH_SendInfo infoPacket = new CH_SendInfo();
-        infoPacket.Job = Managers.User.Job;
-        infoPacket.Name = Managers.User.Name;
-        Managers.Network.Send(infoPacket);
-    }
-
     public static void HC_MissingHostHandler(PacketSession session, IMessage packet)
     {
         Managers.UI.GenerateUI("UI/MissingHost");
     }
 
-    public static void HC_EndGameHandler(PacketSession session, IMessage packet)
+    public static void S_EndGameHandler(PacketSession session, IMessage packet)
     {
         Managers.Object.MyPlayer.EndGame();
     }
 
-    public static void HC_WinnerHandler(PacketSession session, IMessage packet)
+    public static void S_WinnerHandler(PacketSession session, IMessage packet)
     {
-        HC_Winner winPacket = packet as HC_Winner;
+        S_Winner winPacket = packet as S_Winner;
         Managers.Game.Rank = winPacket.Rank;
     }
 
-    public static void SC_RejectMakeHandler(PacketSession session, IMessage packet)
+    public static void S_RejectMakeHandler(PacketSession session, IMessage packet)
     {
-        SC_RejectMake rejectPacket = packet as SC_RejectMake;
+        S_RejectMake rejectPacket = packet as S_RejectMake;
 
         switch (rejectPacket.Reason)
         {
@@ -276,34 +268,22 @@ class PacketHandler
         }
     }
 
-    public static void SC_AcceptMakeHandler(PacketSession session, IMessage packet)
+    public static void S_AcceptMakeHandler(PacketSession session, IMessage packet)
     {
-        SC_AcceptMake acceptPacket = packet as SC_AcceptMake;
-        Managers.Room.MyRoom = acceptPacket.Room;
+        S_AcceptMake acceptPacket = (S_AcceptMake)packet;
         Managers.Scene.LoadScene(Define.Scene.Game);
-
-        GameObject go = GameObject.Find("Host");
-        if (go == null)
-            go = Managers.Resource.Instantiate("Host/Host");
-        UnityEngine.Object.DontDestroyOnLoad(go);
-
-        //Managers.Network.ConnectSelf("127.0.0.1");
     }
 
-    public static void SC_AcceptEnterHandler(PacketSession session, IMessage packet)
+    public static void S_AcceptEnterHandler(PacketSession session, IMessage packet)
     {
-        SC_AcceptEnter acceptPacket = packet as SC_AcceptEnter;
+        S_AcceptEnter acceptPacket = (S_AcceptEnter)packet;
 
         Managers.Scene.LoadScene(Define.Scene.Game);
-
-        //Managers.Network.StartListen();
-        //Managers.Network.Connect(Managers.User.PublicIp, "127.0.0.1");
-        //Managers.Network.Connect(acceptPacket.PublicIp, acceptPacket.PrivateIp, acceptPacket.Port, true, 3);
     }
 
-    public static void SC_RejectEnterHandler(PacketSession session, IMessage packet)
+    public static void S_RejectEnterHandler(PacketSession session, IMessage packet)
     {
-        SC_RejectEnter rejectPacket = packet as SC_RejectEnter;
+        S_RejectEnter rejectPacket = packet as S_RejectEnter;
 
         switch (rejectPacket.Reason)
         {
@@ -319,9 +299,9 @@ class PacketHandler
         }
     }
 
-    public static void HC_AttackHandler(PacketSession session, IMessage packet)
+    public static void S_AttackHandler(PacketSession session, IMessage packet)
     {
-        HC_Attack shootPacket = packet as HC_Attack;
+        S_Attack shootPacket = (S_Attack)packet;
 
         UnityEngine.GameObject go = Managers.Object.FindById(shootPacket.ObjectId);
         if (go == null)
@@ -334,9 +314,9 @@ class PacketHandler
         }
     }
 
-    public static void HC_UseSkillHandler(PacketSession session, IMessage packet)
+    public static void S_UseSkillHandler(PacketSession session, IMessage packet)
     {
-        HC_UseSkill skillPacket = packet as HC_UseSkill;
+        S_UseSkill skillPacket = (S_UseSkill)packet;
 
         UnityEngine.GameObject go = Managers.Object.FindById(skillPacket.PlayerId);
         if (go == null)
@@ -349,9 +329,9 @@ class PacketHandler
         }
     }
 
-    public static void HC_ChangeHpHandler(PacketSession session, IMessage packet)
+    public static void S_ChangeHpHandler(PacketSession session, IMessage packet)
     {
-        HC_ChangeHp changePacket = packet as HC_ChangeHp;
+        S_ChangeHp changePacket = (S_ChangeHp)packet;
 
         UnityEngine.GameObject go = Managers.Object.FindById(changePacket.ObjectId);
         if (go == null)
@@ -364,9 +344,9 @@ class PacketHandler
         }
     }
 
-    public static void HC_DieHandler(PacketSession session, IMessage packet)
+    public static void S_DieHandler(PacketSession session, IMessage packet)
     {
-        HC_Die diePacket = packet as HC_Die;
+        S_Die diePacket = (S_Die)packet;
 
         UnityEngine.GameObject go = Managers.Object.FindById(diePacket.ObjectId);
         if (go == null)

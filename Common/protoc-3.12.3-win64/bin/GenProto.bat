@@ -5,5 +5,4 @@ START ../../../PixelSquadServer/PacketGenerator/bin/PacketGenerator.exe ./Protoc
 XCOPY /Y Protocol.cs "../../../PixelSquadClient/Assets/Scripts/ServerCore"
 XCOPY /Y Protocol.cs "../../../PixelSquadServer/Server/Packet"
 XCOPY /Y ClientPacketManager.cs "../../../PixelSquadClient/Assets/Scripts/Client/Packet"
-XCOPY /Y HostPacketManager.cs "../../../PixelSquadClient/Assets/Scripts/HostServer/Packet"
 XCOPY /Y ServerPacketManager.cs "../../../PixelSquadServer/Server/Packet"

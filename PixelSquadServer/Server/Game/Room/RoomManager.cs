@@ -17,6 +17,7 @@ namespace Server.Room
 		public GameRoom Add()
 		{
 			GameRoom gameRoom = new GameRoom();
+			Program.TickRoom(gameRoom, 50);
 			gameRoom.Push(gameRoom.Init);
 
 			lock (_lock)
@@ -30,15 +31,16 @@ namespace Server.Room
 			return gameRoom;
 		}
 
-		public bool Remove(int roomId)
-		{
-			lock (_lock)
-			{
-				return _rooms.Remove(roomId);
-			}
-		}
+        public bool Remove(int roomId)
+        {
+            lock (_lock)
+            {
+                Program.StopTickRoom(_rooms[roomId]);
+                return _rooms.Remove(roomId);
+            }
+        }
 
-		public GameRoom Find(int roomId)
+        public GameRoom Find(int roomId)
 		{
 			lock (_lock)
 			{

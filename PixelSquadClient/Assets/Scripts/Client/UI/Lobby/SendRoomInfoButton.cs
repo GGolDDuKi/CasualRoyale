@@ -8,7 +8,7 @@ public class SendRoomInfoButton : Button
         RoomInfo roomInfo = new RoomInfo();
         InputRoomInfo info = transform.parent.GetComponent<InputRoomInfo>();
         roomInfo = info.GetRoomInfo();
-        CS_MakeRoom roomPacket = new CS_MakeRoom();
+        C_MakeRoom roomPacket = new C_MakeRoom();
         roomPacket.Room = roomInfo;
         Managers.Network.Send(roomPacket);
     }

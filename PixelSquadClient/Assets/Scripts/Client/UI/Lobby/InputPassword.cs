@@ -24,7 +24,7 @@ public class InputPassword : Button
 
         Room room = Managers.Room._selected;
 
-        CS_EnterRoom enterPacket = new CS_EnterRoom();
+        C_EnterRoom enterPacket = new C_EnterRoom();
         enterPacket.PlayerId = Managers.User.Id;
         enterPacket.RoomId = room.RoomId;
         enterPacket.PassWord = Password;

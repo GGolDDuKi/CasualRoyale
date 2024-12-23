@@ -9,7 +9,7 @@ public class LoginButton : Button
         base.OnClick();
         GameObject nickname = GameObject.Find("Nickname");
         string inputName = nickname.GetComponent<TMP_InputField>().text;
-        CS_Login loginPacket = new CS_Login();
+        C_Login loginPacket = new C_Login();
         loginPacket.Info = Managers.User.Info;
         loginPacket.Info.Name = inputName;
         Managers.Network.Send(loginPacket);

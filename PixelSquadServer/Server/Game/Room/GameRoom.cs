@@ -3,15 +3,17 @@ using Google.Protobuf.Protocol;
 using Server.Define;
 using Server.Job;
 using Server.Object;
+using ServerCore;
 using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using System.Text;
 
 namespace Server.Room
 {
 	public class GameRoom : JobSerializer
 	{
-		public int RoomId { get; set; }
+		public GameRoomInfo Info { get; private set; }
 
 		public Player Host { get; set; }
 
@@ -41,14 +43,14 @@ namespace Server.Room
 
 		}
 
-		public void Update()
+		public override void Update()
 		{
+			base.Update();
+
 			foreach (Projectile projectile in _projectiles.Values)
 			{
 				projectile.Update();
 			}
-
-			Flush();
 		}
 
 		public void EnterGame(GameObject gameObject)
@@ -74,7 +76,7 @@ namespace Server.Room
 
 				// 본인한테 정보 전송
 				{
-					HC_EnterGame enterPacket = new HC_EnterGame();
+					S_EnterGame enterPacket = new S_EnterGame();
 					enterPacket.Player = player.Info;
 					if (Host == player)
 						enterPacket.Auth = Authority.Host;
@@ -82,7 +84,7 @@ namespace Server.Room
 						enterPacket.Auth = Authority.Client;
 					player.Session.Send(enterPacket);
 
-					HC_Spawn spawnPacket = new HC_Spawn();
+					S_Spawn spawnPacket = new S_Spawn();
 					foreach (Player p in _players.Values)
 					{
 						if (player != p)
@@ -93,14 +95,7 @@ namespace Server.Room
 						spawnPacket.Objects.Add(p.Info);
 
 					player.Session.Send(spawnPacket);
-				}
-
-				//서버에 방 정보 갱신
-				{
-					HS_UpdateRoom roomPacket = new HS_UpdateRoom();
-					roomPacket.Info = Managers.Room.MyRoom;
-					Managers.Network.S_Send(roomPacket);
-				}
+                }
 			}
 			else if (type == GameObjectType.Projectile)
 			{
@@ -114,7 +109,7 @@ namespace Server.Room
 
 			// 타인한테 정보 전송
 			{
-				HC_Spawn spawnPacket = new HC_Spawn();
+				S_Spawn spawnPacket = new S_Spawn();
 				spawnPacket.Objects.Add(gameObject.Info);
 				foreach (Player p in _players.Values)
 				{
@@ -139,7 +134,7 @@ namespace Server.Room
 
 				// 본인한테 정보 전송
 				{
-					HC_LeaveGame leavePacket = new HC_LeaveGame();
+					S_LeaveGame leavePacket = new S_LeaveGame();
 					player.Session.Send(leavePacket);
 				}
 			}
@@ -154,7 +149,7 @@ namespace Server.Room
 
 			// 타인한테 정보 전송
 			{
-				HC_Despawn despawnPacket = new HC_Despawn();
+				S_Despawn despawnPacket = new S_Despawn();
 				despawnPacket.ObjectIds.Add(objectId);
 				foreach (Player p in _players.Values)
 				{
@@ -162,6 +157,9 @@ namespace Server.Room
 						p.Session.Send(despawnPacket);
 				}
 			}
+
+			if(_players.Count == 0)
+				RoomManager.Instance.Remove(RoomId);
 		}
 
 		public void UpdateReadyState(Player player, CH_Ready readyPacket)
@@ -210,7 +208,7 @@ namespace Server.Room
 			Broadcast(startPacket);
 		}
 
-		public void HandleMove(Player player, CH_Move movePacket)
+		public void HandleMove(Player player, C_Move movePacket)
 		{
 			if (player == null)
 				return;
@@ -230,21 +228,21 @@ namespace Server.Room
 			player.LastDir = new Vector2(movePosInfo.LastDirX, movePosInfo.LastDirY);
 
 			// 다른 플레이어한테 알려준다
-			HC_Move resMovePacket = new HC_Move();
+			S_Move resMovePacket = new S_Move();
 			resMovePacket.ObjectId = player.Info.ObjectId;
 			resMovePacket.PosInfo = movePacket.PosInfo;
 
 			Broadcast(resMovePacket);
 		}
 
-		public void HandleAttack(Player player, CH_Attack attackPacket)
+		public void HandleAttack(Player player, C_Attack attackPacket)
 		{
 			if (player == null)
 				return;
 
 			ObjectInfo info = player.Info;
 
-			HC_Attack attack = new HC_Attack();
+			S_Attack attack = new S_Attack();
 			attack.ObjectId = info.ObjectId;
 
 			Broadcast(attack);
@@ -265,9 +263,9 @@ namespace Server.Room
 			if (GameStart == false)
 				return;
 
-			BoxCollider2D newCol = new BoxCollider2D(damagePacket.PosX, damagePacket.PosY, Managers.Data.SkillData[damagePacket.SkillId].Width, Managers.Data.SkillData[damagePacket.SkillId].Height);
+			//BoxCollider2D newCol = new BoxCollider2D(damagePacket.PosX, damagePacket.PosY, Managers.Data.SkillData[damagePacket.SkillId].Width, Managers.Data.SkillData[damagePacket.SkillId].Height);
 
-			HandleDamage(player, player.Damage * Managers.Data.SkillData[damagePacket.SkillId].DmgRatio, newCol);
+			//HandleDamage(player, player.Damage * Managers.Data.SkillData[damagePacket.SkillId].DmgRatio, newCol);
 		}
 
 		public void HandleDamage(Player attacker, float damage, BoxCollider2D attackCol)
@@ -284,14 +282,14 @@ namespace Server.Room
 			}
 		}
 
-		public void HandleSkill(Player player, CH_UseSkill skillPacket)
+		public void HandleSkill(Player player, C_UseSkill skillPacket)
 		{
 			if (player == null)
 				return;
 
 			ObjectInfo info = player.Info;
 
-			HC_UseSkill skill = new HC_UseSkill();
+			S_UseSkill skill = new S_UseSkill();
 			skill.PlayerId = info.ObjectId;
 			skill.SkillId = skillPacket.SkillId;
 
@@ -320,12 +318,12 @@ namespace Server.Room
 		{
 			foreach (var p in AlivePlayers.Values)
 			{
-				HC_Winner winPacket = new HC_Winner();
+				S_Winner winPacket = new S_Winner();
 				winPacket.Rank = GetRank();
 				p.Session.Send(winPacket);
 			}
 
-			HC_EndGame endPacket = new HC_EndGame();
+			S_EndGame endPacket = new S_EndGame();
 			Broadcast(endPacket);
 		}
 

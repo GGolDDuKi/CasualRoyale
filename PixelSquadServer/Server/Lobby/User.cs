@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf.Protocol;
 using Server;
+using Server.Room;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,7 @@ public class User
 {
 	public ClientSession Session { get; set; }
 	public Lobby Lobby { get; set; }
+	public GameRoom Room { get; set; }
 
 	#region UserInfo Info
 
@@ -24,24 +26,6 @@ public class User
 		get { return Info.Name; }
 		set { Info.Name = value; }
 	}
-
-	public string PublicIp
-    {
-		get { return Info.PublicIp; }
-		set { Info.PublicIp = value; }
-    }
-
-	public string PrivateIp
-	{
-		get { return Info.PrivateIp; }
-		set { Info.PrivateIp = value; }
-	}
-
-	public int Port
-    {
-		get { return Info.Port; }
-		set { Info.Port = value; }
-    }
 
 	public JobType JobType
     {

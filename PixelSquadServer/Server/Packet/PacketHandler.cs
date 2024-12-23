@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
 using Server;
+using Server.Data;
 using Server.Object;
 using Server.Room;
 using ServerCore;
@@ -15,26 +16,10 @@ class PacketHandler
         throw new NotImplementedException();
     }
 
-    public static void HS_EndGameHandler(PacketSession session, IMessage packet)
+    public static void C_LoginHandler(PacketSession session, IMessage packet)
     {
-        HS_EndGame endPacket = packet as HS_EndGame;
-        ClientSession clientSession = session as ClientSession;
-
-        User user = clientSession.MyUser;
-        if (user == null)
-            return;
-
-        Lobby lobby = user.Lobby;
-        if (lobby == null)
-            return;
-
-        lobby.Push(lobby.RemoveRoom, user, endPacket);
-    }
-
-    public static void CS_LoginHandler(PacketSession session, IMessage packet)
-    {
-        CS_Login loginPacket = packet as CS_Login;
-        ClientSession clientSession = session as ClientSession;
+        C_Login loginPacket = (C_Login)packet;
+        ClientSession clientSession = (ClientSession)session;
 
         User user = clientSession.MyUser;
         if (user == null)
@@ -47,10 +32,10 @@ class PacketHandler
         lobby.Push(lobby.EnterLobby, user, loginPacket);
     }
 
-    public static void CS_EnterRoomHandler(PacketSession session, IMessage packet)
+    public static void C_EnterRoomHandler(PacketSession session, IMessage packet)
     {
-        CS_EnterRoom enterPacket = packet as CS_EnterRoom;
-        ClientSession clientSession = session as ClientSession;
+        C_EnterRoom enterPacket = (C_EnterRoom)packet;
+        ClientSession clientSession = (ClientSession)session;
 
         User user = clientSession.MyUser;
         if (user == null)
@@ -63,11 +48,11 @@ class PacketHandler
         lobby.Push(lobby.EnterRoom, user, enterPacket);
     }
 
-    public static void CS_MakeRoomHandler(PacketSession session, IMessage packet)
+    public static void C_MakeRoomHandler(PacketSession session, IMessage packet)
     {
         //TODO : 룸 만들고 아이디 할당, 받은 정보 입력 후 로비 _rooms에 저장
-        CS_MakeRoom roomPacket = packet as CS_MakeRoom;
-        ClientSession clientSession = session as ClientSession;
+        C_MakeRoom roomPacket = (C_MakeRoom)packet;
+        ClientSession clientSession = (ClientSession)session;
 
         User user = clientSession.MyUser;
         if (user == null)
@@ -80,10 +65,14 @@ class PacketHandler
         lobby.Push(lobby.AddRoom, user, roomPacket);
     }
 
-    public static void CS_LeaveGameHandler(PacketSession session, IMessage packet)
+    public static void C_LeaveGameHandler(PacketSession session, IMessage packet)
     {
-        CS_LeaveGame updatePacket = packet as CS_LeaveGame;
-        ClientSession clientSession = session as ClientSession;
+        C_LeaveGame leavePacket = (C_LeaveGame)packet;
+        ClientSession clientSession = (ClientSession)session;
+
+        Player player = clientSession.MyPlayer;
+        if (player == null) 
+            return;
 
         User user = clientSession.MyUser;
         if (user == null)
@@ -93,13 +82,16 @@ class PacketHandler
         if (lobby == null)
             return;
 
+        if(leavePacket.Authority == Authority.Host)
+            lobby.Push(lobby.RemoveRoom, player);
+
         lobby.Push(lobby.ChangeUserState, user, UserState.Lobby);
     }
 
     public static void CS_EnterGameHandler(PacketSession session, IMessage packet)
     {
-        CS_EnterGame updatePacket = packet as CS_EnterGame;
-        ClientSession clientSession = session as ClientSession;
+        CS_EnterGame updatePacket = (CS_EnterGame)packet;
+        ClientSession clientSession = (ClientSession)session;
 
         User user = clientSession.MyUser;
         if (user == null)
@@ -112,26 +104,10 @@ class PacketHandler
         lobby.Push(lobby.ChangeUserState, user, UserState.Game);
     }
 
-    public static void HS_UpdateRoomHandler(PacketSession session, IMessage packet)
+    public static void C_MoveHandler(PacketSession session, IMessage packet)
     {
-        HS_UpdateRoom updatePacket = packet as HS_UpdateRoom;
-        ClientSession clientSession = session as ClientSession;
-
-        User user = clientSession.MyUser;
-        if (user == null)
-            return;
-
-        Lobby lobby = user.Lobby;
-        if (lobby == null)
-            return;
-
-        lobby.Push(lobby.UpdateRoom, updatePacket);
-    }
-
-    public static void CH_MoveHandler(PacketSession session, IMessage packet)
-    {
-        CH_Move movePacket = packet as CH_Move;
-        ClientSession clientSession = session as ClientSession;
+        C_Move movePacket = (C_Move)packet;
+        ClientSession clientSession = (ClientSession)session;
 
         Player player = clientSession.MyPlayer;
         if (player == null)
@@ -141,15 +117,13 @@ class PacketHandler
         if (room == null)
             return;
 
-        //Debug.Log($"Player[{player.Id}] 이동 - [{(movePacket.PosInfo.PosX).ToString("0.00")}, {movePacket.PosInfo.PosY.ToString("0.00")}]");
-
         room.Push(room.HandleMove, player, movePacket);
     }
 
-    public static void CH_AttackHandler(PacketSession session, IMessage packet)
+    public static void C_AttackHandler(PacketSession session, IMessage packet)
     {
-        CH_Attack attackPacket = packet as CH_Attack;
-        ClientSession clientSession = session as ClientSession;
+        C_Attack attackPacket = (C_Attack)packet;
+        ClientSession clientSession = (ClientSession)session;
 
         Player player = clientSession.MyPlayer;
         if (player == null)
@@ -162,43 +136,34 @@ class PacketHandler
         room.Push(room.HandleAttack, player, attackPacket);
     }
 
-    public static void SH_ConnectClientHandler(PacketSession session, IMessage packet)
-    {
-        SH_ConnectClient connectPacket = packet as SH_ConnectClient;
-
-        UnityEngine.GameObject go = UnityEngine.GameObject.Find("Host");
-        //Managers.Network.StartListen();
-        go.GetComponent<HostPlayer>().Connect(connectPacket.PublicIp, connectPacket.PrivateIp, connectPacket.Port, true, 3);
-    }
-
     public static void CH_SkillEffectHandler(PacketSession session, IMessage packet)
     {
-        CH_SkillEffect effectPacket = packet as CH_SkillEffect;
-        ClientSession clientSession = session as ClientSession;
+        CH_SkillEffect effectPacket = (CH_SkillEffect)packet;
+        ClientSession clientSession = (ClientSession)session;
 
-        Player player = clientSession.MyPlayer;
-        if (player == null)
-            return;
+        //Player player = clientSession.MyPlayer;
+        //if (player == null)
+        //    return;
 
-        GameRoom room = player.Room;
-        if (room == null)
-            return;
+        //GameRoom room = player.Room;
+        //if (room == null)
+        //    return;
 
-        Projectile projectile = HostServer.Game.ObjectManager.Instance.Add<Projectile>();
-        {
-            projectile.Owner = player;
-            projectile.SkillId = effectPacket.SkillId;
-            projectile.PosInfo.PosX = effectPacket.PosInfo.PosX;
-            projectile.PosInfo.PosY = effectPacket.PosInfo.PosY;
-            projectile.PosInfo.LastDirX = effectPacket.PosInfo.LastDirX;
-            projectile.PosInfo.LastDirY = effectPacket.PosInfo.LastDirY;
-            projectile.StartPos = projectile.Pos;
-            projectile.DestPos = projectile.Pos + (projectile.LastDir * Managers.Data.SkillData[projectile.SkillId].Range);
-            projectile.Name = Managers.Data.SkillData[projectile.SkillId].SkillName;
-            projectile.Room = room;
-        }
+        //Projectile projectile = HostServer.Game.ObjectManager.Instance.Add<Projectile>();
+        //{
+        //    projectile.Owner = player;
+        //    projectile.SkillId = effectPacket.SkillId;
+        //    projectile.PosInfo.PosX = effectPacket.PosInfo.PosX;
+        //    projectile.PosInfo.PosY = effectPacket.PosInfo.PosY;
+        //    projectile.PosInfo.LastDirX = effectPacket.PosInfo.LastDirX;
+        //    projectile.PosInfo.LastDirY = effectPacket.PosInfo.LastDirY;
+        //    projectile.StartPos = projectile.Pos;
+        //    projectile.DestPos = projectile.Pos + (projectile.LastDir * Managers.Data.SkillData[projectile.SkillId].Range);
+        //    projectile.Name = Managers.Data.SkillData[projectile.SkillId].SkillName;
+        //    projectile.Room = room;
+        //}
 
-        room.Push(room.EnterGame, projectile);
+        //room.Push(room.EnterGame, projectile);
     }
 
     public static void CH_EmoteHandler(PacketSession session, IMessage packet)
@@ -206,15 +171,15 @@ class PacketHandler
         CH_Emote emotePacket = packet as CH_Emote;
         ClientSession clientSession = session as ClientSession;
 
-        Player player = clientSession.MyPlayer;
-        if (player == null)
-            return;
+        //Player player = clientSession.MyPlayer;
+        //if (player == null)
+        //    return;
 
-        GameRoom room = player.Room;
-        if (room == null)
-            return;
+        //GameRoom room = player.Room;
+        //if (room == null)
+        //    return;
 
-        room.Push(room.HandleEmotion, player, emotePacket);
+        //room.Push(room.HandleEmotion, player, emotePacket);
     }
 
     public static void CH_StartGameHandler(PacketSession session, IMessage packet)
@@ -222,15 +187,15 @@ class PacketHandler
         CH_StartGame startPacket = packet as CH_StartGame;
         ClientSession clientSession = session as ClientSession;
 
-        Player player = clientSession.MyPlayer;
-        if (player == null)
-            return;
+        //Player player = clientSession.MyPlayer;
+        //if (player == null)
+        //    return;
 
-        GameRoom room = player.Room;
-        if (room == null)
-            return;
+        //GameRoom room = player.Room;
+        //if (room == null)
+        //    return;
 
-        room.Push(room.InitGame);
+        //room.Push(room.InitGame);
     }
 
     public static void CH_ReadyHandler(PacketSession session, IMessage packet)
@@ -238,15 +203,15 @@ class PacketHandler
         CH_Ready readyPacket = packet as CH_Ready;
         ClientSession clientSession = session as ClientSession;
 
-        Player player = clientSession.MyPlayer;
-        if (player == null)
-            return;
+        //Player player = clientSession.MyPlayer;
+        //if (player == null)
+        //    return;
 
-        GameRoom room = player.Room;
-        if (room == null)
-            return;
+        //GameRoom room = player.Room;
+        //if (room == null)
+        //    return;
 
-        room.Push(room.UpdateReadyState, player, readyPacket);
+        //room.Push(room.UpdateReadyState, player, readyPacket);
     }
 
     public static void CH_SkillDamageHandler(PacketSession session, IMessage packet)
@@ -254,21 +219,21 @@ class PacketHandler
         CH_SkillDamage damagePacket = packet as CH_SkillDamage;
         ClientSession clientSession = session as ClientSession;
 
-        Player player = clientSession.MyPlayer;
-        if (player == null)
-            return;
+        //Player player = clientSession.MyPlayer;
+        //if (player == null)
+        //    return;
 
-        GameRoom room = player.Room;
-        if (room == null)
-            return;
+        //GameRoom room = player.Room;
+        //if (room == null)
+        //    return;
 
-        room.Push(room.HandleSkillDamage, player, damagePacket);
+        //room.Push(room.HandleSkillDamage, player, damagePacket);
     }
 
-    public static void CH_SendInfoHandler(PacketSession session, IMessage packet)
+    public static void C_SendInfoHandler(PacketSession session, IMessage packet)
     {
-        CH_SendInfo infoPacket = packet as CH_SendInfo;
-        ClientSession clientSession = session as ClientSession;
+        C_SendInfo infoPacket = (C_SendInfo)packet;
+        ClientSession clientSession = (ClientSession)session;
 
         Player player = clientSession.MyPlayer;
         if (player == null)
@@ -280,27 +245,28 @@ class PacketHandler
 
         {
             player.Class = infoPacket.Job;
+            ClassData classData = DataManager.Instance.GetClassData(player.Class.ToString());
 
             player.Info.Name = $"{infoPacket.Name}";
             player.Info.PosInfo.State = ActionState.Idle;
             player.Info.PosInfo.PosX = 0;
             player.Info.PosInfo.PosY = 0;
 
-            player.Info.StatInfo.MaxHp = Managers.Data.ClassData[player.Class.ToString()].MaxHp;
+            player.Info.StatInfo.MaxHp = classData.MaxHp;
             player.Info.StatInfo.Hp = player.Info.StatInfo.MaxHp;
-            player.Info.StatInfo.Speed = Managers.Data.ClassData[player.Class.ToString()].Speed;
-            player.Info.StatInfo.Damage = Managers.Data.ClassData[player.Class.ToString()].Damage;
-            player.Info.StatInfo.FirstSkillId = Managers.Data.ClassData[player.Class.ToString()].FirstSkillId;
-            player.Info.StatInfo.SecondSkillId = Managers.Data.ClassData[player.Class.ToString()].SecondSkillId;
+            player.Info.StatInfo.Speed = classData.Speed;
+            player.Info.StatInfo.Damage = classData.Damage;
+            player.Info.StatInfo.FirstSkillId = classData.FirstSkillId;
+            player.Info.StatInfo.SecondSkillId = classData.SecondSkillId;
         }
 
         room.Push(room.EnterGame, player);
     }
 
-    public static void CH_UseSkillHandler(PacketSession session, IMessage packet)
+    public static void C_UseSkillHandler(PacketSession session, IMessage packet)
     {
-        CH_UseSkill skillPacket = packet as CH_UseSkill;
-        ClientSession clientSession = session as ClientSession;
+        C_UseSkill skillPacket = (C_UseSkill)packet;
+        ClientSession clientSession = (ClientSession)session;
 
         Player player = clientSession.MyPlayer;
         if (player == null)
@@ -311,16 +277,5 @@ class PacketHandler
             return;
 
         room.Push(room.HandleSkill, player, skillPacket);
-    }
-
-    public static void CH_ExitRoomHandler(PacketSession session, IMessage packet)
-    {
-        ClientSession clientSession = session as ClientSession;
-
-        Player player = clientSession.MyPlayer;
-        if (player == null)
-            return;
-
-        SessionManager.Instance.DisconnectSession(clientSession.SessionId);
     }
 }

@@ -20,7 +20,7 @@ public class EnterRoomButton : Button
             return;
         }
 
-        CS_EnterRoom enterPacket = new CS_EnterRoom();
+        C_EnterRoom enterPacket = new C_EnterRoom();
         enterPacket.PlayerId = Managers.User.Id;
         enterPacket.RoomId = room.RoomId;
 

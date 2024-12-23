@@ -23,22 +23,22 @@ class PacketManager
 
 	public void Register()
 	{		
-		_onRecv.Add((ushort)MsgId.HsUpdateRoom, MakePacket<HS_UpdateRoom>);
-		_handler.Add((ushort)MsgId.HsUpdateRoom, PacketHandler.HS_UpdateRoomHandler);		
-		_onRecv.Add((ushort)MsgId.HsStartGame, MakePacket<HS_StartGame>);
-		_handler.Add((ushort)MsgId.HsStartGame, PacketHandler.HS_StartGameHandler);		
-		_onRecv.Add((ushort)MsgId.HsEndGame, MakePacket<HS_EndGame>);
-		_handler.Add((ushort)MsgId.HsEndGame, PacketHandler.HS_EndGameHandler);		
-		_onRecv.Add((ushort)MsgId.CsLogin, MakePacket<CS_Login>);
-		_handler.Add((ushort)MsgId.CsLogin, PacketHandler.CS_LoginHandler);		
-		_onRecv.Add((ushort)MsgId.CsEnterRoom, MakePacket<CS_EnterRoom>);
-		_handler.Add((ushort)MsgId.CsEnterRoom, PacketHandler.CS_EnterRoomHandler);		
-		_onRecv.Add((ushort)MsgId.CsMakeRoom, MakePacket<CS_MakeRoom>);
-		_handler.Add((ushort)MsgId.CsMakeRoom, PacketHandler.CS_MakeRoomHandler);		
-		_onRecv.Add((ushort)MsgId.CsEnterGame, MakePacket<CS_EnterGame>);
-		_handler.Add((ushort)MsgId.CsEnterGame, PacketHandler.CS_EnterGameHandler);		
-		_onRecv.Add((ushort)MsgId.CsLeaveGame, MakePacket<CS_LeaveGame>);
-		_handler.Add((ushort)MsgId.CsLeaveGame, PacketHandler.CS_LeaveGameHandler);
+		_onRecv.Add((ushort)MsgId.CMove, MakePacket<C_Move>);
+		_handler.Add((ushort)MsgId.CMove, PacketHandler.C_MoveHandler);		
+		_onRecv.Add((ushort)MsgId.CAttack, MakePacket<C_Attack>);
+		_handler.Add((ushort)MsgId.CAttack, PacketHandler.C_AttackHandler);		
+		_onRecv.Add((ushort)MsgId.CLogin, MakePacket<C_Login>);
+		_handler.Add((ushort)MsgId.CLogin, PacketHandler.C_LoginHandler);		
+		_onRecv.Add((ushort)MsgId.CEnterRoom, MakePacket<C_EnterRoom>);
+		_handler.Add((ushort)MsgId.CEnterRoom, PacketHandler.C_EnterRoomHandler);		
+		_onRecv.Add((ushort)MsgId.CMakeRoom, MakePacket<C_MakeRoom>);
+		_handler.Add((ushort)MsgId.CMakeRoom, PacketHandler.C_MakeRoomHandler);		
+		_onRecv.Add((ushort)MsgId.CUseSkill, MakePacket<C_UseSkill>);
+		_handler.Add((ushort)MsgId.CUseSkill, PacketHandler.C_UseSkillHandler);		
+		_onRecv.Add((ushort)MsgId.CSendInfo, MakePacket<C_SendInfo>);
+		_handler.Add((ushort)MsgId.CSendInfo, PacketHandler.C_SendInfoHandler);		
+		_onRecv.Add((ushort)MsgId.CLeaveGame, MakePacket<C_LeaveGame>);
+		_handler.Add((ushort)MsgId.CLeaveGame, PacketHandler.C_LeaveGameHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

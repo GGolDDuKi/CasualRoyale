@@ -187,7 +187,7 @@ namespace Server.Object
 
 			StatInfo.Hp = Math.Max(StatInfo.Hp - damage, 0);
 
-			HC_ChangeHp changePacket = new HC_ChangeHp();
+			S_ChangeHp changePacket = new S_ChangeHp();
 			changePacket.ObjectId = Id;
 			changePacket.Hp = StatInfo.Hp;
 			Room.Broadcast(changePacket);
@@ -205,7 +205,7 @@ namespace Server.Object
 
 			State = ActionState.Dead;
 
-			HC_Die diePacket = new HC_Die();
+			S_Die diePacket = new S_Die();
 			diePacket.ObjectId = Id;
 			diePacket.Rank = 0;
 			diePacket.AttackerId = attacker.Id;
