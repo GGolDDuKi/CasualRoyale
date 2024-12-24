@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf;
 using Google.Protobuf.Protocol;
+using Server.Data;
 using Server.Define;
 using Server.Job;
 using Server.Object;
@@ -13,7 +14,7 @@ namespace Server.Room
 {
 	public class GameRoom : JobSerializer
 	{
-		public GameRoomInfo Info { get; private set; }
+		public GameRoomInfo Info { get; set; }
 
 		public Player Host { get; set; }
 
@@ -78,10 +79,12 @@ namespace Server.Room
 				{
 					S_EnterGame enterPacket = new S_EnterGame();
 					enterPacket.Player = player.Info;
+
 					if (Host == player)
 						enterPacket.Auth = Authority.Host;
 					else
 						enterPacket.Auth = Authority.Client;
+
 					player.Session.Send(enterPacket);
 
 					S_Spawn spawnPacket = new S_Spawn();
@@ -96,10 +99,12 @@ namespace Server.Room
 
 					player.Session.Send(spawnPacket);
                 }
+
+				Info.CurMember = Players.Count;
 			}
 			else if (type == GameObjectType.Projectile)
 			{
-				Projectile projectile = gameObject as Projectile;
+				Projectile projectile = (Projectile)gameObject;
 				_projectiles.Add(gameObject.Id, projectile);
 				projectile.Room = this;
 
@@ -137,6 +142,8 @@ namespace Server.Room
 					S_LeaveGame leavePacket = new S_LeaveGame();
 					player.Session.Send(leavePacket);
 				}
+
+				Info.CurMember--;
 			}
 			else if (type == GameObjectType.Projectile)
 			{
@@ -159,17 +166,17 @@ namespace Server.Room
 			}
 
 			if(_players.Count == 0)
-				RoomManager.Instance.Remove(RoomId);
+				RoomManager.Instance.Remove(Info.Id);
 		}
 
-		public void UpdateReadyState(Player player, CH_Ready readyPacket)
+		public void UpdateReadyState(Player player, C_Ready readyPacket)
 		{
 			if (player == null)
 				return;
 
 			player.Ready = readyPacket.Ready;
 
-			HC_CanStart startPacket = new HC_CanStart();
+			S_CanStart startPacket = new S_CanStart();
 			startPacket.Start = CanStartGame();
 			Host.Session.Send(startPacket);
 		}
@@ -194,7 +201,7 @@ namespace Server.Room
 		{
 			GameStart = true;
 			int index = 0;
-			HC_StartGame startPacket = new HC_StartGame();
+			S_StartGame startPacket = new S_StartGame();
 
 			foreach (var player in _players.Values)
 			{
@@ -254,7 +261,18 @@ namespace Server.Room
 			HandleDamage(player, player.Damage, player.AttackCollider);
 		}
 
-		public void HandleSkillDamage(Player player, CH_SkillDamage damagePacket)
+		public void HandleDisconnectHost(Player host)
+		{
+			if (host == null)
+				return;
+
+			S_HostDisconnect disconnectPacket = new S_HostDisconnect();
+			Broadcast(disconnectPacket, host);
+
+            RoomManager.Instance.Remove(Info.Id);
+        }
+
+		public void HandleSkillDamage(Player player, C_SkillDamage damagePacket)
 		{
 			if (player == null)
 				return;
@@ -263,9 +281,10 @@ namespace Server.Room
 			if (GameStart == false)
 				return;
 
-			//BoxCollider2D newCol = new BoxCollider2D(damagePacket.PosX, damagePacket.PosY, Managers.Data.SkillData[damagePacket.SkillId].Width, Managers.Data.SkillData[damagePacket.SkillId].Height);
+			SkillData skillData = DataManager.Instance.GetSkillData(damagePacket.SkillId);
+			BoxCollider2D newCol = new BoxCollider2D(damagePacket.PosX, damagePacket.PosY, skillData.Width, skillData.Height);
 
-			//HandleDamage(player, player.Damage * Managers.Data.SkillData[damagePacket.SkillId].DmgRatio, newCol);
+			HandleDamage(player, player.Damage * skillData.DmgRatio, newCol);
 		}
 
 		public void HandleDamage(Player attacker, float damage, BoxCollider2D attackCol)
@@ -296,12 +315,12 @@ namespace Server.Room
 			Broadcast(skill, player);
 		}
 
-		public void HandleEmotion(Player player, CH_Emote emotePacket)
+		public void HandleEmotion(Player player, C_Emote emotePacket)
 		{
 			if (player == null)
 				return;
 
-			HC_Emote packet = new HC_Emote();
+			S_Emote packet = new S_Emote();
 			packet.Id = player.Id;
 			packet.EmoteName = emotePacket.EmoteName;
 
@@ -325,7 +344,9 @@ namespace Server.Room
 
 			S_EndGame endPacket = new S_EndGame();
 			Broadcast(endPacket);
-		}
+
+            RoomManager.Instance.Remove(Info.Id);
+        }
 
 		public void Broadcast(IMessage packet)
 		{

@@ -44,6 +44,7 @@ namespace Server
 		public override void Update()
 		{
 			base.Update();
+            UpdateRoomList();
         }
 
 		public void AddUser(User user)
@@ -78,8 +79,6 @@ namespace Server
 			Console.WriteLine($"{acceptPacket.UserInfo.Name} 로그인");
 
 			_lobbyUsers.Add(user.Id, user);
-
-			UpdateRoomList(newUser);
 		}
 
 		public void LeaveLobby(int objectId)
@@ -107,15 +106,15 @@ namespace Server
 		public void UpdateRoomList(User user = null)
         {
 			S_RoomList roomList = new S_RoomList();
-			foreach (GameRoomInfo room in _rooms.Values)
+			foreach (GameRoom room in _rooms.Values)
 			{
 				RoomInfo roomInfo = new RoomInfo();
-				roomInfo.RoomId = room.Id;
-				roomInfo.RoomName = room.Name;
-				roomInfo.SecretRoom = room.SecretRoom;
-				roomInfo.CurMember = room.CurMember;
-				roomInfo.MaxMember = room.MaxMember;
-				roomInfo.HostName = room.HostName;
+				roomInfo.RoomId = room.Info.Id;
+				roomInfo.RoomName = room.Info.Name;
+				roomInfo.SecretRoom = room.Info.SecretRoom;
+				roomInfo.CurMember = room.Info.CurMember;
+				roomInfo.MaxMember = room.Info.MaxMember;
+				roomInfo.HostName = room.Info.HostName;
 				roomList.Rooms.Add(roomInfo);
 			}
 
@@ -130,9 +129,9 @@ namespace Server
 			GameRoomInfo room = new GameRoomInfo();
 			room.Info = packet.Room;
 
-			foreach(GameRoomInfo r in _rooms.Values)
+			foreach(GameRoom r in _rooms.Values)
             {
-				if (room.Info.RoomName == r.Name)
+				if (room.Info.RoomName == r.Info.Name)
                 {
 					S_RejectMake rejectPacket = new S_RejectMake();
 					rejectPacket.Reason = RejectionReason.SameName;
@@ -142,34 +141,41 @@ namespace Server
                 }
             }
 
-            GameRoom newRoom = RoomManager.Instance.Add();
-			room.Id = newRoom.RoomId;
-
-            _rooms.Add(newRoom.RoomId, room);
+            GameRoom newRoom = RoomManager.Instance.Add(room);
+            _rooms.Add(newRoom.Info.Id, newRoom);
 			S_AcceptMake acceptPacket = new S_AcceptMake();
 			acceptPacket.Room = room.Info;
 			user.Session.Send(acceptPacket);
 			user.Room = newRoom;
 
 			Console.WriteLine($"{user.Name}님이 [{room.Name}]방 생성");
-
-			UpdateRoomList();
 		}
 
-		public void RemoveRoom(Player player)
+        public void LeaveRoom(Player player)
+        {
+            if (!_rooms.ContainsKey(player.Room.Info.Id))
+                return;
+
+            GameRoom room = player.Room;
+            room.Push(room.LeaveGame, player.Id);
+        }
+
+        public void RemoveRoom(Player player)
 		{
-			if (!_rooms.ContainsKey(player.Room.RoomId))
+			if (!_rooms.ContainsKey(player.Room.Info.Id))
 				return;
 
-			_rooms.Remove(player.Room.RoomId);
-			UpdateRoomList();
+			GameRoom room = player.Room;
+
+			room.Push(room.HandleDisconnectHost, player);
+			_rooms.Remove(player.Room.Info.Id);
 		}
 
 		public void EnterRoom(User user, C_EnterRoom packet)
         {
-			GameRoomInfo room = _rooms[packet.RoomId];
+			GameRoom room = _rooms[packet.RoomId];
 
-			if(room.CurMember >= room.MaxMember)
+			if(room.Info.CurMember >= room.Info.MaxMember)
             {
 				S_RejectEnter rejectPacket = new S_RejectEnter();
 				rejectPacket.Reason = RejectionReason.FullRoom;
@@ -177,13 +183,13 @@ namespace Server
 				return;
 			}
 
-			if(room.Password == packet.PassWord)
+			if(room.Info.Password == packet.PassWord)
             {
 				S_AcceptEnter acceptPacket = new S_AcceptEnter();
 				user.Session.Send(acceptPacket);
-				user.Room = 
+				user.Room = room;
 
-                Console.WriteLine($"{user.Name}님이 {room.Name}에 입장하셨습니다.");
+                Console.WriteLine($"{user.Name}님이 {room.Info.Name}에 입장하셨습니다.");
             }
             else
             {
@@ -191,13 +197,6 @@ namespace Server
 				rejectPacket.Reason = RejectionReason.IncorrectPassword;
 				user.Session.Send(rejectPacket);
             }
-        }
-
-		public void UpdateRoom(RoomInfo info)
-        {
-			_rooms[info.RoomId].Info = info;
-
-			UpdateRoomList();
         }
 
 		public void ChangeUserState(User user, UserState state = UserState.Lobby)

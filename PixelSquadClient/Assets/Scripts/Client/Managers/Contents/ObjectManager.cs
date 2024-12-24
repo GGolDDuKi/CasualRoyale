@@ -39,9 +39,7 @@ public class ObjectManager
 				MyPlayer.StatInfo = info.StatInfo;
 				MyPlayer.Sync();
 
-				Managers.Game.InGame = true;
-
-				CS_EnterGame startPacket = new CS_EnterGame();
+				C_EnterGame startPacket = new C_EnterGame();
 				Managers.Network.Send(startPacket);
 				Managers.Room.Clear();
 			}

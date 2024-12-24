@@ -68,7 +68,7 @@ public class SkillEffect : MonoBehaviour
             return;
 
         //이펙트 현재 위치랑 범위 따라서 서버로 데미지 패킷 전송
-        CH_SkillDamage damagePacket = new CH_SkillDamage();
+        C_SkillDamage damagePacket = new C_SkillDamage();
         damagePacket.SkillId = _skillId;
         damagePacket.PosX = transform.position.x;
         damagePacket.PosY = transform.position.y;

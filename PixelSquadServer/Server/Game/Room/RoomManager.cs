@@ -14,7 +14,7 @@ namespace Server.Room
 
 		//TODO : 게임룸 업데이트 관리
 
-		public GameRoom Add()
+		public GameRoom Add(GameRoomInfo info)
 		{
 			GameRoom gameRoom = new GameRoom();
 			Program.TickRoom(gameRoom, 50);
@@ -22,9 +22,10 @@ namespace Server.Room
 
 			lock (_lock)
 			{
-				gameRoom.RoomId = _roomId;
+				info.Id = _roomId;
+				gameRoom.Info = info;
 				_rooms.Add(_roomId, gameRoom);
-                Console.WriteLine($"Room[{gameRoom.RoomId}] 생성");
+                Console.WriteLine($"Room[{gameRoom.Info.Name}] 생성");
 				_roomId++;
 			}
 

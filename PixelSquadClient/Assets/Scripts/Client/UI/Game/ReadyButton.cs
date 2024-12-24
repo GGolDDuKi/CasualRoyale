@@ -30,7 +30,7 @@ public class ReadyButton : Button
         ChangeState();
 
         //호스트로 준비 상태 전송
-        CH_Ready packet = new CH_Ready();
+        C_Ready packet = new C_Ready();
         packet.Ready = Managers.Game.Ready;
         Managers.Network.Send(packet);
     }

@@ -38,6 +38,8 @@ namespace Server
 
         static void Main(string[] args)
 		{
+            DataManager.Instance.LoadData();
+
             // DNS (Domain Name System)
             string host = Dns.GetHostName();
             IPHostEntry ipHost = Dns.GetHostEntry(host);

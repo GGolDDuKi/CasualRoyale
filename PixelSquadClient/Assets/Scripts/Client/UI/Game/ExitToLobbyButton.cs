@@ -18,6 +18,7 @@ public class ExitToLobbyButton : Button
     {
         C_LeaveGame leavePacket = new C_LeaveGame();
         leavePacket.Authority = Managers.Game.Authority;
+        Managers.Network.Send(leavePacket);
 
         Managers.Object.Clear();
         Managers.Game.Init();

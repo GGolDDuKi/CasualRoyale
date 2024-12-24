@@ -112,9 +112,9 @@ class PacketHandler
         Managers.Scene.LoadScene(Define.Scene.Lobby);
     }
 
-    public static void HC_StartGameHandler(PacketSession session, IMessage packet)
+    public static void S_StartGameHandler(PacketSession session, IMessage packet)
     {
-        HC_StartGame startPacket = packet as HC_StartGame;
+        S_StartGame startPacket = (S_StartGame)packet;
         GameObject go;
 
         foreach (var info in startPacket.Players)
@@ -142,9 +142,9 @@ class PacketHandler
         ui.GetComponent<MonoBehaviour>().StartCoroutine(Managers.UI.CoFadeInText(ui, () => { Managers.Resource.Destroy(ui); }));
     }
 
-    public static void HC_EmoteHandler(PacketSession session, IMessage packet)
+    public static void S_EmoteHandler(PacketSession session, IMessage packet)
     {
-        HC_Emote emotePacket = packet as HC_Emote;
+        S_Emote emotePacket = (S_Emote)packet;
 
         UnityEngine.GameObject go = Managers.Object.FindById(emotePacket.Id);
         if (go == null)
@@ -215,25 +215,20 @@ class PacketHandler
         }
     }
 
-    public static void HC_CanStartHandler(PacketSession session, IMessage packet)
+    public static void S_CanStartHandler(PacketSession session, IMessage packet)
     {
-        HC_CanStart startPacket = packet as HC_CanStart;
+        S_CanStart startPacket = (S_CanStart)packet;
 
         GameObject go = GameObject.Find("StartButton");
         go.GetComponent<StartButton>().ChangeState(startPacket.Start);
     }
 
-    public static void HC_HostDisconnectHandler(PacketSession session, IMessage packet)
+    public static void S_HostDisconnectHandler(PacketSession session, IMessage packet)
     {
         if (Managers.Scene.CurrentScene.SceneType == Define.Scene.Game && Managers.Game.InGame == true)
         {
-            Managers.UI.GenerateUI("UI/MissingHost");
+            Managers.UI.GenerateUI("UI/MissingHost"); 
         }
-    }
-
-    public static void HC_MissingHostHandler(PacketSession session, IMessage packet)
-    {
-        Managers.UI.GenerateUI("UI/MissingHost");
     }
 
     public static void S_EndGameHandler(PacketSession session, IMessage packet)

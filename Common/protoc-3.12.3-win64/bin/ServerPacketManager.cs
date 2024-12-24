@@ -37,6 +37,18 @@ class PacketManager
 		_handler.Add((ushort)MsgId.CUseSkill, PacketHandler.C_UseSkillHandler);		
 		_onRecv.Add((ushort)MsgId.CSendInfo, MakePacket<C_SendInfo>);
 		_handler.Add((ushort)MsgId.CSendInfo, PacketHandler.C_SendInfoHandler);		
+		_onRecv.Add((ushort)MsgId.CSkillEffect, MakePacket<C_SkillEffect>);
+		_handler.Add((ushort)MsgId.CSkillEffect, PacketHandler.C_SkillEffectHandler);		
+		_onRecv.Add((ushort)MsgId.CSkillDamage, MakePacket<C_SkillDamage>);
+		_handler.Add((ushort)MsgId.CSkillDamage, PacketHandler.C_SkillDamageHandler);		
+		_onRecv.Add((ushort)MsgId.CEnterGame, MakePacket<C_EnterGame>);
+		_handler.Add((ushort)MsgId.CEnterGame, PacketHandler.C_EnterGameHandler);		
+		_onRecv.Add((ushort)MsgId.CReady, MakePacket<C_Ready>);
+		_handler.Add((ushort)MsgId.CReady, PacketHandler.C_ReadyHandler);		
+		_onRecv.Add((ushort)MsgId.CStartGame, MakePacket<C_StartGame>);
+		_handler.Add((ushort)MsgId.CStartGame, PacketHandler.C_StartGameHandler);		
+		_onRecv.Add((ushort)MsgId.CEmote, MakePacket<C_Emote>);
+		_handler.Add((ushort)MsgId.CEmote, PacketHandler.C_EmoteHandler);		
 		_onRecv.Add((ushort)MsgId.CLeaveGame, MakePacket<C_LeaveGame>);
 		_handler.Add((ushort)MsgId.CLeaveGame, PacketHandler.C_LeaveGameHandler);
 	}

@@ -15,35 +15,33 @@ enum MsgId {
   S_ATTACK = 7;
   S_CHANGE_HP = 8;
   S_DIE = 9;
-  HS_UPDATE_ROOM = 10;
-  HS_START_GAME = 11;
-  C_LOGIN = 12;
-  S_REJECT_LOGIN = 13;
-  S_ACCEPT_LOGIN = 14;
-  S_ROOM_LIST = 15;
-  C_ENTER_ROOM = 16;
-  S_REJECT_ENTER = 17;
-  S_ACCEPT_ENTER = 18;
-  C_MAKE_ROOM = 19;
-  S_ACCEPT_MAKE = 20;
-  S_REJECT_MAKE = 21;
-  S_WINNER = 22;
-  C_USE_SKILL = 23;
-  S_USE_SKILL = 24;
-  HC_REQUEST_INFO = 25;
-  C_SEND_INFO = 26;
-  CH_SKILL_EFFECT = 27;
-  CH_SKILL_DAMAGE = 28;
-  HC_HOST_DISCONNECT = 29;
-  CS_ENTER_GAME = 30;
-  CH_READY = 31;
-  HC_CAN_START = 32;
-  CH_START_GAME = 33;
-  HC_START_GAME = 34;
-  CH_EMOTE = 35;
-  HC_EMOTE = 36;
-  C_LEAVE_GAME = 37;
-  S_END_GAME = 38;
+  C_LOGIN = 10;
+  S_REJECT_LOGIN = 11;
+  S_ACCEPT_LOGIN = 12;
+  S_ROOM_LIST = 13;
+  C_ENTER_ROOM = 14;
+  S_REJECT_ENTER = 15;
+  S_ACCEPT_ENTER = 16;
+  C_MAKE_ROOM = 17;
+  S_ACCEPT_MAKE = 18;
+  S_REJECT_MAKE = 19;
+  S_WINNER = 20;
+  C_USE_SKILL = 21;
+  S_USE_SKILL = 22;
+  C_SEND_INFO = 23;
+  C_SKILL_EFFECT = 24;
+  C_SKILL_DAMAGE = 25;
+  S_HOST_DISCONNECT = 26;
+  C_ENTER_GAME = 27;
+  C_READY = 28;
+  S_CAN_START = 29;
+  C_START_GAME = 30;
+  H_START_GAME = 31;
+  C_EMOTE = 32;
+  S_EMOTE = 33;
+  C_LEAVE_GAME = 34;
+  S_END_GAME = 35;
+  S_START_GAME = 36;
 }
 
 enum ActionState {
@@ -95,10 +93,6 @@ message C_LeaveGame{
   Authority authority = 1;
 }
 
-message HC_RequestInfo{
-  
-}
-
 message C_SendInfo{
   JobType job = 1;
   string name = 2;
@@ -147,14 +141,6 @@ message S_Die {
   int32 objectId = 1;
   int32 rank = 2;
   int32 attackerId = 3;
-}
-
-message HS_UpdateRoom {
-  RoomInfo info = 1;
-}
-
-message HS_StartGame {
-  RoomInfo room = 1;
 }
 
 message C_Login {
@@ -212,46 +198,46 @@ message S_UseSkill{
   int32 skillId = 2;
 }
 
-message CH_SkillEffect{
+message C_SkillEffect{
   int32 skillId = 1;
   PositionInfo PosInfo = 2;
 }
 
-message CH_SkillDamage{
+message C_SkillDamage{
   int32 skillId = 1;
   float posX = 2;
   float posY = 3;
 }
 
-message HC_HostDisconnect{
+message S_HostDisconnect{
   
 }
 
-message CS_EnterGame{
+message C_EnterGame{
   
 }
 
-message CH_Ready{
+message C_Ready{
   bool ready = 1;
 }
 
-message HC_CanStart{
+message S_CanStart{
   bool start = 1;
 }
 
-message CH_StartGame{
+message C_StartGame{
   
 }
 
-message HC_StartGame{
+message S_StartGame{
   repeated ObjectInfo players = 1;
 }
 
-message CH_Emote{
+message C_Emote{
   string emoteName = 1;
 }
 
-message HC_Emote{
+message S_Emote{
   int32 id = 1;
   string emoteName = 2;
 }

@@ -256,7 +256,7 @@ public class CreatureController : BaseController
                 {
                     skillPos = (Vector2)transform.position + LastDir * 1;
 
-                    CH_SkillEffect effectPacket = new CH_SkillEffect();
+                    C_SkillEffect effectPacket = new C_SkillEffect();
                     PositionInfo posInfo = new PositionInfo();
                     effectPacket.SkillId = skillId;
                     effectPacket.PosInfo = posInfo;

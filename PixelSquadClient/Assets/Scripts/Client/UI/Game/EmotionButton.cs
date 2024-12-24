@@ -14,7 +14,7 @@ public class EmotionButton : Button
         emotion.SetEmotion(GetComponent<Image>().sprite.name);
         emotion.GetComponent<MonoBehaviour>().StartCoroutine(Managers.UI.CoFadeIn(emotion.gameObject, () => { Managers.Resource.Destroy(emotion.gameObject); }));
 
-        CH_Emote emotePacket = new CH_Emote();
+        C_Emote emotePacket = new C_Emote();
         emotePacket.EmoteName = GetComponent<Image>().sprite.name;
         Managers.Network.Send(emotePacket);
         transform.parent.parent.gameObject.SetActive(false);

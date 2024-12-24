@@ -11,11 +11,6 @@ using System.Text;
 
 class PacketHandler
 {
-    public static void HS_StartGameHandler(PacketSession session, IMessage packet)
-    {
-        throw new NotImplementedException();
-    }
-
     public static void C_LoginHandler(PacketSession session, IMessage packet)
     {
         C_Login loginPacket = (C_Login)packet;
@@ -25,11 +20,7 @@ class PacketHandler
         if (user == null)
             return;
 
-        Lobby lobby = user.Lobby;
-        if (lobby == null)
-            return;
-
-        lobby.Push(lobby.EnterLobby, user, loginPacket);
+        Program.Lobby.Push(Program.Lobby.EnterLobby, user, loginPacket);
     }
 
     public static void C_EnterRoomHandler(PacketSession session, IMessage packet)
@@ -41,11 +32,7 @@ class PacketHandler
         if (user == null)
             return;
 
-        Lobby lobby = user.Lobby;
-        if (lobby == null)
-            return;
-
-        lobby.Push(lobby.EnterRoom, user, enterPacket);
+        Program.Lobby.Push(Program.Lobby.EnterRoom, user, enterPacket);
     }
 
     public static void C_MakeRoomHandler(PacketSession session, IMessage packet)
@@ -58,11 +45,7 @@ class PacketHandler
         if (user == null)
             return;
 
-        Lobby lobby = user.Lobby;
-        if (lobby == null)
-            return;
-
-        lobby.Push(lobby.AddRoom, user, roomPacket);
+        Program.Lobby.Push(Program.Lobby.AddRoom, user, roomPacket);
     }
 
     public static void C_LeaveGameHandler(PacketSession session, IMessage packet)
@@ -78,30 +61,24 @@ class PacketHandler
         if (user == null)
             return;
 
-        Lobby lobby = user.Lobby;
-        if (lobby == null)
-            return;
-
         if(leavePacket.Authority == Authority.Host)
-            lobby.Push(lobby.RemoveRoom, player);
+            Program.Lobby.Push(Program.Lobby.RemoveRoom, player);
+        else
+            Program.Lobby.Push(Program.Lobby.LeaveRoom, player);
 
-        lobby.Push(lobby.ChangeUserState, user, UserState.Lobby);
+        Program.Lobby.Push(Program.Lobby.ChangeUserState, user, UserState.Lobby);
     }
 
-    public static void CS_EnterGameHandler(PacketSession session, IMessage packet)
+    public static void C_EnterGameHandler(PacketSession session, IMessage packet)
     {
-        CS_EnterGame updatePacket = (CS_EnterGame)packet;
+        C_EnterGame updatePacket = (C_EnterGame)packet;
         ClientSession clientSession = (ClientSession)session;
 
         User user = clientSession.MyUser;
         if (user == null)
             return;
 
-        Lobby lobby = user.Lobby;
-        if (lobby == null)
-            return;
-
-        lobby.Push(lobby.ChangeUserState, user, UserState.Game);
+        Program.Lobby.Push(Program.Lobby.ChangeUserState, user, UserState.Game);
     }
 
     public static void C_MoveHandler(PacketSession session, IMessage packet)
@@ -136,103 +113,9 @@ class PacketHandler
         room.Push(room.HandleAttack, player, attackPacket);
     }
 
-    public static void CH_SkillEffectHandler(PacketSession session, IMessage packet)
+    public static void C_SkillEffectHandler(PacketSession session, IMessage packet)
     {
-        CH_SkillEffect effectPacket = (CH_SkillEffect)packet;
-        ClientSession clientSession = (ClientSession)session;
-
-        //Player player = clientSession.MyPlayer;
-        //if (player == null)
-        //    return;
-
-        //GameRoom room = player.Room;
-        //if (room == null)
-        //    return;
-
-        //Projectile projectile = HostServer.Game.ObjectManager.Instance.Add<Projectile>();
-        //{
-        //    projectile.Owner = player;
-        //    projectile.SkillId = effectPacket.SkillId;
-        //    projectile.PosInfo.PosX = effectPacket.PosInfo.PosX;
-        //    projectile.PosInfo.PosY = effectPacket.PosInfo.PosY;
-        //    projectile.PosInfo.LastDirX = effectPacket.PosInfo.LastDirX;
-        //    projectile.PosInfo.LastDirY = effectPacket.PosInfo.LastDirY;
-        //    projectile.StartPos = projectile.Pos;
-        //    projectile.DestPos = projectile.Pos + (projectile.LastDir * Managers.Data.SkillData[projectile.SkillId].Range);
-        //    projectile.Name = Managers.Data.SkillData[projectile.SkillId].SkillName;
-        //    projectile.Room = room;
-        //}
-
-        //room.Push(room.EnterGame, projectile);
-    }
-
-    public static void CH_EmoteHandler(PacketSession session, IMessage packet)
-    {
-        CH_Emote emotePacket = packet as CH_Emote;
-        ClientSession clientSession = session as ClientSession;
-
-        //Player player = clientSession.MyPlayer;
-        //if (player == null)
-        //    return;
-
-        //GameRoom room = player.Room;
-        //if (room == null)
-        //    return;
-
-        //room.Push(room.HandleEmotion, player, emotePacket);
-    }
-
-    public static void CH_StartGameHandler(PacketSession session, IMessage packet)
-    {
-        CH_StartGame startPacket = packet as CH_StartGame;
-        ClientSession clientSession = session as ClientSession;
-
-        //Player player = clientSession.MyPlayer;
-        //if (player == null)
-        //    return;
-
-        //GameRoom room = player.Room;
-        //if (room == null)
-        //    return;
-
-        //room.Push(room.InitGame);
-    }
-
-    public static void CH_ReadyHandler(PacketSession session, IMessage packet)
-    {
-        CH_Ready readyPacket = packet as CH_Ready;
-        ClientSession clientSession = session as ClientSession;
-
-        //Player player = clientSession.MyPlayer;
-        //if (player == null)
-        //    return;
-
-        //GameRoom room = player.Room;
-        //if (room == null)
-        //    return;
-
-        //room.Push(room.UpdateReadyState, player, readyPacket);
-    }
-
-    public static void CH_SkillDamageHandler(PacketSession session, IMessage packet)
-    {
-        CH_SkillDamage damagePacket = packet as CH_SkillDamage;
-        ClientSession clientSession = session as ClientSession;
-
-        //Player player = clientSession.MyPlayer;
-        //if (player == null)
-        //    return;
-
-        //GameRoom room = player.Room;
-        //if (room == null)
-        //    return;
-
-        //room.Push(room.HandleSkillDamage, player, damagePacket);
-    }
-
-    public static void C_SendInfoHandler(PacketSession session, IMessage packet)
-    {
-        C_SendInfo infoPacket = (C_SendInfo)packet;
+        C_SkillEffect effectPacket = (C_SkillEffect)packet;
         ClientSession clientSession = (ClientSession)session;
 
         Player player = clientSession.MyPlayer;
@@ -243,8 +126,105 @@ class PacketHandler
         if (room == null)
             return;
 
+        Projectile projectile = ObjectManager.Instance.Add<Projectile>();
         {
+            projectile.Owner = player;
+            projectile.SkillId = effectPacket.SkillId;
+            projectile.PosInfo.PosX = effectPacket.PosInfo.PosX;
+            projectile.PosInfo.PosY = effectPacket.PosInfo.PosY;
+            projectile.PosInfo.LastDirX = effectPacket.PosInfo.LastDirX;
+            projectile.PosInfo.LastDirY = effectPacket.PosInfo.LastDirY;
+            projectile.StartPos = projectile.Pos;
+            projectile.DestPos = projectile.Pos + (projectile.LastDir * DataManager.Instance.GetSkillData(projectile.SkillId).Range);
+            projectile.Name = DataManager.Instance.GetSkillData(projectile.SkillId).SkillName;
+            projectile.Room = room;
+        }
+
+        room.Push(room.EnterGame, projectile);
+    }
+
+    public static void C_EmoteHandler(PacketSession session, IMessage packet)
+    {
+        C_Emote emotePacket = (C_Emote)packet;
+        ClientSession clientSession = (ClientSession)session;
+
+        Player player = clientSession.MyPlayer;
+        if (player == null)
+            return;
+
+        GameRoom room = player.Room;
+        if (room == null)
+            return;
+
+        room.Push(room.HandleEmotion, player, emotePacket);
+    }
+
+    public static void C_StartGameHandler(PacketSession session, IMessage packet)
+    {
+        C_StartGame startPacket = (C_StartGame)packet;
+        ClientSession clientSession = (ClientSession)session;
+
+        Player player = clientSession.MyPlayer;
+        if (player == null)
+            return;
+
+        GameRoom room = player.Room;
+        if (room == null)
+            return;
+
+        room.Push(room.InitGame);
+    }
+
+    public static void C_ReadyHandler(PacketSession session, IMessage packet)
+    {
+        C_Ready readyPacket = (C_Ready)packet;
+        ClientSession clientSession = (ClientSession)session;
+
+        Player player = clientSession.MyPlayer;
+        if (player == null)
+            return;
+
+        GameRoom room = player.Room;
+        if (room == null)
+            return;
+
+        room.Push(room.UpdateReadyState, player, readyPacket);
+    }
+
+    public static void C_SkillDamageHandler(PacketSession session, IMessage packet)
+    {
+        C_SkillDamage damagePacket = (C_SkillDamage)packet;
+        ClientSession clientSession = (ClientSession)session;
+
+        Player player = clientSession.MyPlayer;
+        if (player == null)
+            return;
+
+        GameRoom room = player.Room;
+        if (room == null)
+            return;
+
+        room.Push(room.HandleSkillDamage, player, damagePacket);
+    }
+
+    public static void C_SendInfoHandler(PacketSession session, IMessage packet)
+    {
+        C_SendInfo infoPacket = (C_SendInfo)packet;
+        ClientSession clientSession = (ClientSession)session;
+
+        User user = clientSession.MyUser;
+        if (user == null)
+            return;
+
+        GameRoom room = user.Room;
+        if (room == null)
+            return;
+
+        Player player = ObjectManager.Instance.Add<Player>();
+        {
+            player.Room = room;
             player.Class = infoPacket.Job;
+            player.Session = clientSession;
             ClassData classData = DataManager.Instance.GetClassData(player.Class.ToString());
 
             player.Info.Name = $"{infoPacket.Name}";
@@ -259,6 +239,7 @@ class PacketHandler
             player.Info.StatInfo.FirstSkillId = classData.FirstSkillId;
             player.Info.StatInfo.SecondSkillId = classData.SecondSkillId;
         }
+        clientSession.MyPlayer = player;
 
         room.Push(room.EnterGame, player);
     }

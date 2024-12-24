@@ -51,8 +51,7 @@ namespace Server
 
 		public override void OnDisconnected(EndPoint endPoint)
 		{
-			Lobby lobby = LobbyManager.Instance.Find(1);
-			lobby.Push(lobby.LeaveLobby, MyUser.Info.Id);
+            Program.Lobby.Push(Program.Lobby.LeaveLobby, MyUser.Info.Id);
 
 			SessionManager.Instance.Remove(this);
 

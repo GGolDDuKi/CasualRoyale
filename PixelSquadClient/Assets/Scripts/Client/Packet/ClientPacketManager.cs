@@ -57,8 +57,16 @@ class PacketManager
 		_handler.Add((ushort)MsgId.SWinner, PacketHandler.S_WinnerHandler);		
 		_onRecv.Add((ushort)MsgId.SUseSkill, MakePacket<S_UseSkill>);
 		_handler.Add((ushort)MsgId.SUseSkill, PacketHandler.S_UseSkillHandler);		
+		_onRecv.Add((ushort)MsgId.SHostDisconnect, MakePacket<S_HostDisconnect>);
+		_handler.Add((ushort)MsgId.SHostDisconnect, PacketHandler.S_HostDisconnectHandler);		
+		_onRecv.Add((ushort)MsgId.SCanStart, MakePacket<S_CanStart>);
+		_handler.Add((ushort)MsgId.SCanStart, PacketHandler.S_CanStartHandler);		
+		_onRecv.Add((ushort)MsgId.SEmote, MakePacket<S_Emote>);
+		_handler.Add((ushort)MsgId.SEmote, PacketHandler.S_EmoteHandler);		
 		_onRecv.Add((ushort)MsgId.SEndGame, MakePacket<S_EndGame>);
-		_handler.Add((ushort)MsgId.SEndGame, PacketHandler.S_EndGameHandler);
+		_handler.Add((ushort)MsgId.SEndGame, PacketHandler.S_EndGameHandler);		
+		_onRecv.Add((ushort)MsgId.SStartGame, MakePacket<S_StartGame>);
+		_handler.Add((ushort)MsgId.SStartGame, PacketHandler.S_StartGameHandler);
 	}
 
 	public void OnRecvPacket(PacketSession session, ArraySegment<byte> buffer)

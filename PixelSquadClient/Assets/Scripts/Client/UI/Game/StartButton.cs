@@ -27,7 +27,7 @@ public class StartButton : Button
         base.OnClick();
         
         //게임 시작 신호 전송
-        CH_StartGame startPacket = new CH_StartGame();
+        C_StartGame startPacket = new C_StartGame();
         Managers.Network.Send(startPacket);
     }
 
